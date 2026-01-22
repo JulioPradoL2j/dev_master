@@ -11,7 +11,7 @@ Se você baixou o pacote do servidor e está com dúvidas de como executar, siga
 | 🔧 Client Files (System, Animations, SysTextures...) | [Download Client](https://mega.nz/file/gmEAhRSY#3Trm55-Vz-EAvG9QQ0hJF4AGYPvDOCmcvohL7YQ8dTY) |
 | ☕ Java 11 | [Download Java 11](https://mega.nz/file/V7tj1arS#OKWaTzaCqYK0m3iMmR0kW3TddfAJoiu8a20kOFEKShk) |
 | 🛢️ MariaDB 10.4 | [Download MariaDB](https://mega.nz/file/1jEykRgL#DDuIGktiFbmE-M0jMzhUvYVckw1U0ov-OnZEYS5vopU) |
-
+| 🔧️ Geodata 10.4 | [Download GeoData L2d](https://mega.nz/file/kjwzWCRJ#uiUHBNJEgZO2kh5bU5VB2SK1dGemmqTRT38doMHNKcg) |
 
 ---
 

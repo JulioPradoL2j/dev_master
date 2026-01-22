@@ -1,6 +1,5 @@
 /bin/
 /game/log/
-/game/data/geodata
 /game/cachedir/
 /login/log/
 *.cs
