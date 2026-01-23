@@ -54,7 +54,6 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
 	
 	private boolean _shutdown;
 	
-	@SuppressWarnings("deprecation")
 	public SelectorThread(final SelectorConfig sc, final IMMOExecutor<T> executor, final IPacketHandler<T> packetHandler, final IClientFactory<T> clientFactory, final IAcceptFilter acceptFilter) throws IOException
 	{
 		super.setName("SelectorThread-" + super.getId());
