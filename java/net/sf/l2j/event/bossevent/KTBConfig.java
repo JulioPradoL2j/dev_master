@@ -2,6 +2,9 @@ package net.sf.l2j.event.bossevent;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,11 +17,13 @@ import net.sf.l2j.commons.lang.StringUtil;
 public class KTBConfig
 {
 	protected static final Logger _log = Logger.getLogger(KTBConfig.class.getName());
-
+	
 	private static final String KTM_FILE = "./config/events/BossEvent.properties";
-
+	private static final DateTimeFormatter HHMM = DateTimeFormatter.ofPattern("HH:mm");
+	
 	public static boolean KTB_EVENT_ENABLED;
-	public static String[] KTB_EVENT_INTERVAL;
+	public static List<LocalTime> KTB_EVENT_TIMES;
+	
 	public static Long KTB_EVENT_PARTICIPATION_TIME;
 	public static int KTB_EVENT_RUNNING_TIME;
 	public static String KTB_NPC_LOC_NAME;
@@ -51,15 +56,42 @@ public class KTBConfig
 	public static boolean ALLOW_EVENT_KTB_COMMANDS;
 	public static String KTB_ID_RESTRICT;
 	public static List<Integer> KTB_LISTID_RESTRICT;
-	public static List<Integer> KTB_SKILL_LIST = new ArrayList<>();	
+	public static List<Integer> KTB_SKILL_LIST = new ArrayList<>();
 	
 	public static void init()
 	{
 		ExProperties events = load(KTM_FILE);
-	
-		Long time = 0L;					
+		
+		Long time = 0L;
 		KTB_EVENT_ENABLED = events.getProperty("KTBEventEnabled", false);
-		KTB_EVENT_INTERVAL = events.getProperty("KTBEventInterval", "8:00,14:00,20:00,2:00").split(",");
+		
+		String raw = events.getProperty("KTBEventInterval", "").trim();
+		
+		List<LocalTime> times = new ArrayList<>();
+		
+		if (!raw.isEmpty())
+		{
+			for (String part : raw.split(","))
+			{
+				String value = part.trim();
+				try
+				{
+					times.add(LocalTime.parse(value, HHMM));
+				}
+				catch (DateTimeParseException e)
+				{
+					_log.warning("KTBEvent: Invalid time '" + value + "' (expected HH:mm)");
+				}
+			}
+		}
+		
+		if (times.isEmpty())
+		{
+			_log.warning("KTBEvent: No valid times found in KTBEventInterval!");
+		}
+		
+		KTB_EVENT_TIMES = times;
+		
 		String[] timeParticipation = events.getProperty("KTBEventParticipationTime", "01:00:00").split(":");
 		time = 0L;
 		time += Long.parseLong(timeParticipation[0]) * 3600L;
@@ -69,7 +101,7 @@ public class KTBConfig
 		KTB_EVENT_RUNNING_TIME = events.getProperty("KTBEventRunningTime", 1800);
 		KTB_NPC_LOC_NAME = events.getProperty("KTBNpcLocName", "Giran Town");
 		KTB_EVENT_PARTICIPATION_NPC_ID = events.getProperty("KTBEventParticipationNpcId", 0);
-
+		
 		if (KTB_EVENT_PARTICIPATION_NPC_ID == 0)
 		{
 			KTB_EVENT_ENABLED = false;
@@ -90,15 +122,15 @@ public class KTBConfig
 					KTB_DOORS_IDS_TO_OPEN = new ArrayList<>();
 					KTB_DOORS_IDS_TO_CLOSE = new ArrayList<>();
 					KTB_EVENT_PLAYER_COORDINATES = new ArrayList<>();
-
+					
 					KTB_EVENT_PARTICIPATION_NPC_COORDINATES = new int[4];
 					KTB_EVENT_PARTICIPATION_NPC_COORDINATES[0] = Integer.parseInt(propertySplit[0]);
 					KTB_EVENT_PARTICIPATION_NPC_COORDINATES[1] = Integer.parseInt(propertySplit[1]);
 					KTB_EVENT_PARTICIPATION_NPC_COORDINATES[2] = Integer.parseInt(propertySplit[2]);
-
+					
 					if (propertySplit.length == 4)
 						KTB_EVENT_PARTICIPATION_NPC_COORDINATES[3] = Integer.parseInt(propertySplit[3]);
-
+					
 					KTB_EVENT_MIN_PLAYERS = events.getProperty("KTBEventMinPlayers", 1);
 					KTB_EVENT_MAX_PLAYERS = events.getProperty("KTBEventMaxPlayers", 20);
 					KTB_EVENT_MIN_LVL = (byte) events.getProperty("KTBEventMinPlayerLevel", 1);
@@ -126,27 +158,35 @@ public class KTBConfig
 					}
 					catch (NumberFormatException nfe)
 					{
-						if (propertySplit.length > 0) _log.warning("KTBEventEngine[Config.load()]: invalid config property -> KTBEventParticipationFee");
+						if (propertySplit.length > 0)
+							_log.warning("KTBEventEngine[Config.load()]: invalid config property -> KTBEventParticipationFee");
 					}
-
+					
 					propertySplit = events.getProperty("KTBEventPlayerCoordinates", "0,0,0").split(";");
 					for (String coordPlayer : propertySplit)
 					{
 						String[] coordSplit = coordPlayer.split(",");
-						if (coordSplit.length != 3) _log.warning(StringUtil.concat("KTBEventEngine[Config.load()]: invalid config property -> KTBEventPlayerCoordinates \"", coordPlayer, "\""));
+						if (coordSplit.length != 3)
+							_log.warning(StringUtil.concat("KTBEventEngine[Config.load()]: invalid config property -> KTBEventPlayerCoordinates \"", coordPlayer, "\""));
 						else
 						{
 							try
 							{
-								KTB_EVENT_PLAYER_COORDINATES.add(new int[] { Integer.parseInt(coordSplit[0]), Integer.parseInt(coordSplit[1]), Integer.parseInt(coordSplit[2]) });
+								KTB_EVENT_PLAYER_COORDINATES.add(new int[]
+								{
+									Integer.parseInt(coordSplit[0]),
+									Integer.parseInt(coordSplit[1]),
+									Integer.parseInt(coordSplit[2])
+								});
 							}
 							catch (NumberFormatException nfe)
 							{
-								if (!coordPlayer.isEmpty()) _log.warning(StringUtil.concat("KTBEventEngine[Config.load()]: invalid config property -> KTBEventPlayerCoordinates \"", coordPlayer, "\""));
+								if (!coordPlayer.isEmpty())
+									_log.warning(StringUtil.concat("KTBEventEngine[Config.load()]: invalid config property -> KTBEventPlayerCoordinates \"", coordPlayer, "\""));
 							}
 						}
 					}
-
+					
 					KTB_EVENT_REWARDS = new ArrayList<>();
 					propertySplit = events.getProperty("KTBEventReward", "57,100000").split(";");
 					for (String reward : propertySplit)
@@ -179,11 +219,11 @@ public class KTBConfig
 					KTB_EVENT_SCROLL_ALLOWED = events.getProperty("KTBEventScrollsAllowed", false);
 					KTB_EVENT_POTIONS_ALLOWED = events.getProperty("KTBEventPotionsAllowed", false);
 					KTB_EVENT_SUMMON_BY_ITEM_ALLOWED = events.getProperty("KTBEventSummonByItemAllowed", false);
-        			DISABLE_ID_CLASSES_STRING = events.getProperty("KTBDisabledForClasses");
-        			DISABLE_ID_CLASSES = new ArrayList<>();
-        			for(String class_id : DISABLE_ID_CLASSES_STRING.split(","))
-        				DISABLE_ID_CLASSES.add(Integer.parseInt(class_id));
-
+					DISABLE_ID_CLASSES_STRING = events.getProperty("KTBDisabledForClasses");
+					DISABLE_ID_CLASSES = new ArrayList<>();
+					for (String class_id : DISABLE_ID_CLASSES_STRING.split(","))
+						DISABLE_ID_CLASSES.add(Integer.parseInt(class_id));
+					
 					propertySplit = events.getProperty("KTBDoorsToOpen", "").split(";");
 					for (String door : propertySplit)
 					{
@@ -193,10 +233,11 @@ public class KTBConfig
 						}
 						catch (NumberFormatException nfe)
 						{
-							if (!door.isEmpty()) _log.warning(StringUtil.concat("KTBEventEngine[Config.load()]: invalid config property -> KTBDoorsToOpen \"", door, "\""));
+							if (!door.isEmpty())
+								_log.warning(StringUtil.concat("KTBEventEngine[Config.load()]: invalid config property -> KTBDoorsToOpen \"", door, "\""));
 						}
 					}
-
+					
 					propertySplit = events.getProperty("KTBDoorsToClose", "").split(";");
 					for (String door : propertySplit)
 					{
@@ -206,10 +247,11 @@ public class KTBConfig
 						}
 						catch (NumberFormatException nfe)
 						{
-							if (!door.isEmpty()) _log.warning(StringUtil.concat("KTBEventEngine[Config.load()]: invalid config property -> KTBDoorsToClose \"", door, "\""));
+							if (!door.isEmpty())
+								_log.warning(StringUtil.concat("KTBEventEngine[Config.load()]: invalid config property -> KTBDoorsToClose \"", door, "\""));
 						}
 					}
-
+					
 					propertySplit = events.getProperty("KTBEventFighterBuffs", "").split(";");
 					if (!propertySplit[0].isEmpty())
 					{
@@ -233,7 +275,7 @@ public class KTBConfig
 							}
 						}
 					}
-
+					
 					propertySplit = events.getProperty("KTBEventMageBuffs", "").split(";");
 					if (!propertySplit[0].isEmpty())
 					{
@@ -241,7 +283,7 @@ public class KTBConfig
 						for (String skill : propertySplit)
 						{
 							String[] skillSplit = skill.split(",");
-							if (skillSplit.length != 2) 
+							if (skillSplit.length != 2)
 								_log.warning(StringUtil.concat("KTBEventEngine[Config.load()]: invalid config property -> KTBEventMageBuffs \"", skill, "\""));
 							else
 							{
@@ -259,13 +301,13 @@ public class KTBConfig
 					}
 				}
 			}
-
-			//Clan
+			
+			// Clan
 			KTB_EVENT_BOSS_ID = events.getProperty("KTBEventBossListId", "");
 			LIST_KTB_EVENT_BOSS_ID = new ArrayList<>();
 			for (String itemId : KTB_EVENT_BOSS_ID.split(","))
 				LIST_KTB_EVENT_BOSS_ID.add(Integer.parseInt(itemId));
-
+			
 			String[] propertySplitBoss = events.getProperty("KTBEventBossCoordinates", "0,0,0").split(",");
 			if (propertySplitBoss.length < 3)
 			{
@@ -278,22 +320,22 @@ public class KTBConfig
 				KTB_EVENT_BOSS_COORDINATES[0] = Integer.parseInt(propertySplitBoss[0]);
 				KTB_EVENT_BOSS_COORDINATES[1] = Integer.parseInt(propertySplitBoss[1]);
 				KTB_EVENT_BOSS_COORDINATES[2] = Integer.parseInt(propertySplitBoss[2]);
-
+				
 				if (propertySplitBoss.length == 4)
 					KTB_EVENT_BOSS_COORDINATES[3] = Integer.parseInt(propertySplitBoss[3]);
 			}
-		}		
+		}
 	}
-
+	
 	public static ExProperties load(String filename)
 	{
 		return load(new File(filename));
 	}
-
+	
 	public static ExProperties load(File file)
 	{
 		ExProperties result = new ExProperties();
-
+		
 		try
 		{
 			result.load(file);
@@ -302,7 +344,7 @@ public class KTBConfig
 		{
 			_log.warning("Error loading config : " + file.getName() + "!");
 		}
-
+		
 		return result;
 	}
 }
