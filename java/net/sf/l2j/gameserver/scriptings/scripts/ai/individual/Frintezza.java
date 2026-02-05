@@ -1,4 +1,3 @@
-
 package net.sf.l2j.gameserver.scriptings.scripts.ai.individual;
 
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.zone.type.L2BossZone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.AbstractNpcInfo.NpcInfo;
-import net.sf.l2j.gameserver.scriptings.scripts.ai.L2AttackableAIScript;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowScreenMessage;
@@ -34,6 +32,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.SpecialCamera;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.scriptings.scripts.ai.L2AttackableAIScript;
 import net.sf.l2j.gameserver.skills.AbnormalEffect;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
@@ -2799,7 +2798,7 @@ public class Frintezza extends L2AttackableAIScript
 	@Override
 	public String onKill(L2Npc npc, Player killer, boolean isPet)
 	{
-	    if (npc.getNpcId() == FRINTEZZA)
+	    if (npc.getNpcId() == SCARLET2)
 	    {
 	        // Emite um som quando o alarme é destruído
 	        _Zone.broadcastPacket(new PlaySound(1, "BS01_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));

@@ -23,9 +23,9 @@ import net.sf.l2j.gameserver.instancemanager.custom.EpicZoneManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.Attackable;
 import net.sf.l2j.gameserver.model.actor.Creature;
-import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.model.actor.Playable;
 import net.sf.l2j.gameserver.model.actor.L2Summon;
+import net.sf.l2j.gameserver.model.actor.Playable;
+import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 import net.sf.l2j.gameserver.model.zone.ZoneId;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowScreenMessage;
@@ -55,7 +55,6 @@ public class L2BossZone extends L2ZoneType
 	private boolean _checkParty;
 	private boolean _checkClan;
 	private boolean _checkAlly;
-
 	
 	public L2BossZone(int id)
 	{
@@ -122,121 +121,6 @@ public class L2BossZone extends L2ZoneType
 	}
 	
 	@Override
-//	protected void onEnter(L2Character character)
-//	{
-//		if (_enabled)
-//		{
-//			if (character instanceof L2PcInstance)
-//			{
-//				final L2PcInstance player = (L2PcInstance) character;
-//				player.setInsideZone(ZoneId.NO_SUMMON_FRIEND, true);
-//				player.setInsideZone(ZoneId.BOSS, true);
-//
-//				if (Config.ENABLE_BOSSZONE_FLAG)
-//				{
-//					player.setInsideZone(ZoneId.FLAG_AREA_BOSS, true);
-//					player.updatePvPFlag(1);
-//					player.broadcastUserInfo();
-//				}
-//
-//				// ⛔ Checagem de party obrigatória, mesmo com ALLOW_DIRECT_TP_TO_BOSS_ROOM = true
-//				if (_checkParty)
-//				{
-//					if (!player.isInParty() || player.getParty().getMemberCount() < _minPartyMembers)
-//					{
-//						player.sendPacket(new ExShowScreenMessage("Your party does not have " + _minPartyMembers + " members to enter on this zone!", 6 * 1000));
-//						EpicZoneManager.getInstance().RandomTeleport(player);
-//						return;
-//					}
-//				}
-//
-//				// ✅ Checa dualbox mesmo se o TP direto estiver ativado
-//				if (Config.ENABLE_DUALBOX_BOSSZONE)
-//				{
-//					ThreadPoolManager.getInstance().scheduleGeneral(() -> {
-//						MaxPlayersOnArea(player);
-//					}, 2000);
-//				}
-//
-//				// ✅ Checa clan, ally, etc. normalmente
-//				if (_checkClan)
-//				{
-//					ThreadPoolManager.getInstance().scheduleGeneral(() -> {
-//						MaxClanMembersOnArea(player);
-//					}, 2000);
-//				}
-//
-//				if (_checkAlly)
-//				{
-//					ThreadPoolManager.getInstance().scheduleGeneral(() -> {
-//						MaxAllyMembersOnArea(player);
-//					}, 2000);
-//				}
-//
-//				// ✅ Checagem de level
-//				if (_checkLevel && player.getLevel() > _MaxLevel)
-//				{
-//					ThreadPoolManager.getInstance().scheduleGeneral(() -> {
-//						player.sendMessage("Epic Zone, Max Lv " + _MaxLevel);
-//						player.teleToLocation(82488, 149064, -3464, 0);
-//					}, 2000);
-//					return;
-//				}
-//
-//				// ✅ Checa Wyvern
-//				if (player.getMountType() == 2 && Config.WYVERN_PROTECTION_BOSS_ZONE)
-//				{
-//					ThreadPoolManager.getInstance().scheduleGeneral(() -> {
-//						player.sendMessage("Desmounted Wyvern In Boss Zone!");
-//						player.broadcastUserInfo();
-//						// player.dismount();
-//					}, 2000);
-//				}
-//
-//				// ⛔ Verifica se ele está autorizado ou é GM. Se não, teleporta pra fora
-//				final int id = player.getObjectId();
-//				if (_playerAllowed.contains(id))
-//				{
-//					final long entryTime = _playerAllowEntry.remove(id);
-//					if (entryTime > System.currentTimeMillis())
-//						return;
-//
-//					_playerAllowed.remove(Integer.valueOf(id));
-//				}
-//
-//				// ⛔ Aqui impede entrada se não estiver permitido (TP direto sozinho não é suficiente)
-//				if (!(player.isGM() || _timeInvade == 0 || Config.ALLOW_DIRECT_TP_TO_BOSS_ROOM ||
-//					CTFEvent.isPlayerParticipant(player.getObjectId()) && CTFEvent.isStarted() ||
-//					TvTEvent.isPlayerParticipant(player.getObjectId()) && TvTEvent.isStarted() ||
-//					KTBEvent.isPlayerParticipant(player.getObjectId()) && KTBEvent.isStarted() ||
-//					LMEvent.isStarted() && LMEvent.isPlayerParticipant(player.getObjectId()) ||
-//					DMEvent.isStarted() && DMEvent.isPlayerParticipant(player.getObjectId()) ||
-//					FOSEvent.isPlayerParticipant(player.getObjectId()) && FOSEvent.isStarted()))
-//				{
-//					if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0)
-//						player.teleToLocation(_oustLoc[0], _oustLoc[1], _oustLoc[2], 0);
-//					else
-//						player.teleToLocation(TeleportWhereType.TOWN);
-//				}
-//			}
-//			else if (character instanceof L2Summon)
-//			{
-//				final L2PcInstance player = ((L2Summon) character).getOwner();
-//				if (player != null)
-//				{
-//					if (_playerAllowed.contains(player.getObjectId()) || player.isGM())
-//						return;
-//
-//					if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0)
-//						player.teleToLocation(_oustLoc[0], _oustLoc[1], _oustLoc[2], 0);
-//					else
-//						player.teleToLocation(TeleportWhereType.TOWN);
-//				}
-//
-//				((L2Summon) character).unSummon(player);
-//			}
-//		}
-//	}
 	protected void onEnter(Creature character)
 	{
 		if (_enabled)
@@ -244,21 +128,21 @@ public class L2BossZone extends L2ZoneType
 			if (character instanceof Player)
 			{
 				final Player player = (Player) character;
-
+				
 				// GMs entram direto sem qualquer checagem
 				if (player.isGM())
 					return;
-
+				
 				player.setInsideZone(ZoneId.NO_SUMMON_FRIEND, true);
 				player.setInsideZone(ZoneId.BOSS, true);
-
+				
 				if (Config.ENABLE_BOSSZONE_FLAG)
 				{
 					player.setInsideZone(ZoneId.FLAG_AREA_BOSS, true);
 					player.updatePvPFlag(1);
 					player.broadcastUserInfo();
 				}
-
+				
 				if (_checkParty && _minPartyMembers > 0 && !player.isGM())
 				{
 					if (!player.isInParty() || player.getParty().getMemberCount() < _minPartyMembers)
@@ -268,28 +152,28 @@ public class L2BossZone extends L2ZoneType
 						return;
 					}
 				}
-
+				
 				if (Config.ENABLE_DUALBOX_BOSSZONE)
 				{
 					ThreadPool.schedule(() -> {
-						MaxPlayersOnArea(player,this);
+						MaxPlayersOnArea(player, this);
 					}, 2000);
 				}
-
+				
 				if (_checkClan)
 				{
 					ThreadPool.schedule(() -> {
-						MaxClanMembersOnArea(player,this);
+						MaxClanMembersOnArea(player, this);
 					}, 2000);
 				}
-
+				
 				if (_checkAlly)
 				{
 					ThreadPool.schedule(() -> {
-						MaxAllyMembersOnArea(player,this);
+						MaxAllyMembersOnArea(player, this);
 					}, 2000);
 				}
-
+				
 				if (_checkLevel && player.getLevel() > _MaxLevel)
 				{
 					ThreadPool.schedule(() -> {
@@ -298,7 +182,7 @@ public class L2BossZone extends L2ZoneType
 					}, 2000);
 					return;
 				}
-
+				
 				if (player.getMountType() == 2 && Config.WYVERN_PROTECTION_BOSS_ZONE)
 				{
 					ThreadPool.schedule(() -> {
@@ -306,29 +190,21 @@ public class L2BossZone extends L2ZoneType
 						player.broadcastUserInfo();
 					}, 2000);
 				}
-
+				
 				final int id = player.getObjectId();
-
+				
 				if (_playerAllowed.contains(id))
 				{
 					final long entryTime = _playerAllowEntry.remove(id);
 					if (entryTime > System.currentTimeMillis())
 						return;
-
+					
 					_playerAllowed.remove(Integer.valueOf(id));
 				}
-
+				
 				// Se não for permitido pelas regras, expulsa
-				if (!(
-					_timeInvade == 0 ||
-					Config.ALLOW_DIRECT_TP_TO_BOSS_ROOM ||
-					(CTFEvent.isPlayerParticipant(id) && CTFEvent.isStarted()) ||
-					(TvTEvent.isPlayerParticipant(id) && TvTEvent.isStarted()) ||
-					(KTBEvent.isPlayerParticipant(id) && KTBEvent.isStarted()) ||
-					(LMEvent.isStarted() && LMEvent.isPlayerParticipant(id)) ||
-					(DMEvent.isStarted() && DMEvent.isPlayerParticipant(id)) ||
-					(FOSEvent.isPlayerParticipant(id) && FOSEvent.isStarted())
-				)) {
+				if (!(_timeInvade == 0 || Config.ALLOW_DIRECT_TP_TO_BOSS_ROOM || (CTFEvent.isPlayerParticipant(id) && CTFEvent.isStarted()) || (TvTEvent.isPlayerParticipant(id) && TvTEvent.isStarted()) || (KTBEvent.isPlayerParticipant(id) && KTBEvent.isStarted()) || (LMEvent.isStarted() && LMEvent.isPlayerParticipant(id)) || (DMEvent.isStarted() && DMEvent.isPlayerParticipant(id)) || (FOSEvent.isPlayerParticipant(id) && FOSEvent.isStarted())))
+				{
 					if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0)
 						player.teleToLocation(_oustLoc[0], _oustLoc[1], _oustLoc[2], 0);
 					else
@@ -342,33 +218,33 @@ public class L2BossZone extends L2ZoneType
 				{
 					if (_playerAllowed.contains(player.getObjectId()) || player.isGM())
 						return;
-
+					
 					if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0)
 						player.teleToLocation(_oustLoc[0], _oustLoc[1], _oustLoc[2], 0);
 					else
 						player.teleToLocation(TeleportWhereType.TOWN);
 				}
-
+				
 				((L2Summon) character).unSummon(player);
 			}
 		}
 	}
-
-
+	
 	public boolean MaxClanMembersOnArea(Player activeChar, L2BossZone zone)
 	{
 		return EpicZoneManager.getInstance().checkClanArea(activeChar, zone, _maxClanMembers, true);
 	}
+	
 	public boolean MaxAllyMembersOnArea(Player activeChar, L2BossZone zone)
 	{
 		return EpicZoneManager.getInstance().checkAllyArea(activeChar, zone, _maxAllyMembers, L2World.getInstance().getPlayers(), true);
 	}
+	
 	public boolean MaxPlayersOnArea(Player activeChar, L2BossZone zone)
 	{
-	    return EpicZoneManager.getInstance().checkPlayersArea(activeChar, zone, 1, true);
+		return EpicZoneManager.getInstance().checkPlayersArea(activeChar, zone, 1, true);
 	}
-
-
+	
 	@Override
 	protected void onExit(Creature character)
 	{
@@ -390,8 +266,6 @@ public class L2BossZone extends L2ZoneType
 					((Player) character).broadcastUserInfo();
 					PvpFlagTaskManager.getInstance().add(player, Config.PVP_NORMAL_TIME);
 				}
-				
-				
 				
 				// Get player object id.
 				final int id = player.getObjectId();

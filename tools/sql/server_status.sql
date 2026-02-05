@@ -6,3 +6,4 @@ CREATE TABLE server_status (
     last_heartbeat DATETIME NULL,
     PRIMARY KEY (server_type)
 );
+INSERT INTO server_status (server_type, status) VALUES ('LOGIN', 'OFFLINE'), ('GAME',  'OFFLINE') ON DUPLICATE KEY UPDATE server_type = server_type;

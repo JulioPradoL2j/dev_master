@@ -133,7 +133,7 @@
 		<stat name="MinPartyMembers" val="2" />
 	</zone>
 	<zone id="110011" type="BossZone" shape='Cylinder' minZ='-6112' maxZ='-4112' rad='2500'> <!-- Frintezza -->
-	<node X="174232" Y="-88040" />
+		<node X="174232" Y="-88040" />
 	</zone>
 	<zone id="110014" type="BossZone" shape="Cuboid" minZ="-10730" maxZ="-10290"> <!-- Altar of Sacrifice TODO -->
 		<stat name="EnabledByDefault" val="false" />
