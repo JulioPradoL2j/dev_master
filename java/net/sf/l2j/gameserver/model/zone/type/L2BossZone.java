@@ -262,9 +262,11 @@ public class L2BossZone extends L2ZoneType
 				{
 					player.setInsideZone(ZoneId.FLAG_AREA_BOSS, false);
 					
-					((Player) character).updatePvPFlag(0);
-					((Player) character).broadcastUserInfo();
-					PvpFlagTaskManager.getInstance().add(player, Config.PVP_NORMAL_TIME);
+					if (player.getPvpFlag() != 0)
+					{
+						PvpFlagTaskManager.getInstance().add(player, Config.PVP_NORMAL_TIME);
+						((Player) character).broadcastUserInfo();
+					}
 				}
 				
 				// Get player object id.
