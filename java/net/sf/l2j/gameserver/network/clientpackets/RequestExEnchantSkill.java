@@ -5,7 +5,6 @@ import net.sf.l2j.commons.random.Rnd;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
-import net.sf.l2j.gameserver.extension.listener.manager.PlayerListenerManager;
 import net.sf.l2j.gameserver.model.L2EnchantSkillData;
 import net.sf.l2j.gameserver.model.L2EnchantSkillLearn;
 import net.sf.l2j.gameserver.model.L2ShortCut;
@@ -154,6 +153,6 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 		
 		// Show enchant skill list.
 		L2NpcInstance.showEnchantSkillList(activeChar, trainer, activeChar.getClassId());
-		PlayerListenerManager.getInstance().notifySkillEnchantSuccess(activeChar, _skillId, _skillLevel);
+		 
 	}
 }

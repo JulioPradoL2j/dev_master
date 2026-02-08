@@ -8,7 +8,6 @@ import net.sf.l2j.commons.lang.StringUtil;
 import net.sf.l2j.dailyreward.DailyRewardManager;
 import net.sf.l2j.gameserver.datatables.BufferTable;
 import net.sf.l2j.gameserver.datatables.ServerMemo;
-import net.sf.l2j.gameserver.extension.listener.manager.GameListenerManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.instancemanager.FishingChampionshipManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
@@ -98,7 +97,7 @@ public class Shutdown extends Thread
 	{
 		if (this == SingletonHolder._instance)
 		{
-			GameListenerManager.getInstance().notifyShutdown();
+			 
 			if (GameServer.STATUS != null && GameServer.STATUS.isOnline())
 			{
 				_log.info("ServerStatusManager: GAME is ONLINE, applying shutdown.");

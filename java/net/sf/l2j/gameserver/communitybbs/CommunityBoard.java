@@ -9,7 +9,6 @@ import net.sf.l2j.gameserver.communitybbs.Manager.PostBBSManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.TopBBSManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.TopicBBSManager;
-import net.sf.l2j.gameserver.extension.listener.manager.BypassCommandManager;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -36,9 +35,7 @@ public class CommunityBoard
 			activeChar.sendPacket(SystemMessageId.CB_OFFLINE);
 			return;
 		}
-		if (BypassCommandManager.getInstance().notify(activeChar, command))
-			return;
-		
+	
 		if (command.startsWith("_bbshome"))
 			TopBBSManager.getInstance().parseCmd(command, activeChar);
 		else if (command.startsWith("_bbsloc"))

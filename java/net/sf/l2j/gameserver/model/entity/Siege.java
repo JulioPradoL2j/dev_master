@@ -19,7 +19,6 @@ import net.sf.l2j.gameserver.ThreadPool;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType;
 import net.sf.l2j.gameserver.datatables.NpcTable;
-import net.sf.l2j.gameserver.extension.listener.manager.SiegeListenerManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeGuardManager;
@@ -128,8 +127,7 @@ public class Siege implements Siegable
 						}
 					}
 				}
-				SiegeListenerManager.getInstance().notifyWinnerClan(this, ClanTable.getInstance().getClan(getCastle().getOwnerId()));
-				
+		 		
 			}
 			else
 				Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SIEGE_S1_DRAW).addString(getCastle().getName()));
@@ -176,7 +174,7 @@ public class Siege implements Siegable
 			
 			getCastle().getZone().setIsActive(false);
 			getCastle().getZone().updateZoneStatusForCharactersInside();
-			SiegeListenerManager.getInstance().notifySiegeEnd(this);
+			 
 		}
 	}
 	
@@ -333,7 +331,7 @@ public class Siege implements Siegable
 			
 			Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SIEGE_OF_S1_HAS_STARTED).addString(getCastle().getName()));
 			Broadcast.toAllOnlinePlayers(new PlaySound("systemmsg_e.17"));
-			SiegeListenerManager.getInstance().notifySiegeStart(this);
+		 
 		}
 	}
 	
@@ -692,7 +690,7 @@ public class Siege implements Siegable
 		else if (checkIfCanRegister(player, ATTACKER))
 			saveSiegeClan(player.getClan(), ATTACKER);
 		
-		SiegeListenerManager.getInstance().notifyRegisterAttacker(this, player);
+		 
 	}
 	
 	/**
@@ -710,7 +708,7 @@ public class Siege implements Siegable
 		// Save to database
 		else if (checkIfCanRegister(player, DEFENDER_NOT_APPROVED))
 			saveSiegeClan(player.getClan(), DEFENDER_NOT_APPROVED);
-		SiegeListenerManager.getInstance().notifyRegisterDefender(this, player);
+		 
 	}
 	
 	/**

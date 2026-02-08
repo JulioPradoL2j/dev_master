@@ -3,7 +3,6 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import java.util.logging.Level;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.extension.listener.manager.TutorialLinkCommandManager;
 import net.sf.l2j.gameserver.handler.ITutorialHandler;
 import net.sf.l2j.gameserver.handler.TutorialHandler;
 import net.sf.l2j.gameserver.model.actor.Player;
@@ -34,9 +33,7 @@ public class RequestTutorialLinkHtml extends L2GameClientPacket
 			player.sendPacket(TutorialCloseHtml.STATIC_PACKET);
 			return;
 		}
-		if (TutorialLinkCommandManager.getInstance().notify(player, _bypass))
-			return;
-		
+		 
 		L2ClassMasterInstance.onTutorialLink(player, _bypass);
 		
 		if (Config.ACTIVE_MISSION)

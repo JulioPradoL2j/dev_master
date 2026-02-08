@@ -56,8 +56,6 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTable.FrequentSkill;
 import net.sf.l2j.gameserver.datatables.xml.FakePcsTable;
 import net.sf.l2j.gameserver.datatables.xml.IconTable;
-import net.sf.l2j.gameserver.extension.listener.manager.BypassCommandManager;
-import net.sf.l2j.gameserver.extension.listener.manager.NpcListenerManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
@@ -426,9 +424,7 @@ public class L2Npc extends Creature
 					
 					if (hasRandomAnimation())
 						onRandomAnimation(Rnd.get(8));
-					
-					if (NpcListenerManager.getInstance().notifyNpcInteract(this, player))
-						return;
+					 
 					
 					if (!KTBEvent.isPlayerParticipant(player.getObjectId()) && KTBEvent.isStarted() && getNpcId() == KTBConfig.KTB_EVENT_PARTICIPATION_NPC_ID)
 					{
@@ -765,8 +761,7 @@ public class L2Npc extends Creature
 	 */
 	public void onBypassFeedback(Player player, String command)
 	{
-		if (BypassCommandManager.getInstance().notify(player, command))
-			return;
+		 
 		
 		if (command.equalsIgnoreCase("TerritoryStatus"))
 		{

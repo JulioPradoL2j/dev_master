@@ -4,7 +4,6 @@ import java.nio.BufferUnderflowException;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.extension.listener.manager.CreatureListenerManager;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.Player;
@@ -134,6 +133,6 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 			return;
 		}
 		activeChar.getAI().setIntention(CtrlIntention.MOVE_TO, new Location(_targetX, _targetY, _targetZ));
-		CreatureListenerManager.getInstance().notifyMove(activeChar, new Location(_targetX, _targetY, _targetZ));
+		 
 	}
 }

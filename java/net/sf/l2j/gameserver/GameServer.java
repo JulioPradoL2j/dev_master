@@ -97,8 +97,6 @@ import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.xml.FakePcsTable;
 import net.sf.l2j.gameserver.datatables.xml.IconTable;
 import net.sf.l2j.gameserver.datatables.xml.RouletteData;
-import net.sf.l2j.gameserver.extension.ExtensionBootstrap;
-import net.sf.l2j.gameserver.extension.listener.manager.GameListenerManager;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.BypassHandler;
@@ -359,8 +357,6 @@ public class GameServer
 		
 		StringUtil.printSection("Quests & Scripts");
 		ScriptManager.getInstance();
-		
-		ExtensionBootstrap.load();
 		
 		StringUtil.printSection("L2JMods");
 		FakesEngine.getInstance().onLoad();
@@ -639,8 +635,6 @@ public class GameServer
 			System.exit(1);
 		}
 		_selectorThread.start();
-		GameListenerManager.getInstance().notifyStart();
-		
 		
 	}
 	
@@ -651,7 +645,6 @@ public class GameServer
 	
 	public static void main(String[] args) throws Exception
 	{
-		
 		
 		if (isWindows())
 		{

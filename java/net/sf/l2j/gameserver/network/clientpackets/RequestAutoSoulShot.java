@@ -1,6 +1,5 @@
 package net.sf.l2j.gameserver.network.clientpackets;
 
-import net.sf.l2j.gameserver.extension.listener.manager.PlayerListenerManager;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -116,7 +115,7 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.USE_OF_S1_WILL_BE_AUTO).addItemName(_itemId));
 					}
 				}
-				PlayerListenerManager.getInstance().notifyAutoSoulShot(activeChar, _itemId, true);
+				 
 			}
 			else if (_type == 0)
 			{

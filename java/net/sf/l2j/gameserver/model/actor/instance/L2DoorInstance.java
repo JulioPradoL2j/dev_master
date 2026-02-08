@@ -8,7 +8,6 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.model.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.model.L2DoorAI;
 import net.sf.l2j.gameserver.datatables.DoorTable;
-import net.sf.l2j.gameserver.extension.listener.manager.DoorListenerManager;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
 import net.sf.l2j.gameserver.geoengine.geodata.IGeoObject;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -155,12 +154,7 @@ public class L2DoorInstance extends Creature implements IGeoObject
 		else
 			GeoEngine.getInstance().addGeoObject(this);
 		
-		if (open)
-			DoorListenerManager.getInstance().notifyDoorOpen(this);
-		else
-			DoorListenerManager.getInstance().notifyDoorClose(this);
-		
-		
+ 
 		broadcastStatusUpdate();
 		
 		// door controls another door

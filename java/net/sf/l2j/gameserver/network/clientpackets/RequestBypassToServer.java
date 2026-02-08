@@ -65,7 +65,6 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.xml.IconTable;
 import net.sf.l2j.gameserver.datatables.xml.RouletteData;
-import net.sf.l2j.gameserver.extension.listener.manager.BypassCommandManager;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.BypassHandler;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
@@ -130,9 +129,7 @@ public final class RequestBypassToServer extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		
-		if (BypassCommandManager.getInstance().notify(activeChar, _command))
-			return;
-		
+ 
 		if (_command.startsWith("custom_"))
 		{
 			// Player player = getClient().getPlayer();

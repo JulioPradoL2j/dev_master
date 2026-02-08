@@ -14,7 +14,6 @@ import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
-import net.sf.l2j.gameserver.extension.listener.manager.PlayerListenerManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
@@ -425,7 +424,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 						
 						html.setFile("data/html/villagemaster/SubClass_AddOk.htm");
 						player.sendPacket(SystemMessageId.ADD_NEW_SUBCLASS); // Subclass added.
-						PlayerListenerManager.getInstance().notifySetClass(player, paramOne);
+						 
 					}
 					else
 						html.setFile("data/html/villagemaster/SubClass_Fail.htm");
@@ -519,7 +518,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 						
 						html.setFile("data/html/villagemaster/SubClass_ModifyOk.htm");
 						player.sendPacket(SystemMessageId.ADD_NEW_SUBCLASS); // Subclass added.
-						PlayerListenerManager.getInstance().notifySetClass(player, paramOne);
+						 
 					}
 					else
 					{

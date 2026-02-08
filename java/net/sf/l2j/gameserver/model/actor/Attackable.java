@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.ai.model.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.model.L2SiegeGuardAI;
 import net.sf.l2j.gameserver.datatables.HerbDropTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
-import net.sf.l2j.gameserver.extension.listener.manager.NpcListenerManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.AbsorbInfo;
 import net.sf.l2j.gameserver.model.AggroInfo;
@@ -209,7 +208,7 @@ public class Attackable extends L2Npc
 			
 			if (player != null)
 			{
-				NpcListenerManager.getInstance().notifyNpcKill(this, player);
+			 
 				
 				List<Quest> quests = getTemplate().getEventQuests(EventType.ON_KILL);
 				if (quests != null)

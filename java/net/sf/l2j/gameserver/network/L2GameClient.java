@@ -30,7 +30,6 @@ import net.sf.l2j.gameserver.LoginServerThread.SessionKey;
 import net.sf.l2j.gameserver.ThreadPool;
 import net.sf.l2j.gameserver.datatables.CharNameTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.extension.listener.manager.GameListenerManager;
 import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Party.MessageType;
@@ -226,8 +225,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> i
 		if (objid < 0)
 			return -1;
 		
-		GameListenerManager.getInstance().notifyCharacterDelete(objid);
-		
+	 
 		try (Connection con = ConnectionPool.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement("SELECT clanId FROM characters WHERE obj_id=?");

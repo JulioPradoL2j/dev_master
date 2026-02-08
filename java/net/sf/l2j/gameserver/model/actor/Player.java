@@ -73,9 +73,6 @@ import net.sf.l2j.gameserver.datatables.RecipeTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTable.FrequentSkill;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
-import net.sf.l2j.gameserver.extension.listener.manager.CreatureListenerManager;
-import net.sf.l2j.gameserver.extension.listener.manager.InventoryListenerManager;
-import net.sf.l2j.gameserver.extension.listener.manager.PlayerListenerManager;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
@@ -1718,7 +1715,7 @@ public class Player extends Playable
 				if ((bodyPart & Item.SLOT_ALLWEAPON) != 0)
 					rechargeShots(true, true);
 				
-				InventoryListenerManager.getInstance().notifyUnequip(item.getItem().getBodyPart(), item, this);
+				 
 			}
 			else
 				sendPacket(SystemMessageId.CANNOT_EQUIP_ITEM_DUE_TO_BAD_CONDITION);
@@ -1741,7 +1738,7 @@ public class Player extends Playable
 				sendPacket(new ItemList(this, false));
 				broadcastUserInfo();
 			}
-			InventoryListenerManager.getInstance().notifyEquip(item.getItem().getBodyPart(), item, this);
+			 
 			
 		}
 		
@@ -2765,7 +2762,7 @@ public class Player extends Playable
 			else
 				sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(item));
 		}
-		PlayerListenerManager.getInstance().notifyItemDestroy(this, item);
+	 
 		return true;
 	}
 	
@@ -3676,7 +3673,7 @@ public class Player extends Playable
 			
 			// Remove the ItemInstance from the world and send GetItem packets
 			item.pickupMe(this);
-			PlayerListenerManager.getInstance().notifyItemPickup(this, item);
+			 
 			// item must be removed from ItemsOnGroundManager if is active
 			ItemsOnGroundTaskManager.getInstance().remove(item);
 		}
@@ -4097,7 +4094,7 @@ public class Player extends Playable
 				LMEvent.onKill(killer, this);
 				TvTEvent.onKill(killer, this);
 				
-				CreatureListenerManager.getInstance().notifyKill(pk, this);
+				 
 				
 			}
 			
@@ -4179,7 +4176,7 @@ public class Player extends Playable
 		// Icons update in order to get retained buffs list
 		updateEffectIcons();
 		quakeSystem = 0;
-		CreatureListenerManager.getInstance().notifyDeath(this);
+	 
 		return true;
 	}
 	
@@ -4309,7 +4306,7 @@ public class Player extends Playable
 				// if (Config.ALT_GIVE_PVP_IN_ARENA)
 				setPvpKills(getPvpKills() + 1);
 				
-				PlayerListenerManager.getInstance().notifyPvpPkKill((Player) target, this, true);
+			 
 				
 				// Send UserInfo packet to attacker with its Karma and PK Counter
 				sendPacket(new UserInfo(this));
@@ -4324,7 +4321,7 @@ public class Player extends Playable
 			{
 				// Add PvP point to attacker.
 				setPvpKills(getPvpKills() + 1);
-				PlayerListenerManager.getInstance().notifyPvpPkKill((Player) target, this, true);
+				 
 				if (Config.ALLOW_PVP_NAME_COLOR_SYSTEM /* && !isVip() */)
 				{
 					colorsCheckName();
@@ -4369,7 +4366,6 @@ public class Player extends Playable
 			// PK Points are increased only if you kill a player.
 			if (target instanceof Player)
 				setPkKills(getPkKills() + 1);
-			PlayerListenerManager.getInstance().notifyPvpPkKill((Player) target, this, false);
 			
 			if (Config.ALLOW_PK_TITLE_COLOR_SYSTEM)
 			{
@@ -9407,7 +9403,7 @@ public class Player extends Playable
 				sendMessage("Entering world in Message Refusal mode.");
 		}
 		
-		PlayerListenerManager.getInstance().notifyPlayerEnter(this);
+		 
 		
 		if (HeroManagerCustom.getInstance().hasHeroPrivileges(getObjectId()))
 		{
@@ -9575,7 +9571,7 @@ public class Player extends Playable
 			}, (int) (2000 / getStat().getMovementSpeedMultiplier()));
 			setIsParalyzed(true);
 		}
-		CreatureListenerManager.getInstance().notifyRevive(this);
+	 
 	}
 	
 	@Override
@@ -9847,7 +9843,7 @@ public class Player extends Playable
 		FOSEvent.onTeleported(this);
 		CTFEvent.onTeleported(this);
 		TvTEvent.onTeleported(this);
-		PlayerListenerManager.getInstance().notifyTeleport(this, getPosition().getX(), getPosition().getY(), getPosition().getZ());
+		 
 	}
 	
 	/*
@@ -10019,7 +10015,7 @@ public class Player extends Playable
 			unSummonAgathion();
 			lostAgathionSkills();
 		}
-		PlayerListenerManager.getInstance().notifyPlayerExit(this);
+		 
 		cleanup();
 		store();
 		super.deleteMe();
@@ -11125,7 +11121,7 @@ public class Player extends Playable
 		if (isInOlympiadMode() && target instanceof Player && ((Player) target).isInOlympiadMode() && ((Player) target).getOlympiadGameId() == getOlympiadGameId())
 			OlympiadGameManager.getInstance().notifyCompetitorDamage(this, damage);
 		
-		CreatureListenerManager.getInstance().notifyAttackHit(this, target, damage);
+		 
 	}
 	
 	public void checkItemRestriction()

@@ -1,9 +1,7 @@
 package net.sf.l2j.gameserver.model.actor.stat;
 
-import net.sf.l2j.gameserver.extension.listener.manager.PlayerListenerManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.Playable;
-import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.model.zone.ZoneId;
 import net.sf.l2j.gameserver.model.zone.type.L2SwampZone;
@@ -116,9 +114,7 @@ public class PlayableStat extends CharStat
 		
 		getActiveChar().getStatus().setCurrentHp(getActiveChar().getStat().getMaxHp());
 		getActiveChar().getStatus().setCurrentMp(getActiveChar().getStat().getMaxMp());
-		PlayerListenerManager.getInstance().notifySetLevel((Player) getActiveChar(), value);
-		PlayerListenerManager.getInstance().notifyLevelUp((Player) getActiveChar());
-
+	 
 		return true;
 	}
 	

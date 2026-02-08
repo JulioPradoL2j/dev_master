@@ -11,7 +11,6 @@ import net.sf.l2j.event.tournament.Arena5x5;
 import net.sf.l2j.event.tournament.Arena9x9;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.extension.listener.manager.PlayerListenerManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
@@ -401,7 +400,7 @@ public void onBypassFeedback(Player player, String command)
 					
 					html.setFile("data/html/villagemaster/SubClass_AddOk.htm");
 					player.sendPacket(SystemMessageId.ADD_NEW_SUBCLASS); // Subclass added.
-					PlayerListenerManager.getInstance().notifySetClass(player, paramOne);
+				 
 				}
 				else
 					html.setFile("data/html/villagemaster/SubClass_Fail.htm");
@@ -495,7 +494,7 @@ public void onBypassFeedback(Player player, String command)
 					
 					html.setFile("data/html/villagemaster/SubClass_ModifyOk.htm");
 					player.sendPacket(SystemMessageId.ADD_NEW_SUBCLASS); // Subclass added.
-					PlayerListenerManager.getInstance().notifySetClass(player, paramOne);
+					 
 				}
 				else
 				{

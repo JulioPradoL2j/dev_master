@@ -26,7 +26,6 @@ import net.sf.l2j.gameserver.ai.model.L2CharacterAI;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType;
 import net.sf.l2j.gameserver.datatables.SkillTable.FrequentSkill;
-import net.sf.l2j.gameserver.extension.listener.manager.CreatureListenerManager;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
@@ -823,7 +822,7 @@ public abstract class Creature extends L2Object
 		
 		// Notify AI with EVT_READY_TO_ACT
 		ThreadPool.schedule(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), timeAtk);
-		CreatureListenerManager.getInstance().notifyAttack(this, target);
+		 
 	}
 	
 	/**
@@ -1701,7 +1700,7 @@ public abstract class Creature extends L2Object
 		if (region != null)
 			region.onRevive(this);
 		
-		CreatureListenerManager.getInstance().notifyRevive(this);
+		 
 	}
 	
 	/**
@@ -5526,7 +5525,7 @@ public abstract class Creature extends L2Object
 		else
 			getStatus().reduceHp(i, attacker, awake, isDOT, false);
 		
-		CreatureListenerManager.getInstance().notifyHpDamage(attacker, i, this, skill);
+		 
 		
 	}
 	

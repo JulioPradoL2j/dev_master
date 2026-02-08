@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
-import net.sf.l2j.gameserver.extension.listener.manager.ZoneListenerManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.Player;
@@ -142,7 +141,7 @@ public abstract class L2ZoneType
 				}
 				_characterList.add(character);
 				onEnter(character);
-				ZoneListenerManager.getInstance().notifyZoneEnter(this, character);
+				 
 			}
 		}
 		else
@@ -158,7 +157,7 @@ public abstract class L2ZoneType
 				}
 				_characterList.remove(character);
 				onExit(character);
-				ZoneListenerManager.getInstance().notifyZoneLeave(this, character);
+				 
 			}
 		}
 	}
