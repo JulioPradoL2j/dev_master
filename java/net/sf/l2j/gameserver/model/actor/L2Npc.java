@@ -233,6 +233,8 @@ public class L2Npc extends Creature
 		
 		// Set the name of the L2Character
 		setName(template.getName());
+		if (getTitle() == null || getTitle().isEmpty())
+			setTitle(getTemplate().getTitle());
 	}
 	
 	public FakePc getFakePc()
@@ -424,7 +426,6 @@ public class L2Npc extends Creature
 					
 					if (hasRandomAnimation())
 						onRandomAnimation(Rnd.get(8));
-					 
 					
 					if (!KTBEvent.isPlayerParticipant(player.getObjectId()) && KTBEvent.isStarted() && getNpcId() == KTBConfig.KTB_EVENT_PARTICIPATION_NPC_ID)
 					{
@@ -761,7 +762,6 @@ public class L2Npc extends Creature
 	 */
 	public void onBypassFeedback(Player player, String command)
 	{
-		 
 		
 		if (command.equalsIgnoreCase("TerritoryStatus"))
 		{
@@ -1703,7 +1703,7 @@ public class L2Npc extends Creature
 		// initialize ss/sps counts.
 		_currentSsCount = getTemplate().getSsCount();
 		_currentSpsCount = getTemplate().getSpsCount();
-		
+ 
 		List<Quest> quests = getTemplate().getEventQuests(EventType.ON_SPAWN);
 		if (quests != null)
 			for (Quest quest : quests)

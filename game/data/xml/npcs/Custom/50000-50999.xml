@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <list>
 	<npc id="50006" idTemplate="31228" name="Roy the Cat" title="Class Manager">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
 		<set name="level" val="70"/>
 		<set name="radius" val="9"/>
 		<set name="height" val="16"/>
@@ -36,6 +38,8 @@
 		</skills>
 	</npc>
 	<npc id="50007" idTemplate="31324" name="Andromeda" title="Wedding Manager">
+		<set name="usingServerSideName" val="true"/>
+		<set name="usingServerSideTitle" val="true"/>
 		<set name="level" val="70"/>
 		<set name="radius" val="8"/>
 		<set name="height" val="23"/>

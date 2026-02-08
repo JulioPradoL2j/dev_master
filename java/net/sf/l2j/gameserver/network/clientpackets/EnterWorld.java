@@ -38,9 +38,9 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Clan.SubPledge;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.RemoteClassMaster;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.Player.PunishLevel;
-import net.sf.l2j.gameserver.model.actor.instance.L2ClassMasterInstance;
 import net.sf.l2j.gameserver.model.base.ClassRace;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
@@ -273,7 +273,7 @@ public class EnterWorld extends L2GameClientPacket
 			
 		}
 		
-		L2ClassMasterInstance.showQuestionMark(activeChar);
+	 
 		// IPLog.auditGMAction(activeChar.getName(), activeChar.getClient().getConnection().getInetAddress().getHostAddress(), activeChar.getHWID());
 		HWID.auditGMAction(activeChar.getHWID(), activeChar.getName());
 		Hwid.enterlog(activeChar, getClient());
@@ -474,7 +474,7 @@ public class EnterWorld extends L2GameClientPacket
 		// Attacker or spectator logging into a siege zone will be ported at town.
 		if (!activeChar.isGM() && (!activeChar.isInSiege() || activeChar.getSiegeState() < 2) && activeChar.isInsideZone(ZoneId.SIEGE))
 			activeChar.teleToLocation(TeleportWhereType.TOWN);
-		
+		RemoteClassMaster.showQuestionMark(activeChar);
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	

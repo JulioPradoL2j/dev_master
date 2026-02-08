@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mariadb>
+    <db
+        host="127.0.0.1"
+        port="3306"
+        database="l2jdb"
+        user="root"
+        password="root"
+        useSSL="false"
+        serverTimezone="America/Sao_Paulo"
+    />
+</mariadb>

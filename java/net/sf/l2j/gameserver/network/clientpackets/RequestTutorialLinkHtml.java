@@ -1,3 +1,4 @@
+
 package net.sf.l2j.gameserver.network.clientpackets;
 
 import java.util.logging.Level;
@@ -5,8 +6,8 @@ import java.util.logging.Level;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ITutorialHandler;
 import net.sf.l2j.gameserver.handler.TutorialHandler;
+import net.sf.l2j.gameserver.model.RemoteClassMaster;
 import net.sf.l2j.gameserver.model.actor.Player;
-import net.sf.l2j.gameserver.model.actor.instance.L2ClassMasterInstance;
 import net.sf.l2j.gameserver.network.serverpackets.TutorialCloseHtml;
 import net.sf.l2j.gameserver.scriptings.QuestState;
 import net.sf.l2j.mission.VoicedMission;
@@ -27,14 +28,15 @@ public class RequestTutorialLinkHtml extends L2GameClientPacket
 		final Player player = getClient().getActiveChar();
 		if (player == null)
 			return;
-		
+		if (RemoteClassMaster.onTutorialLink(player, _bypass))
+			return;
 		if (_bypass.equalsIgnoreCase("close"))
 		{
 			player.sendPacket(TutorialCloseHtml.STATIC_PACKET);
 			return;
 		}
 		 
-		L2ClassMasterInstance.onTutorialLink(player, _bypass);
+		 
 		
 		if (Config.ACTIVE_MISSION)
 		{

@@ -9,10 +9,9 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import net.sf.l2j.commons.io.UnicodeReader;
+import net.sf.l2j.gameserver.model.actor.Player;
 
-/**
- * @author Layane, reworked by Java-man and Hasha
- */
+
 public class HtmCache
 {
 	private static final Logger _log = Logger.getLogger(HtmCache.class.getName());
@@ -73,7 +72,9 @@ public class HtmCache
 	 */
 	private String loadFile(File file)
 	{
-		try (FileInputStream fis = new FileInputStream(file); UnicodeReader ur = new UnicodeReader(fis, "UTF-8"); BufferedReader br = new BufferedReader(ur))
+		try (FileInputStream fis = new FileInputStream(file);
+			UnicodeReader ur = new UnicodeReader(fis, "UTF-8");
+			BufferedReader br = new BufferedReader(ur))
 		{
 			final StringBuilder sb = new StringBuilder();
 			String line;
@@ -138,6 +139,44 @@ public class HtmCache
 	public String getHtmForce(String filename)
 	{
 		String content = getHtm(filename);
+		if (content == null)
+		{
+			content = "<html><body>My html is missing:<br>" + filename + "</body></html>";
+			_log.warning("HtmCache: " + filename + " is missing.");
+		}
+		
+		return content;
+	}
+	
+	public String getHtm(String filename, Player player)
+	{
+		if (filename == null || filename.isEmpty())
+			return "";
+		
+		if (player != null)
+			filename = filename.replace(".htm", "-cn.htm");
+		
+		String content = _htmCache.get(filename.hashCode());
+		if (content == null)
+		{
+			File file = new File(filename);
+			
+			if (!file.exists() && filename.contains("-cn"))
+			{
+				filename = filename.replace("-cn.htm", ".htm");
+				file = new File(filename);
+			}
+			
+			if (file.exists() && _htmFilter.accept(file) && !file.isDirectory())
+				content = loadFile(file);
+		}
+		
+		return content;
+	}
+	
+	public String getHtmForce(String filename, Player player)
+	{
+		String content = getHtm(filename, player);
 		if (content == null)
 		{
 			content = "<html><body>My html is missing:<br>" + filename + "</body></html>";

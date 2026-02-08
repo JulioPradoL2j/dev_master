@@ -10,11 +10,11 @@ import net.sf.l2j.dolls.DollsTable;
 import net.sf.l2j.event.tournament.Arena3x3;
 import net.sf.l2j.event.tournament.Arena5x5;
 import net.sf.l2j.event.tournament.Arena9x9;
-import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.RemoteClassMaster;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
 import net.sf.l2j.gameserver.model.base.ClassId;
@@ -26,27 +26,11 @@ import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
-import net.sf.l2j.gameserver.network.serverpackets.TutorialCloseHtml;
-import net.sf.l2j.gameserver.network.serverpackets.TutorialShowHtml;
-import net.sf.l2j.gameserver.network.serverpackets.TutorialShowQuestionMark;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.scriptings.QuestState;
 import net.sf.l2j.gameserver.util.FloodProtectors;
 import net.sf.l2j.gameserver.util.FloodProtectors.Action;
-
-/**
- * Custom class allowing you to choose your class.<br>
- * <br>
- * You can customize class rewards as needed items. Check npc.properties for more informations.<br>
- * This NPC type got 2 differents ways to level:
- * <ul>
- * <li>the normal one, where you have to be at least of the good level.<br>
- * NOTE : you have to take 1st class then 2nd, if you try to take 2nd directly it won't work.</li>
- * <li>the "allow_entire_tree" version, where you can take class depending of your current path.<br>
- * NOTE : you don't need to be of the good level.</li>
- * </ul>
- * Added to the "change class" function, this NPC can noblesse and give available skills (related to your current class and level).
- */
+ 
 public final class L2ClassMasterInstance extends L2NpcInstance
 {
 	public L2ClassMasterInstance(int objectId, NpcTemplate template)
@@ -846,10 +830,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 		player.removeFakeWeapon();
 		player.sendPacket(new HennaInfo(player));
 		player.broadcastUserInfo();
-		if (Config.CLASS_MASTER_SETTINGS.isAllowed(player.getClassId().level() + 1) && Config.ALTERNATE_CLASS_MASTER && (((player.getClassId().level() == 1) && (player.getLevel() >= 40)) || ((player.getClassId().level() == 2) && (player.getLevel() >= 76))))
-		{
-			showQuestionMark(player);
-		}
+		RemoteClassMaster.showQuestionMark(player);
 		return true;
 	}
 	
@@ -923,70 +904,74 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 		
 		return sb.toString();
 	}
-	public static final void onTutorialLink(Player player, String request)
+ 
+	public static void onRemoteClassPick(Player player, int newClassId)
 	{
-		if (!Config.ALTERNATE_CLASS_MASTER || request == null || !request.startsWith("CO"))
-			return;
-		
-		if (!FloodProtectors.performAction(player.getClient(), Action.SUBCLASS))
-			return;
-		
-		try
-		{
-			int val = Integer.parseInt(request.substring(2));
-			checkAndChangeClass(player, val);
-		}
-		catch (NumberFormatException e)
-		{
-		}
-		player.sendPacket(TutorialCloseHtml.STATIC_PACKET);
+	    if (player == null)
+	        return;
+
+	    final ClassId current = player.getClassId();
+	    final int curTier = current.level();
+
+	    // já é 3rd
+	    if (curTier >= 3)
+	        return;
+
+	    final ClassId target = ClassId.VALUES[newClassId];
+	    if (target == null)
+	        return;
+
+	    // só pode escolher o PRÓXIMO tier (não pode pular)
+	    final int nextTier = curTier + 1;
+	    if (target.level() != nextTier)
+	    {
+	        player.sendMessage("You can't pick that class now.");
+	        return;
+	    }
+
+	    // valida árvore (parent/child)
+	    if (!validateRemoteClass(current, target))
+	    {
+	        player.sendMessage("Invalid class change.");
+	        return;
+	    }
+
+	    // valida nível mínimo do tier atual (20/40/76) - trava HARD
+	    final int minLevel = getMinLevel(curTier);
+	    if (player.getLevel() < minLevel && !Config.ALLOW_ENTIRE_TREE)
+	    {
+	        player.sendMessage("You need level " + minLevel + " to change class.");
+	        return;
+	    }
+
+	    // valida se esse tier está permitido no settings
+	    if (!Config.CLASS_MASTER_SETTINGS.isAllowed(nextTier))
+	    {
+	        player.sendMessage("Class change is disabled.");
+	        return;
+	    }
+
+	    // aplica exatamente como o ClassMaster normal
+	    checkAndChangeClass(player, newClassId);
 	}
-	public static final void onTutorialQuestionMark(Player player, int number)
+
+	 
+	private static boolean validateRemoteClass(ClassId oldCID, ClassId newCID)
 	{
-		if (!Config.ALTERNATE_CLASS_MASTER || number != 1001)
-			return;
-		
-		showTutorialHtml(player);
+	    if (newCID == null)
+	        return false;
+
+	    // caminho normal (parent direto)
+	    if (oldCID == newCID.getParent())
+	        return true;
+
+	    // árvore inteira (se você realmente quiser esse modo)
+	    if (Config.ALLOW_ENTIRE_TREE && newCID.childOf(oldCID))
+	        return true;
+
+	    return false;
 	}
-	public static final void showQuestionMark(Player player)
-	{
-		if (!Config.ALLOW_CLASS_MASTERS)
-			return;
-		
-		if (!Config.ALTERNATE_CLASS_MASTER)
-			return;
-		
-		final ClassId classId = player.getClassId();
-		if (getMinLevel(classId.level()) > player.getLevel())
-			return;
-		
-		if (!Config.CLASS_MASTER_SETTINGS.isAllowed(classId.level() + 1))
-		{
-			return;
-		}
-		
-		player.sendPacket(new TutorialShowQuestionMark(1001));
-	}
-	private static final void showTutorialHtml(Player player)
-	{
-		final ClassId currentClassId = player.getClassId();
-		if (getMinLevel(currentClassId.level()) > player.getLevel() && !Config.ALLOW_ENTIRE_TREE)
-			return;
-		
-		String msg = HtmCache.getInstance().getHtm("data/html/classmaster/template.htm");
-		msg = msg.replaceAll("%name%", CharTemplateTable.getInstance().getClassNameById(currentClassId.getId()));
-		
-		final StringBuilder menu = new StringBuilder(100);
-		for (ClassId cid : ClassId.values())
-		{
-			if (validateClassId(currentClassId, cid))
-			{
-				StringUtil.append(menu, "<a action=\"link CO", String.valueOf(cid.getId()), "\">", CharTemplateTable.getInstance().getClassNameById(cid.getId()), "</a><br>");
-			}
-		}
-		
-		msg = msg.replaceAll("%menu%", menu.toString());
-		msg = msg.replace("%req_items%", getRequiredItems(currentClassId.level() + 1));
-		player.sendPacket(new TutorialShowHtml(msg));
-	}
+
+
+
 }

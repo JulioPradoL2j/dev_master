@@ -27,9 +27,9 @@ public class ElfFighterAI extends CombatBehaviorAI
 			return;
 		handleEquipes(_fakePlayer);
 		handleLevel(_fakePlayer);
-		// handlePotions(_fakePlayer);
+		handlePotions(_fakePlayer);
 		handleShots(_fakePlayer);
-		// handleBuffers(_fakePlayer);
+		handleBuffers(_fakePlayer);
 		handleTargetSelection(_fakePlayer);
 		handleAttackTarget(_fakePlayer, _target);
 		

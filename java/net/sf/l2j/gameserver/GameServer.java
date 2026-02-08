@@ -5,13 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
-import java.lang.management.RuntimeMXBean;
-import java.lang.management.ThreadMXBean;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -103,6 +98,7 @@ import net.sf.l2j.gameserver.handler.BypassHandler;
 import net.sf.l2j.gameserver.handler.ChatHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
+import net.sf.l2j.gameserver.handler.TutorialHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
@@ -565,7 +561,7 @@ public class GameServer
 		_log.config("UserCommandHandler: Loaded " + UserCommandHandler.getInstance().size() + " handlers.");
 		_log.config("UserVoicedCommandHandler Loaded " + VoicedCommandHandler.getInstance().size() + " handlers.");
 		_log.config("UserBypassCommandHandler: Loaded " + BypassHandler.getInstance().size() + " handlers.");
-		
+		_log.config("Tutorail: Loaded " + TutorialHandler.getInstance().size() + " handlers.");
 		if (Config.ENABLE_TIME_ZONE_SYSTEM)
 		{
 			TimeFarmZoneData.loadZonesFromFile();
@@ -573,7 +569,7 @@ public class GameServer
 		}
 		
 		StringUtil.printSection("System");
-		printStatus();
+	 
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		ForumsBBSManager.getInstance();
 		_log.config("IdFactory: Free ObjectIDs remaining: " + IdFactory.getInstance().size());
@@ -688,27 +684,5 @@ public class GameServer
 		gameServer = new GameServer();
 	}
 	
-	public static void printStatus()
-	{
-		OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
-		RuntimeMXBean runtimeBean = ManagementFactory.getRuntimeMXBean();
-		ThreadMXBean threadBean = ManagementFactory.getThreadMXBean();
-		
-		Runtime runtime = Runtime.getRuntime();
-		
-		long uptime = runtimeBean.getUptime();
-		long usedMemory = runtime.totalMemory() - runtime.freeMemory();
-		long maxMemory = runtime.maxMemory();
-		int threadCount = threadBean.getThreadCount();
-		DecimalFormat df = new DecimalFormat("#.##");
-		
-		System.out.println("========= [SERVER STATUS] =========");
-		System.out.println("Uptime: " + (uptime / 1000) + "s");
-		System.out.println("CPU cores: " + osBean.getAvailableProcessors());
-		System.out.println("System Load: " + df.format(osBean.getSystemLoadAverage()));
-		System.out.println("Heap Memory: " + (usedMemory / 1024 / 1024) + " MB / " + (maxMemory / 1024 / 1024) + " MB");
-		System.out.println("Threads: " + threadCount);
-		System.out.println("Players Online: " + L2World.getInstance().getPlayers().size());
-		System.out.println("===================================");
-	}
+ 
 }

@@ -7,11 +7,8 @@ import net.sf.l2j.mods.enums.CombatKit;
 import net.sf.l2j.mods.skills.SkillAction;
 import net.sf.l2j.mods.skills.SkillCombo;
 
- 
-
 public class DarkElfMysticAI extends CombatBehaviorAI
 {
-	
 	
 	public DarkElfMysticAI(FakePlayer character)
 	{
@@ -28,9 +25,9 @@ public class DarkElfMysticAI extends CombatBehaviorAI
 		
 		handleEquipes(_fakePlayer);
 		handleLevel(_fakePlayer);
-		// handlePotions(_fakePlayer);
+		handlePotions(_fakePlayer);
 		handleShots(_fakePlayer);
-		// handleBuffers(_fakePlayer);
+		handleBuffers(_fakePlayer);
 		handleTargetSelection(_fakePlayer);
 		handleAttackTarget(_fakePlayer, _target);
 		

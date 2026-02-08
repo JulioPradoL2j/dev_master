@@ -115,9 +115,9 @@ public class NpcTemplate extends CharTemplate
 		_type = set.getString("type");
 		_name = set.getString("name");
 		_usingServerSideName = set.getBool("usingServerSideName", false);
-		_usingServerSideTitle = set.getBool("usingServerSideTitle", false);
 		_title = set.getString("title", "");
-		_cantBeChampionMonster = _title.equalsIgnoreCase("Quest Monster") || isType("L2Chest");
+		_usingServerSideTitle = set.getBool("usingServerSideTitle", false);
+		_cantBeChampionMonster = _title.equalsIgnoreCase("Quest Monster") || isType("Chest");
 		_level = set.getByte("level", (byte) 1);
 		_exp = set.getInteger("exp", 0);
 		_sp = set.getInteger("sp", 0);
@@ -208,20 +208,21 @@ public class NpcTemplate extends CharTemplate
 		return _usingServerSideName;
 	}
 	
-	public boolean isUsingServerSideTitle()
-	{
-		return _usingServerSideTitle;
-	}
-	
 	public String getTitle()
 	{
 		return _title;
+	}
+	
+	public boolean isUsingServerSideTitle()
+	{
+		return _usingServerSideTitle;
 	}
 	
 	public boolean cantBeChampion()
 	{
 		return _cantBeChampionMonster;
 	}
+	
 	
 	public byte getLevel()
 	{

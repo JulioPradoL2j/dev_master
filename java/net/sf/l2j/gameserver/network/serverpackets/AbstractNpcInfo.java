@@ -74,13 +74,12 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 				_collisionRadius = _npc.getCollisionRadius();
 			}
 			
-			if (_npc.getTemplate().isUsingServerSideName())
-				_name = _npc.getName();
+			// NAME: se não for server-side, usa o do template (evita null/"" e garante consistência)
+			_name = _npc.getTemplate().isUsingServerSideName() ? _npc.getName() : _npc.getTemplate().getName();
 			
-			if (_npc.isChampion())
-				_title = "Champion";
-			else if (_npc.getTemplate().isUsingServerSideTitle())
-				_title = _npc.getTitle();
+			_title = _npc.getTemplate().isUsingServerSideTitle() ? _npc.getTitle() : _npc.getTemplate().getTitle();
+			if (_title == null)
+				_title = "";
 			
 			if (Config.SHOW_NPC_LVL && _npc instanceof L2MonsterInstance)
 				_title = "Lv " + _npc.getLevel() + (_npc.getTemplate().getAggroRange() > 0 ? "* " : " ") + _title;

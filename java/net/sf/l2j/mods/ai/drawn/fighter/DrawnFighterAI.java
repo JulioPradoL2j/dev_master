@@ -6,7 +6,6 @@ import net.sf.l2j.mods.ai.combat.CombatBehaviorAI;
 import net.sf.l2j.mods.enums.CombatKit;
 import net.sf.l2j.mods.skills.SkillCombo;
 
- 
 public class DrawnFighterAI extends CombatBehaviorAI
 {
 	public DrawnFighterAI(FakePlayer character)
@@ -23,9 +22,9 @@ public class DrawnFighterAI extends CombatBehaviorAI
 		
 		handleEquipes(_fakePlayer);
 		handleLevel(_fakePlayer);
-		// handlePotions(_fakePlayer);
+		handlePotions(_fakePlayer);
 		handleShots(_fakePlayer);
-		// handleBuffers(_fakePlayer);
+		handleBuffers(_fakePlayer);
 		handleTargetSelection(_fakePlayer);
 		handleAttackTarget(_fakePlayer, _target);
 		

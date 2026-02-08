@@ -90,35 +90,7 @@ public class VoicedMission implements IVoicedCommandHandler
 						activeChar.sendPacket(new TutorialShowHtml(msg));
 					} 
 				}
-				/*if (type.startsWith("pvp")) {
-					if (!Config.ACTIVE_MISSION_PVP) {
-						activeChar.sendMessage("[WARN]: Temporariamente desativado..");
-						return false;
-					} 
-					if (!Config.ACTIVE_MISSION) {
-						activeChar.sendMessage("[WARN]: Disponivel em breve..");
-						return false;
-					} 
-					if (activeChar.check_pvp_hwid(activeChar.getHWID())) {
-						info_pvp(activeChar);
-					} else {
-						String msg = HtmCache.getInstance().getHtm("data/html/mods/menu/mission/pvp.htm");
-						msg = msg.replaceAll("%pvp_cont%", "" + Config.MISSION_PVP_CONT + "");
-						msg = msg.replaceAll("%cont%", "" + activeChar.getPvPCont() + "");
-						msg = msg.replaceAll("%name%", "");
-						if (activeChar.isPvPCompleted()) {
-							msg = msg.replaceAll("%pvp%", "<font color=\"FF0000\">Received</font>");
-							msg = msg.replaceAll("%link%", "<button width=\"75\" height=\"21\" back=\"L2UI_ch3.Btn1_normalOn\" fore=\"L2UI_ch3.Btn1_normal\" action=\"link close\" value=\"Close\">");
-						} else if (activeChar.getPvPCont() >= Config.MISSION_PVP_CONT) {
-							msg = msg.replaceAll("%pvp%", "<font color=\"5EA82E\">Completed</font>");
-							msg = msg.replaceAll("%link%", "<button width=\"75\" height=\"21\" back=\"L2UI_ch3.Btn1_normalOn\" fore=\"L2UI_ch3.Btn1_normal\" action=\"link pvp_mission\" value=\"Reward!\">");
-						} else {
-							msg = msg.replaceAll("%pvp%", "<font color=\"FF0000\">Not Completed</font>");
-							msg = msg.replaceAll("%link%", "<button width=\"75\" height=\"21\" back=\"L2UI_ch3.Btn1_normalOn\" fore=\"L2UI_ch3.Btn1_normal\" action=\"link close\" value=\"Close\">");
-						} 
-						activeChar.sendPacket(new TutorialShowHtml(msg));
-					} 
-				}*/
+				 
 				else if (type.startsWith("raid")) 
 				{
 					if (!Config.ACTIVE_MISSION_RAID)
