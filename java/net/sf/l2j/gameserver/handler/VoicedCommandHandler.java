@@ -21,6 +21,7 @@ import net.sf.l2j.event.lastman.VoicedEventLastMan;
 import net.sf.l2j.event.tvt.TvTConfig;
 import net.sf.l2j.event.tvt.VoicedTvTEvent;
 import net.sf.l2j.gameserver.handler.custom.CustomBypassHandler;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.GainXpSpMod;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Repair;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.SkinsVIP;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.VoicedBanking;
@@ -66,6 +67,12 @@ public class VoicedCommandHandler
 			registerHandler(new VoicedMailbox());
 			registerHandler(new VoicedMailSend());
 		}
+		
+		if (Config.ENABLE_COMMAND_XPON_OFF)
+		{
+			registerHandler(new GainXpSpMod());
+		}
+		
 		if (Config.ALLOW_NEW_COLOR_MANAGER)
 		{
 			registerHandler(new VoicedNewColor());

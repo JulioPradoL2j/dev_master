@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="java"/>
-	<classpathentry kind="src" path="game/data/mods/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -10,4 +9,3 @@
 	<classpathentry kind="lib" path="libs/mariadb-java-client-3.1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
-

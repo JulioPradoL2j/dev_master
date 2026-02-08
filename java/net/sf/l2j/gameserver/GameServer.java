@@ -98,7 +98,6 @@ import net.sf.l2j.gameserver.datatables.xml.FakePcsTable;
 import net.sf.l2j.gameserver.datatables.xml.IconTable;
 import net.sf.l2j.gameserver.datatables.xml.RouletteData;
 import net.sf.l2j.gameserver.extension.ExtensionBootstrap;
-import net.sf.l2j.gameserver.extension.L2JModEngine;
 import net.sf.l2j.gameserver.extension.listener.manager.GameListenerManager;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
@@ -183,6 +182,7 @@ import net.sf.l2j.itemstime.TimeItemData;
 import net.sf.l2j.itemstime.TimedItemManager;
 import net.sf.l2j.launcher.GameServerLauncher;
 import net.sf.l2j.mission.MissionReset;
+import net.sf.l2j.mods.FakesEngine;
 import net.sf.l2j.shop.offline.OfflinePlayerData;
 import net.sf.l2j.shop.offline.OfflineStoresData;
 import net.sf.l2j.timezone.TimeFarmZoneData;
@@ -363,7 +363,7 @@ public class GameServer
 		ExtensionBootstrap.load();
 		
 		StringUtil.printSection("L2JMods");
-		L2JModEngine.load();
+		FakesEngine.getInstance().onLoad();
 		
 		if (Config.ALLOW_BOAT)
 		{
