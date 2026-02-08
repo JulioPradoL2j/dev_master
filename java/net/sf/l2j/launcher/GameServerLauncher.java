@@ -47,6 +47,7 @@ import net.sf.l2j.launcher.etc.Thema;
 import net.sf.l2j.launcher.panel.DroplistFrame;
 import net.sf.l2j.launcher.panel.GameConfigFrame;
 import net.sf.l2j.launcher.panel.ItemsSearchFrame;
+import net.sf.l2j.mods.gui.PhantomPanel;
 
 public class GameServerLauncher
 {
@@ -180,6 +181,24 @@ public class GameServerLauncher
 			sizeGroup.add(item);
 			mnFontSize.add(item);
 		}
+		
+		final JMenu mnfakes = new JMenu("FakePlayer");
+		mnfakes.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		menuBar.add(mnfakes);
+		
+		final JMenuItem mntmfakes = new JMenuItem("Panel");
+		mntmfakes.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		mntmfakes.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				new PhantomPanel();
+			}
+		});
+		mnfakes.add(mntmfakes);
+		
+		
 		
 		final JMenu mnAdmin = new JMenu("Item");
 		mnAdmin.setFont(new Font("Segoe UI", Font.PLAIN, 12));
