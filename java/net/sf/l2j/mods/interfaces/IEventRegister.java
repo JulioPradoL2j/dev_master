@@ -36,7 +36,7 @@ public interface IEventRegister
 		if (now < nextTry)
 			return;
 		
-		long delay = Rnd.get(8_000, 35_000);
+		long delay = Rnd.get(8000, 35000);
 		memos.set(VAR_TIME, now + delay);
 		
 		if (Rnd.get(100) < 20)
