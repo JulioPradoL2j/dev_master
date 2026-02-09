@@ -5,22 +5,34 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import net.sf.l2j.tools.gui.sql.SqlInstallDialog;
@@ -30,15 +42,11 @@ public final class MenuBarPanel extends JMenuBar
 {
 	private static final long serialVersionUID = 1L;
 	
-	// Links oficiais
 	private static final String GITHUB_URL = "https://github.com/JulioPradoL2j";
-	private static final String WHATSAPP_URL = "https://wa.me/5564984083891"; // abre chat direto
+	private static final String WHATSAPP_URL = "https://wa.me/5564984083891";
 	
 	public MenuBarPanel(DatabaseMainFrame frame, DataViewPanel dataView)
 	{
-		// =================
-		// Menu Arquivo
-		// =================
 		JMenu file = new JMenu("Arquivo");
 		
 		JMenuItem importSql = new JMenuItem("Executar arquivo .sql...");
@@ -50,165 +58,304 @@ public final class MenuBarPanel extends JMenuBar
 		JMenuItem exit = new JMenuItem("Sair");
 		exit.addActionListener(e -> frame.requestClose());
 		
-		
 		file.add(importSql);
 		file.add(install);
 		file.addSeparator();
 		file.add(exit);
-		
 		add(file);
 		
-		// =================
-		// Menu Ajuda
-		// =================
 		JMenu help = new JMenu("Ajuda");
-		
 		JMenuItem about = new JMenuItem("Sobre");
 		about.addActionListener(e -> showAbout(frame));
-		
-		help.addSeparator();
 		help.add(about);
-		
 		add(help);
 	}
 	
+	// =====================================================================================
+	// ABOUT (Premium)
+	// =====================================================================================
 	private static void showAbout(Component parent)
 	{
-		JPanel root = new JPanel(new BorderLayout(12, 12));
-		root.setBorder(BorderFactory.createEmptyBorder(14, 14, 14, 14));
-		root.setBackground(new Color(0x0F, 0x12, 0x16));
+		// theme tokens (fallbacks defensivos)
+		final Color bg = getColor("l2jdev.bg", new Color(0x10, 0x12, 0x16));
+		final Color panel = getColor("l2jdev.panel", new Color(0x16, 0x19, 0x20));
+		final Color surface = getColor("l2jdev.surface", new Color(0x12, 0x14, 0x18));
+		final Color text = getColor("l2jdev.text", new Color(0xE6, 0xEA, 0xF2));
+		final Color muted = getColor("l2jdev.muted", new Color(0xA8, 0xB0, 0xC0));
+		final Color line = getColor("l2jdev.line", new Color(0x2A, 0x2F, 0x3A));
+		final Color accent = getColor("l2jdev.accent", new Color(0x3D, 0x7A, 0xFF));
 		
-		// Header (título)
-		JTextArea title = new JTextArea("L2JDev Database Panel");
-		title.setEditable(false);
-		title.setOpaque(false);
-		title.setForeground(new Color(235, 235, 235));
-		title.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		title.setFocusable(false);
+		final Font h1 = new Font("Segoe UI", Font.BOLD, 18);
+		final Font h2 = new Font("Segoe UI", Font.PLAIN, 12);
+		final Font body = new Font("Segoe UI", Font.PLAIN, 12);
 		
-		JTextArea subtitle = new JTextArea("Ferramenta de banco de dados focada em servidores L2J");
-		subtitle.setEditable(false);
-		subtitle.setOpaque(false);
-		subtitle.setForeground(new Color(175, 175, 175));
-		subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		subtitle.setFocusable(false);
+		final Window owner = SwingUtilities.getWindowAncestor(parent);
+		final JDialog dlg = new JDialog(owner, "Sobre - L2JDev Database Panel", JDialog.ModalityType.APPLICATION_MODAL);
+		dlg.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		final List<Image> icons = new ArrayList<>();
+		icons.add(new ImageIcon(".." + File.separator + "images" + File.separator + "l2jdev_16x16.png").getImage());
+		icons.add(new ImageIcon(".." + File.separator + "images" + File.separator + "l2jdev_32x32.png").getImage());
+		dlg.setIconImages(icons);
 		
-		JPanel header = new JPanel(new BorderLayout());
+		JPanel root = new JPanel(new BorderLayout(16, 16));
+		root.setBackground(bg);
+		root.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
+		
+		// ===== Header (logo + title/subtitle) =====
+		JPanel header = new JPanel(new BorderLayout(12, 0));
 		header.setOpaque(false);
-		header.add(title, BorderLayout.NORTH);
-		header.add(subtitle, BorderLayout.SOUTH);
 		
-		// Corpo (texto)
-		JTextArea body = new JTextArea("Desenvolvedor: BAN - L2JDEV\n\n" + "Objetivo:\n" + "Uma alternativa leve e direta para administrar bases L2J,\n" + "com foco em segurança e produtividade.\n\n" + "Principais recursos:\n" + "• Listagem e visualização de tabelas com paginação\n" + "• Edição segura por PRIMARY KEY (quando disponível)\n" + "• Execução de arquivos .sql e instalador integrado\n" + "• Compatível com MariaDB / MySQL\n\n" + "Ambiente:\n" + "• Java 11+\n");
-		body.setEditable(false);
-		body.setOpaque(false);
-		body.setForeground(new Color(210, 210, 210));
-		body.setFont(new Font("Consolas", Font.PLAIN, 12));
-		body.setFocusable(false);
+		JLabel logo = new JLabel("DB");
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setVerticalAlignment(SwingConstants.CENTER);
+		logo.setForeground(text);
+		logo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		logo.setOpaque(true);
+		logo.setBackground(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 45));
+		logo.setBorder(BorderFactory.createLineBorder(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 110), 1));
+		logo.setPreferredSize(new Dimension(42, 42));
 		
-		// Links clicáveis
-		JComponent githubLink = linkLabel("GitHub: " + GITHUB_URL, GITHUB_URL, parent);
-		JComponent whatsappLink = linkLabel("WhatsApp: +55 64 9 8408-3891", WHATSAPP_URL, parent);
+		JPanel titleBox = new JPanel();
+		titleBox.setOpaque(false);
+		titleBox.setLayout(new BorderLayout(0, 4));
 		
-		JPanel links = new JPanel(new BorderLayout(0, 6));
-		links.setOpaque(false);
-		links.add(githubLink, BorderLayout.NORTH);
-		links.add(whatsappLink, BorderLayout.SOUTH);
+		JLabel title = new JLabel("L2JDev Database Panel");
+		title.setFont(h1);
+		title.setForeground(text);
 		
-		// Botões (CTA)
-		JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
-		buttons.setOpaque(false);
+		JLabel subtitle = new JLabel("Administração de banco de dados para servidores L2J — rápido, seguro e direto.");
+		subtitle.setFont(h2);
+		subtitle.setForeground(muted);
 		
-		JButton btnGithub = primaryButton("Abrir GitHub");
-		btnGithub.addActionListener(e -> openUrl(parent, GITHUB_URL, "GitHub"));
+		titleBox.add(title, BorderLayout.NORTH);
+		titleBox.add(subtitle, BorderLayout.SOUTH);
 		
-		JButton btnWhatsapp = accentButton("Falar no WhatsApp");
-		btnWhatsapp.addActionListener(e -> openUrl(parent, WHATSAPP_URL, "WhatsApp"));
+		header.add(logo, BorderLayout.WEST);
+		header.add(titleBox, BorderLayout.CENTER);
 		
-		// Observação: vamos fechar pelo JOptionPane return, então o Fechar pode só fechar pelo OK,
-		// mas deixo o botão como "conforto visual".
+		// ===== Content grid (cards) =====
+		JPanel grid = new JPanel(new GridBagLayout());
+		grid.setOpaque(false);
 		
-		buttons.add(btnGithub);
-		buttons.add(btnWhatsapp);
+		GridBagConstraints gc = new GridBagConstraints();
+		gc.gridx = 0;
+		gc.gridy = 0;
+		gc.weightx = 1.0;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.insets = new Insets(0, 0, 12, 0);
 		
-		JPanel center = new JPanel(new BorderLayout(0, 10));
-		center.setOpaque(false);
-		center.add(body, BorderLayout.CENTER);
-		center.add(links, BorderLayout.SOUTH);
+		// Card: Overview
+		JPanel overview = card(panel, line);
+		overview.setLayout(new BorderLayout(0, 10));
+		overview.add(cardTitle("Resumo", text), BorderLayout.NORTH);
+		
+		JTextArea overviewText = new JTextArea("Ferramenta focada em produtividade no dia a dia do admin:\n" + "• Paginação e busca visual por tabelas\n" + "• Edição segura via PRIMARY KEY (quando disponível)\n" + "• Execução de .sql e instalador integrado (tools/sql)\n" + "• Compatível com MariaDB / MySQL\n");
+		styleTextArea(overviewText, surface, text, body, line);
+		overview.add(overviewText, BorderLayout.CENTER);
+		
+		grid.add(overview, gc);
+		
+		// Card: Developer / Runtime
+		gc.gridy++;
+		JPanel meta = card(panel, line);
+		meta.setLayout(new GridBagLayout());
+		
+		GridBagConstraints mc = new GridBagConstraints();
+		mc.gridx = 0;
+		mc.gridy = 0;
+		mc.weightx = 1;
+		mc.fill = GridBagConstraints.HORIZONTAL;
+		mc.insets = new Insets(0, 0, 8, 0);
+		
+		meta.add(cardTitle("Informações", text), mc);
+		
+		mc.gridy++;
+		meta.add(metaRow("Desenvolvedor", "BAN - L2JDEV", text, muted, body), mc);
+		
+		mc.gridy++;
+		meta.add(metaRow("Ambiente", "Java 11+", text, muted, body), mc);
+		
+		mc.gridy++;
+		meta.add(metaRow("Foco", "Segurança • Organização • Produtividade", text, muted, body), mc);
+		
+		grid.add(meta, gc);
+		
+		// Card: Links
+		gc.gridy++;
+		gc.insets = new Insets(0, 0, 0, 0);
+		
+		JPanel links = card(panel, line);
+		links.setLayout(new BorderLayout(0, 10));
+		links.add(cardTitle("Contato e Links", text), BorderLayout.NORTH);
+		
+		JPanel linkList = new JPanel();
+		linkList.setOpaque(false);
+		linkList.setLayout(new BorderLayout(0, 8));
+		
+		linkList.add(linkRow("GitHub", "github.com/JulioPradoL2j", GITHUB_URL, parent, text, muted, accent, body), BorderLayout.NORTH);
+		linkList.add(linkRow("WhatsApp", "+55 64 9 8408-3891", WHATSAPP_URL, parent, text, muted, accent, body), BorderLayout.SOUTH);
+		
+		links.add(linkList, BorderLayout.CENTER);
+		
+		grid.add(links, gc);
+		
+		// ===== Footer actions =====
+		JPanel footer = new JPanel(new BorderLayout());
+		footer.setOpaque(false);
+		
+		JPanel leftHint = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		leftHint.setOpaque(false);
+		JLabel hint = new JLabel("Dica: clique nos links para abrir no navegador.");
+		hint.setForeground(new Color(muted.getRed(), muted.getGreen(), muted.getBlue(), 200));
+		hint.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		leftHint.add(hint);
+		
+		JPanel actions = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+		actions.setOpaque(false);
+		
+		// use o seu tema (RoundedButtonUI) automaticamente
+		JButton btnGit = themedButton("Abrir GitHub");
+		btnGit.addActionListener(e -> openUrl(parent, GITHUB_URL, "GitHub"));
+		
+		JButton btnZap = themedButton("Falar no WhatsApp");
+		// dá um “accent” leve sem quebrar o tema: clientProperty opcional
+		btnZap.putClientProperty("l2jdev.variant", "accent");
+		btnZap.addActionListener(e -> openUrl(parent, WHATSAPP_URL, "WhatsApp"));
+		
+		JButton ok = themedButton("OK");
+		ok.addActionListener(e -> dlg.dispose());
+		
+		actions.add(btnGit);
+		actions.add(btnZap);
+		actions.add(Box.createHorizontalStrut(6));
+		actions.add(ok);
+		
+		footer.add(leftHint, BorderLayout.WEST);
+		footer.add(actions, BorderLayout.EAST);
 		
 		root.add(header, BorderLayout.NORTH);
-		root.add(center, BorderLayout.CENTER);
-		root.add(buttons, BorderLayout.SOUTH);
+		root.add(grid, BorderLayout.CENTER);
+		root.add(footer, BorderLayout.SOUTH);
 		
-		UIManager.put("OptionPane.background", new Color(0x0F, 0x12, 0x16));
-		UIManager.put("Panel.background", new Color(0x0F, 0x12, 0x16));
-		
-		JOptionPane.showMessageDialog(parent, root, "Sobre - L2JDev Database Panel", JOptionPane.INFORMATION_MESSAGE);
+		dlg.setContentPane(root);
+		dlg.setMinimumSize(new Dimension(760, 620));
+		dlg.setLocationRelativeTo(parent);
+		dlg.setVisible(true);
 	}
 	
-	private static JComponent linkLabel(String text, String url, Component parent)
+	// =====================================================================================
+	// UI helpers
+	// =====================================================================================
+	private static JPanel card(Color bg, Color line)
 	{
-		JTextArea t = new JTextArea(text);
+		JPanel p = new JPanel();
+		p.setBackground(bg);
+		p.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(line.getRed(), line.getGreen(), line.getBlue(), 160), 1), BorderFactory.createEmptyBorder(12, 12, 12, 12)));
+		return p;
+	}
+	
+	private static JLabel cardTitle(String title, Color fg)
+	{
+		JLabel l = new JLabel(title);
+		l.setForeground(fg);
+		l.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		return l;
+	}
+	
+	private static void styleTextArea(JTextArea t, Color bg, Color fg, Font font, Color line)
+	{
 		t.setEditable(false);
-		t.setOpaque(false);
+		t.setFocusable(false);
+		t.setOpaque(true);
+		t.setBackground(bg);
+		t.setForeground(fg);
+		t.setFont(font);
 		t.setLineWrap(true);
 		t.setWrapStyleWord(true);
-		t.setForeground(new Color(130, 175, 255));
-		t.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		t.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		t.setFocusable(false);
-		t.setAlignmentX(SwingConstants.LEFT);
+		t.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(line.getRed(), line.getGreen(), line.getBlue(), 140), 1), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+	}
+	
+	private static JPanel metaRow(String k, String v, Color text, Color muted, Font font)
+	{
+		JPanel row = new JPanel(new BorderLayout(10, 0));
+		row.setOpaque(false);
 		
-		t.addMouseListener(new MouseAdapter()
+		JLabel lk = new JLabel(k + ":");
+		lk.setForeground(muted);
+		lk.setFont(font);
+		
+		JLabel lv = new JLabel(v);
+		lv.setForeground(text);
+		lv.setFont(font);
+		
+		row.add(lk, BorderLayout.WEST);
+		row.add(lv, BorderLayout.CENTER);
+		return row;
+	}
+	
+	private static JPanel linkRow(String title, String label, String url, Component parent, Color text, Color muted, Color accent, Font font)
+	{
+		JPanel row = new JPanel(new BorderLayout(10, 0));
+		row.setOpaque(false);
+		
+		JLabel lt = new JLabel(title + ":");
+		lt.setForeground(muted);
+		lt.setFont(font);
+		
+		JLabel link = new JLabel(label);
+		link.setForeground(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 235));
+		link.setFont(font);
+		link.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		link.addMouseListener(new MouseAdapter()
 		{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				openUrl(parent, url, "Link");
+				openUrl(parent, url, title);
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e)
 			{
-				t.setForeground(new Color(170, 205, 255));
+				link.setForeground(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 255));
 			}
 			
 			@Override
 			public void mouseExited(MouseEvent e)
 			{
-				t.setForeground(new Color(130, 175, 255));
+				link.setForeground(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 235));
 			}
 		});
 		
-		return t;
+		row.add(lt, BorderLayout.WEST);
+		row.add(link, BorderLayout.CENTER);
+		return row;
 	}
 	
-	private static JButton primaryButton(String text)
+	private static JButton themedButton(String text)
 	{
 		JButton b = new JButton(text);
 		b.setFocusPainted(false);
-		b.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		b.setForeground(new Color(245, 245, 245));
-		b.setBackground(new Color(70, 110, 255));
-		b.setBorder(BorderFactory.createEmptyBorder(8, 14, 8, 14));
 		b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		b.setOpaque(true);
+		
+		// deixa o seu RoundedButtonUI fazer o trabalho
+		b.setOpaque(false);
+		b.setContentAreaFilled(false);
 		b.setBorderPainted(false);
+		
+		// fontes do tema (se existir)
+		Font f = UIManager.getFont("Button.font");
+		if (f != null)
+			b.setFont(f);
+		
 		return b;
 	}
 	
-	private static JButton accentButton(String text)
+	private static Color getColor(String key, Color fallback)
 	{
-		JButton b = new JButton(text);
-		b.setFocusPainted(false);
-		b.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		b.setForeground(new Color(20, 20, 20));
-		b.setBackground(new Color(255, 180, 60));
-		b.setBorder(BorderFactory.createEmptyBorder(8, 14, 8, 14));
-		b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		b.setOpaque(true);
-		b.setBorderPainted(false);
-		return b;
+		Color c = UIManager.getColor(key);
+		return (c != null) ? c : fallback;
 	}
 	
 	private static void openUrl(Component parent, String url, String label)
@@ -217,7 +364,7 @@ public final class MenuBarPanel extends JMenuBar
 		{
 			if (!Desktop.isDesktopSupported() || !Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))
 			{
-				JOptionPane.showMessageDialog(parent, "Não foi possível abrir automaticamente.\n\n" + label + ":\n" + url, "Abrir link", JOptionPane.INFORMATION_MESSAGE);
+				javax.swing.JOptionPane.showMessageDialog(parent, "Não foi possível abrir automaticamente.\n\n" + label + ":\n" + url, "Abrir link", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}
 			
@@ -225,7 +372,7 @@ public final class MenuBarPanel extends JMenuBar
 		}
 		catch (Exception e)
 		{
-			JOptionPane.showMessageDialog(parent, "Falha ao abrir o link.\n\n" + label + ":\n" + url + "\n\nDetalhes: " + e.getMessage(), "Erro ao abrir link", JOptionPane.ERROR_MESSAGE);
+			javax.swing.JOptionPane.showMessageDialog(parent, "Falha ao abrir o link.\n\n" + label + ":\n" + url + "\n\nDetalhes: " + e.getMessage(), "Erro ao abrir link", javax.swing.JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
