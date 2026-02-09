@@ -242,7 +242,7 @@ public class PcInventory extends Inventory
 		List<ItemInstance> list = new ArrayList<>();
 		for (ItemInstance item : _items)
 		{
-		//	if (item != null && item.isAvailable(getOwner(), allowAdena, allowNonTradeable))
+			// if (item != null && item.isAvailable(getOwner(), allowAdena, allowNonTradeable))
 			if (item != null && item.isAvailable(getOwner(), allowAdena, allowNonTradeable) && canManipulateWithItemId(item.getItemId()))
 				list.add(item);
 		}
@@ -276,8 +276,6 @@ public class PcInventory extends Inventory
 		{
 			if (item != null && item.isAvailable(getOwner(), false, false))
 			{
-				if (_owner.getFakeWeaponObjectId() == item.getObjectId())
-					continue;
 				
 				TradeItem adjItem = tradeList.adjustAvailableItem(item);
 				if (adjItem != null)
@@ -402,10 +400,9 @@ public class PcInventory extends Inventory
 		
 		if (TimeItemData.getInstance().isTimedItem(item.getItemId()))
 		{
-		    TimedItemManager.getInstance().setTimed(item);
+			TimedItemManager.getInstance().setTimed(item);
 		}
-
-
+		
 		DollsTable.getSkillRune(actor, item);
 		return item;
 	}
@@ -445,7 +442,7 @@ public class PcInventory extends Inventory
 		}
 		if (TimeItemData.getInstance().isTimedItem(item.getItemId()))
 		{
-		    TimedItemManager.getInstance().setTimed(item);
+			TimedItemManager.getInstance().setTimed(item);
 		}
 		if (itemId == ADENA_ID && actor != null && actor.isAutoGb())
 		{
@@ -477,10 +474,9 @@ public class PcInventory extends Inventory
 		
 		if (TimeItemData.getInstance().isTimedItem(item.getItemId()))
 		{
-		    TimedItemManager.getInstance().setTimed(item);
+			TimedItemManager.getInstance().setTimed(item);
 		}
-
-
+		
 		DollsTable.getSkillRune(actor, item);
 		return item;
 	}
@@ -508,70 +504,68 @@ public class PcInventory extends Inventory
 	 * @return ItemInstance corresponding to the destroyed item or the updated item in inventory
 	 */
 	@Override
-//	public ItemInstance destroyItem(String process, ItemInstance item, int count, L2PcInstance actor, L2Object reference)
-//	{
-//		item = super.destroyItem(process, item, count, actor, reference);
-//		
-//		if (_adena != null && _adena.getCount() <= 0)
-//			_adena = null;
-//		
-//		if (_ancientAdena != null && _ancientAdena.getCount() <= 0)
-//			_ancientAdena = null;
-//		
-//		return item;
-//	}
+	// public ItemInstance destroyItem(String process, ItemInstance item, int count, L2PcInstance actor, L2Object reference)
+	// {
+	// item = super.destroyItem(process, item, count, actor, reference);
+	//
+	// if (_adena != null && _adena.getCount() <= 0)
+	// _adena = null;
+	//
+	// if (_ancientAdena != null && _ancientAdena.getCount() <= 0)
+	// _ancientAdena = null;
+	//
+	// return item;
+	// }
 	public ItemInstance destroyItem(String process, ItemInstance item, int count, Player actor, L2Object reference)
 	{
-	    if (item != null && DollsTable.getInstance().isRuneById(item.getItemId())) 
-	    {
-	        // Pega o skillId do item que está sendo destruído
-	        int skillId = DollsTable.getInstance().getRuneById(item.getItemId()).getSkillId();
-
-	        // Conta quantas Dolls com o mesmo skillId o jogador tem no inventário ANTES de destruir o item
-	        int dollCountBeforeDeletion = 0;
-	        for (ItemInstance runeItem : actor.getInventory().getItems()) 
-	        {
-	            if (DollsTable.getInstance().isRuneById(runeItem.getItemId()) &&
-	                DollsTable.getInstance().getRuneById(runeItem.getItemId()).getSkillId() == skillId) 
-	            {
-	                dollCountBeforeDeletion++; // Conta as Dolls com o mesmo skillId
-	            }
-	        }
-
-	        // Destrói o item, mesmo que seja Agathion ou não
-	        item = super.destroyItem(process, item, count, actor, reference);
-
-	        // Conta quantas Dolls com o mesmo skillId o jogador tem no inventário DEPOIS de destruir o item
-	        int dollCountAfterDeletion = 0;
-	        for (ItemInstance runeItem : actor.getInventory().getItems()) 
-	        {
-	            if (DollsTable.getInstance().isRuneById(runeItem.getItemId()) &&
-	                DollsTable.getInstance().getRuneById(runeItem.getItemId()).getSkillId() == skillId) 
-	            {
-	                dollCountAfterDeletion++; // Conta as Dolls restantes
-	            }
-	        }
-
-	        // Se não houver mais Dolls com o mesmo skillId no inventário, remove a skill
-	        if (dollCountBeforeDeletion > 0 && dollCountAfterDeletion == 0) 
-	        {
-	            DollsTable.removeRuneSkills(actor, item); // Remove a skill associada
-	        }
-	    } 
-	    else 
-	    {
-	        // Caso o item não seja um "Rune", apenas destrua normalmente
-	        item = super.destroyItem(process, item, count, actor, reference);
-	    }
-
-	    // Atualiza os valores de adena e ancientAdena
-	    if (_adena != null && _adena.getCount() <= 0)
-	        _adena = null;
-
-	    if (_ancientAdena != null && _ancientAdena.getCount() <= 0)
-	        _ancientAdena = null;
-
-	    return item;
+		if (item != null && DollsTable.getInstance().isRuneById(item.getItemId()))
+		{
+			// Pega o skillId do item que está sendo destruído
+			int skillId = DollsTable.getInstance().getRuneById(item.getItemId()).getSkillId();
+			
+			// Conta quantas Dolls com o mesmo skillId o jogador tem no inventário ANTES de destruir o item
+			int dollCountBeforeDeletion = 0;
+			for (ItemInstance runeItem : actor.getInventory().getItems())
+			{
+				if (DollsTable.getInstance().isRuneById(runeItem.getItemId()) && DollsTable.getInstance().getRuneById(runeItem.getItemId()).getSkillId() == skillId)
+				{
+					dollCountBeforeDeletion++; // Conta as Dolls com o mesmo skillId
+				}
+			}
+			
+			// Destrói o item, mesmo que seja Agathion ou não
+			item = super.destroyItem(process, item, count, actor, reference);
+			
+			// Conta quantas Dolls com o mesmo skillId o jogador tem no inventário DEPOIS de destruir o item
+			int dollCountAfterDeletion = 0;
+			for (ItemInstance runeItem : actor.getInventory().getItems())
+			{
+				if (DollsTable.getInstance().isRuneById(runeItem.getItemId()) && DollsTable.getInstance().getRuneById(runeItem.getItemId()).getSkillId() == skillId)
+				{
+					dollCountAfterDeletion++; // Conta as Dolls restantes
+				}
+			}
+			
+			// Se não houver mais Dolls com o mesmo skillId no inventário, remove a skill
+			if (dollCountBeforeDeletion > 0 && dollCountAfterDeletion == 0)
+			{
+				DollsTable.removeRuneSkills(actor, item); // Remove a skill associada
+			}
+		}
+		else
+		{
+			// Caso o item não seja um "Rune", apenas destrua normalmente
+			item = super.destroyItem(process, item, count, actor, reference);
+		}
+		
+		// Atualiza os valores de adena e ancientAdena
+		if (_adena != null && _adena.getCount() <= 0)
+			_adena = null;
+		
+		if (_ancientAdena != null && _ancientAdena.getCount() <= 0)
+			_ancientAdena = null;
+		
+		return item;
 	}
 	
 	/**
@@ -766,13 +760,18 @@ public class PcInventory extends Inventory
 	{
 		return getClass().getSimpleName() + "[" + _owner + "]";
 	}
-
+	
 	public void blockAllItems()
 	{
 		// temp fix, some id must be sended
-		setInventoryBlock(new int[]{(ItemTable.getInstance().getArraySize() + 2)}, 1);
+		setInventoryBlock(new int[]
+		{
+			(ItemTable.getInstance().getArraySize() + 2)
+		}, 1);
 	}
+	
 	private int _blockMode = -1;
+	
 	/**
 	 * Set inventory block for specified IDs<br>
 	 * array reference is used for {@link PcInventory#_blockItems}
@@ -786,7 +785,9 @@ public class PcInventory extends Inventory
 		
 		_owner.sendPacket(new ItemList(_owner, false));
 	}
+	
 	private int[] _blockItems = null;
+	
 	/**
 	 * Check if player inventory is in block mode.
 	 * @return true if some itemIds blocked
@@ -795,6 +796,7 @@ public class PcInventory extends Inventory
 	{
 		return (_blockMode > -1 && _blockItems != null && _blockItems.length > 0);
 	}
+	
 	/**
 	 * Return block mode
 	 * @return int {@link PcInventory#_blockMode}
@@ -812,6 +814,7 @@ public class PcInventory extends Inventory
 	{
 		return _blockItems;
 	}
+	
 	/**
 	 * Unblock blocked itemIds
 	 */
@@ -822,6 +825,7 @@ public class PcInventory extends Inventory
 		
 		_owner.sendPacket(new ItemList(_owner, false));
 	}
+	
 	/**
 	 * Check if player can use item by itemid
 	 * @param itemId int
@@ -833,7 +837,7 @@ public class PcInventory extends Inventory
 			return false;
 		return true;
 	}
-
+	
 	public ItemInstance[] getItemsIcon()
 	{
 		synchronized (_items)

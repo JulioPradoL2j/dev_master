@@ -1,7 +1,6 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.dresmee.DressMe;
 import net.sf.l2j.event.ctf.CTFConfig;
 import net.sf.l2j.event.ctf.CTFEvent;
 import net.sf.l2j.event.fortress.FOSConfig;
@@ -22,12 +21,12 @@ public class CharInfo extends L2GameServerPacket
 {
 	private final Player _activeChar;
 	private final Inventory _inv;
-	private final int _fakeWeaponItemId;
+	
 	public CharInfo(Player cha)
 	{
 		_activeChar = cha;
 		_inv = _activeChar.getInventory();
-		_fakeWeaponItemId = _activeChar.getFakeWeaponItemId();
+		
 	}
 	
 	@Override
@@ -39,7 +38,7 @@ public class CharInfo extends L2GameServerPacket
 		
 		if (getClient() == null)
 			return; // Ou outro tratamento adequado
-		
+			
 		boolean gmSeeInvis = false;
 		
 		if (_activeChar.getAppearance().getInvisible())
@@ -50,14 +49,14 @@ public class CharInfo extends L2GameServerPacket
 		}
 		if (player.isHidingPlayers() && _activeChar.isInsideZone(ZoneId.PEACE))
 			return;
-	
+		
 		writeC(0x03);
 		writeD(_activeChar.getX());
 		writeD(_activeChar.getY());
 		writeD(_activeChar.getZ());
 		writeD(_activeChar.getHeading());
 		writeD(_activeChar.getObjectId());
-		if(_activeChar.isInsideZone(ZoneId.PVP_CUSTOM) && Config.ENABLE_NAME_TITLE_PVPEVENT && PvPEvent.getInstance().isActive())
+		if (_activeChar.isInsideZone(ZoneId.PVP_CUSTOM) && Config.ENABLE_NAME_TITLE_PVPEVENT && PvPEvent.getInstance().isActive())
 		{
 			writeS(Config.STRING_NAME_PVPEVENT);
 		}
@@ -91,24 +90,24 @@ public class CharInfo extends L2GameServerPacket
 		}
 		else if (_activeChar.isInTVTEvent())
 		{
-		    byte playerTeamId = TvTEvent.getParticipantTeamId(_activeChar.getObjectId());
-
-		    TvTAreasLoader.Area chosenArea = TvTEvent.getChosenArea(); // acesso à área atual
-		    String team1Name = (chosenArea != null) ? chosenArea.team1Name : "Team 1";
-		    String team2Name = (chosenArea != null) ? chosenArea.team2Name : "Team 2";
-
-		    if (playerTeamId == 0)
-		        writeS("Team " + team2Name); // troca aqui
-		    else if (playerTeamId == 1)
-		        writeS("Team " + team1Name);
-
+			byte playerTeamId = TvTEvent.getParticipantTeamId(_activeChar.getObjectId());
+			
+			TvTAreasLoader.Area chosenArea = TvTEvent.getChosenArea(); // acesso à área atual
+			String team1Name = (chosenArea != null) ? chosenArea.team1Name : "Team 1";
+			String team2Name = (chosenArea != null) ? chosenArea.team2Name : "Team 2";
+			
+			if (playerTeamId == 0)
+				writeS("Team " + team2Name); // troca aqui
+			else if (playerTeamId == 1)
+				writeS("Team " + team1Name);
+			
 		}
-
+		
 		else
 		{
 			writeS(_activeChar.getName());
 		}
-	//	writeS(_activeChar.getName());
+		// writeS(_activeChar.getName());
 		writeD(_activeChar.getRace().ordinal());
 		writeD(_activeChar.getAppearance().getSex().ordinal());
 		
@@ -117,66 +116,20 @@ public class CharInfo extends L2GameServerPacket
 		else
 			writeD(_activeChar.getBaseClass());
 		
-	/*	if (_activeChar.isDressMeHelmEnabled()) //Capatece Skin type All Slots
-		{
-			writeD(_activeChar.getDress() == null ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL) : (_activeChar.getDress().getHairId() == 0 ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL) : _activeChar.getDress().getHairId()));	
-		}
-		else
-		{
-			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
-		}
-		
+		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
-	//	writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
-		writeD(_fakeWeaponItemId == 0 ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND) : _fakeWeaponItemId);
+		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+		
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
-		if (_activeChar.isDressMeEnabled()) //Skins Luvas,Peito,Calsa,Botas
-		{
-			writeD(_activeChar.getDress() == null ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_GLOVES) : (_activeChar.getDress().getGlovesId() == 0 ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_GLOVES) : _activeChar.getDress().getGlovesId()));
-			writeD(_activeChar.getDress() == null ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_CHEST) : (_activeChar.getDress().getChestId() == 0 ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_CHEST) : _activeChar.getDress().getChestId()));
-			writeD(_activeChar.getDress() == null ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LEGS) : (_activeChar.getDress().getLegsId() == 0 ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LEGS) : _activeChar.getDress().getLegsId()));
-			writeD(_activeChar.getDress() == null ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FEET) : (_activeChar.getDress().getFeetId() == 0 ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FEET) : _activeChar.getDress().getFeetId()));
-		}
-		else
-		{
-			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
-			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
-			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
-			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
-		}
-		
+		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
+		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
+		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
+		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
-//		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
-		writeD(_fakeWeaponItemId == 0 ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND) : _fakeWeaponItemId);
-		if (_activeChar.isDressMeHelmEnabled()) //Capactes Skins slots hair e face
-		{
-			writeD(_activeChar.getDress() == null ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HAIR) : (_activeChar.getDress().getHairId() == 0 ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_HAIR) : _activeChar.getDress().getHairId()));	
-			writeD(_activeChar.getDress() == null ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE) : (_activeChar.getDress().getHairId() == 0 ? _activeChar.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_FACE) : _activeChar.getDress().getHairId()));	
-		}
-		else
-		{
-			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
-		}*/
+		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
 		
-
-		DressMe dress = _activeChar.getDress();
-	//	writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
-		writeD((dress == null) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL) : ((dress.getHairId() == 0) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL) : dress.getHairId()));	
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
-	//	writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
-		writeD(_fakeWeaponItemId == 0 ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND) : _fakeWeaponItemId);
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));	
-		writeD((dress == null) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES) : ((dress.getGlovesId() == 0) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES) : dress.getGlovesId()));
-		writeD((dress == null) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST) : ((dress.getChestId() == 0) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST) : dress.getChestId()));
-		writeD((dress == null) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS) : ((dress.getLegsId() == 0) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS) : dress.getLegsId()));
-		writeD((dress == null) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET) : ((dress.getFeetId() == 0) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET) : dress.getFeetId()));	
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
-	//	writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));	
-		writeD(_fakeWeaponItemId == 0 ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND) : _fakeWeaponItemId);
-		writeD((dress == null) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR) : ((dress.getHairId() == 0) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR) : dress.getHairId()));	
-		//writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
-		writeD((dress == null) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_FACE) : ((dress.getHairId() == 0) ? _inv.getPaperdollItemId(Inventory.PAPERDOLL_FACE) : dress.getHairId()));	
+		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
 		
 		// c6 new h's
 		writeH(0x00);
@@ -232,7 +185,7 @@ public class CharInfo extends L2GameServerPacket
 		}
 		else
 		{
-			if(Config.ENABLE_DWARF_WEAPON_SIZE)
+			if (Config.ENABLE_DWARF_WEAPON_SIZE)
 			{
 				writeF(_activeChar.getBaseTemplate().getCollisionRadius(_activeChar.getBaseTemplate().getRace()));
 				writeF(_activeChar.getBaseTemplate().getCollisionHeight());
@@ -240,7 +193,7 @@ public class CharInfo extends L2GameServerPacket
 			else
 			{
 				writeF(_activeChar.getCollisionRadius());
-				writeF(_activeChar.getCollisionHeight());	
+				writeF(_activeChar.getCollisionHeight());
 			}
 		}
 		
@@ -254,26 +207,25 @@ public class CharInfo extends L2GameServerPacket
 		}
 		else if (_activeChar.isInsideZone(ZoneId.PVP_CUSTOM) && Config.ENABLE_NAME_TITLE_PVPEVENT && PvPEvent.getInstance().isActive())
 		{
-		    int rank = PvPEvent.getPlayerRank(_activeChar);
-		    int kills = PvPEvent.getEventPvp(_activeChar);
-
-		    if (rank > 0 && kills > 0)
-		    {
-		        String title = "Rank - " + rank + " | Kills - " + kills;
-		        writeS(title); // Exibe visualmente sem alterar o título real
-		    }
-		    else
-		    {
-		        writeS(_activeChar.getTitle()); // Exibe o título original
-		    }
+			int rank = PvPEvent.getPlayerRank(_activeChar);
+			int kills = PvPEvent.getEventPvp(_activeChar);
+			
+			if (rank > 0 && kills > 0)
+			{
+				String title = "Rank - " + rank + " | Kills - " + kills;
+				writeS(title); // Exibe visualmente sem alterar o título real
+			}
+			else
+			{
+				writeS(_activeChar.getTitle()); // Exibe o título original
+			}
 		}
-
-
-		else if(_activeChar.isSellBuff())
+		
+		else if (_activeChar.isSellBuff())
 		{
 			writeS(Config.NEW_TITLE_SELLBUFF);
 		}
-		else if(Config.ENABLE_NEW_TITLE_AUTOFARM && _activeChar.isAutoFarm())
+		else if (Config.ENABLE_NEW_TITLE_AUTOFARM && _activeChar.isAutoFarm())
 		{
 			writeS(Config.NEW_TITLE_AUTOFARM);
 		}
@@ -342,11 +294,11 @@ public class CharInfo extends L2GameServerPacket
 		
 		if (gmSeeInvis)
 			writeD((_activeChar.getAbnormalEffect() | AbnormalEffect.STEALTH.getMask()));
-		else if(_activeChar.isAio() && Config.EFFECT_AIO_BUFF_CHARACTER)
+		else if (_activeChar.isAio() && Config.EFFECT_AIO_BUFF_CHARACTER)
 		{
 			writeD(_activeChar.getAbnormalEffect() | AbnormalEffect.FLAME.getMask());
 		}
-		else if(Config.PLAYER_SPAWN_PROTECTION > 0 && _activeChar.isSpawnProtected())
+		else if (Config.PLAYER_SPAWN_PROTECTION > 0 && _activeChar.isSpawnProtected())
 		{
 			writeD(0x400000);
 		}
@@ -360,13 +312,13 @@ public class CharInfo extends L2GameServerPacket
 		writeD(_activeChar.getMaxCp());
 		writeD((int) _activeChar.getCurrentCp());
 		if (player.isDisableGlowWeapon())
-			writeC(0); 
+			writeC(0);
 		else
-		writeC(_activeChar.isMounted() ? 0 : _activeChar.getEnchantEffect());
+			writeC(_activeChar.isMounted() ? 0 : _activeChar.getEnchantEffect());
 		
 		if (_activeChar.getTeam() == 1)
 			writeC(0x01); // team circle around feet 1= Blue, 2 = red
-		else if(Config.ENABLE_AURA_AUTOFARM && _activeChar.isAutoFarm())
+		else if (Config.ENABLE_AURA_AUTOFARM && _activeChar.isAutoFarm())
 			writeC(0x01);
 		else if (ArenaConfig.ENABLE_AURA_TOURNAMENT && _activeChar.isTeamTour1())
 		{
@@ -383,14 +335,14 @@ public class CharInfo extends L2GameServerPacket
 			
 		writeD(_activeChar.getClanCrestLargeId());
 		writeC(_activeChar.isNoble() ? 1 : 0); // Symbol on char menu ctrl+I
-	//	if (_activeChar.isHero() && (((TvT.is_started() || TvT.is_teleport()) && _activeChar._inEventTvT) || ((CTF.is_started() || CTF.is_teleport()) && _activeChar._inEventCTF)))
-	//	{
-	//		writeC(0x00);	
-	//	}
-	//	else
-	//	{
-			writeC((_activeChar.isHero() || (_activeChar.isGM() && Config.GM_HERO_AURA)) ? 1 : 0); // Hero Aura
-	//	}
+		// if (_activeChar.isHero() && (((TvT.is_started() || TvT.is_teleport()) && _activeChar._inEventTvT) || ((CTF.is_started() || CTF.is_teleport()) && _activeChar._inEventCTF)))
+		// {
+		// writeC(0x00);
+		// }
+		// else
+		// {
+		writeC((_activeChar.isHero() || (_activeChar.isGM() && Config.GM_HERO_AURA)) ? 1 : 0); // Hero Aura
+		// }
 		
 		writeC(_activeChar.isFishing() ? 1 : 0); // 0x01: Fishing Mode (Cant be undone by setting back to 0)
 		
@@ -417,7 +369,7 @@ public class CharInfo extends L2GameServerPacket
 			
 			if (playerTeamId == 0)
 				writeD(0xFF3500); // Blue
-			
+				
 			if (playerTeamId == 1)
 				writeD(0x0000F8); // Red
 		}
@@ -427,7 +379,7 @@ public class CharInfo extends L2GameServerPacket
 			
 			if (playerTeamId == 0)
 				writeD(0xFF3500); // Blue
-			
+				
 			if (playerTeamId == 1)
 				writeD(0x0000F8); // Red
 		}
@@ -437,11 +389,11 @@ public class CharInfo extends L2GameServerPacket
 			
 			if (playerTeamId == 0)
 				writeD(0xFF3500); // Blue
-			
+				
 			if (playerTeamId == 1)
 				writeD(0x0000F8); // Red
 		}
-		else if(_activeChar.isAio() && Config.ALLOW_AIO_NCOLOR)
+		else if (_activeChar.isAio() && Config.ALLOW_AIO_NCOLOR)
 		{
 			writeD(Config.AIO_NCOLOR);
 		}
@@ -455,11 +407,11 @@ public class CharInfo extends L2GameServerPacket
 		writeD(_activeChar.getPledgeClass());
 		writeD(_activeChar.getPledgeType());
 		
-		if(_activeChar.isAio() && Config.ALLOW_AIO_TCOLOR)
+		if (_activeChar.isAio() && Config.ALLOW_AIO_TCOLOR)
 		{
 			writeD(Config.AIO_TCOLOR);
 		}
-		else if(_activeChar.isSellBuff())
+		else if (_activeChar.isSellBuff())
 		{
 			writeD(0xFF00);
 		}

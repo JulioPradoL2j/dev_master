@@ -568,7 +568,7 @@ public final class ItemInstance extends L2Object implements Runnable
 	public boolean isAvailable(Player player, boolean allowAdena, boolean allowNonTradable)
 	{
 		return ((!isEquipped() && !(player.isActiveAgathion() && (Config.AGATHION_LISTID_RESTRICT.contains(Integer.valueOf(getItemId()))))) // Not equipped
-			&& (getObjectId() != player.getFakeWeaponObjectId()) // Equipped this Fake Weapon
+			
 			&& (getItem().getType2() != Item.TYPE2_QUEST) // Not Quest Item
 			&& (getItem().getType2() != Item.TYPE2_MONEY || getItem().getType1() != Item.TYPE1_SHIELD_ARMOR) // not money, not shield
 			&& (player.getPet() == null || getObjectId() != player.getPet().getControlItemId()) // Not Control item of currently summoned pet
@@ -1314,11 +1314,6 @@ public final class ItemInstance extends L2Object implements Runnable
 	public void unChargeAllShots()
 	{
 		_shotsMask = 0;
-	}
-	
-	public boolean isFakeWeapon()
-	{
-		return _item.isFakeWeapon();
 	}
 	
 	public void refreshTemplate()

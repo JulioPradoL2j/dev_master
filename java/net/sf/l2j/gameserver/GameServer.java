@@ -133,7 +133,6 @@ import net.sf.l2j.gameserver.instancemanager.custom.ChatBanManager;
 import net.sf.l2j.gameserver.instancemanager.custom.ChatGlobalManager;
 import net.sf.l2j.gameserver.instancemanager.custom.ChatHeroManager;
 import net.sf.l2j.gameserver.instancemanager.custom.ChatVipManager;
-import net.sf.l2j.gameserver.instancemanager.custom.DressMeData;
 import net.sf.l2j.gameserver.instancemanager.custom.EpicZoneManager;
 import net.sf.l2j.gameserver.instancemanager.custom.FarmZoneManager;
 import net.sf.l2j.gameserver.instancemanager.custom.HeroManagerCustom;
@@ -385,7 +384,7 @@ public class GameServer
 		StringUtil.printSection("Custom World");
 		IPManager.getInstance();
 		RouletteData.getInstance();
-		DressMeData.getInstance();
+		 
 		HeroManagerCustom.getInstance();
 		UpgradeItemData.getInstance();
 		DollsTable.getInstance();

@@ -3,8 +3,6 @@ package net.sf.l2j.gameserver.network.serverpackets;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.item.instance.ItemInfo;
 import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
 import net.sf.l2j.gameserver.model.item.kind.Item;
@@ -57,13 +55,7 @@ public class InventoryUpdate extends L2GameServerPacket
 				if (item != null)
 					_items.add(new ItemInfo(item));
 	}
-	private static boolean isHandpart(Item item)
-	{
-		if (item.getBodyPart() == Item.SLOT_R_HAND || item.getBodyPart() == Item.SLOT_LR_HAND)
-			return true;
-
-		return false;
-	}
+	
 	@Override
 	protected final void writeImpl()
 	{
@@ -75,23 +67,8 @@ public class InventoryUpdate extends L2GameServerPacket
 			if (temp == null || temp.getItem() == null)
 				continue;
 			
-			Player activeChar = L2World.getInstance().getPlayer(temp.getOwnerId());
-			
 			Item item = temp.getItem();
 			
-		/*	writeH(temp.getChange());
-			writeH(item.getType1());
-			writeD(temp.getObjectId());
-			writeD(item.getItemId());
-			writeD(temp.getCount());
-			writeH(item.getType2());
-			writeH(temp.getCustomType1());
-			writeH(temp.getEquipped());
-			writeD(item.getBodyPart());
-			writeH(temp.getEnchant());
-			writeH(temp.getCustomType2());
-			writeD(temp.getAugmentationBoni());
-			writeD(temp.getMana());*/
 			writeH(temp.getChange());
 			writeH(item.getType1());
 			writeD(temp.getObjectId());
@@ -100,38 +77,9 @@ public class InventoryUpdate extends L2GameServerPacket
 			writeH(item.getType2());
 			writeH(temp.getCustomType1());
 			
-			if (activeChar != null)
-			{
-				if (activeChar.getFakeWeaponObjectId() > 0)
-				{
-					if (temp.getObjectId() == activeChar.getFakeWeaponObjectId())
-						writeH(0x01);
-					else
-						writeH(temp.getEquipped());
-
-			//		if (temp.getObjectId() == activeChar.getFakeArmorObjectId())
-				//		writeD(item.isFakeArmor() ? Item.SLOT_ALLDRESS : item.getBodyPart());
-					if (temp.getObjectId() == activeChar.getFakeWeaponObjectId() && item.getBodyPart() == Item.SLOT_R_HAND)
-						writeD(item.isFakeWeapon() ? Item.SLOT_R_HAND : item.getBodyPart());
-					else if (temp.getObjectId() == activeChar.getFakeWeaponObjectId() && item.getBodyPart() == Item.SLOT_LR_HAND)
-						writeD(item.isFakeWeapon() ? Item.SLOT_LR_HAND : item.getBodyPart());
-					else if (isHandpart(item) && temp.getEquipped() == 1 && activeChar.getFakeWeaponObjectId() > 0)
-						writeD(99);
-					else
-						writeD(item.getBodyPart());
-				}
-				else
-				{
-					writeH(temp.getEquipped());
-					writeD(item.getBodyPart());
-				}
-			}
-			else
-			{
-				writeH(temp.getEquipped());
-				writeD(item.getBodyPart());
-			}
-
+			writeH(temp.getEquipped());
+			writeD(item.getBodyPart());
+			
 			writeH(temp.getEnchant());
 			writeH(temp.getCustomType2());
 			writeD(temp.getAugmentationBoni());

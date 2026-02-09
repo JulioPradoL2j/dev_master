@@ -1309,7 +1309,7 @@ public final class Config
 	public static boolean AUTO_MACRO_MENU;
 	public static boolean AUTO_MACRO_AUTOFARM;
 	/** Skins Variaveis */
-	public static boolean ENABLE_COMAND_SKIN;
+
 	public static int HERO_WEAPON_ENCHANT_LEVEL;
 	public static boolean ENABLE_HERO_WEAPON_ENCHANT;
 	
@@ -3903,9 +3903,7 @@ public final class Config
 		UNSTUCK_TIME = Integer.parseInt(newbiechar.getProperty("UnstuckTime", "0"));
 		NEW_PLAYER_EFFECT = Boolean.parseBoolean(newbiechar.getProperty("NewPlayerEffect", "false"));
 		ESPECIAL_VIP_LOGIN = Boolean.parseBoolean(newbiechar.getProperty("CharVipEffectLogin", "false"));
-		
-		ENABLE_COMAND_SKIN = Boolean.parseBoolean(newbiechar.getProperty("SkinCommandEnable", "false"));
-		
+ 
 		ALLOW_CUSTOM_CHAR_NOBLE = Boolean.parseBoolean(newbiechar.getProperty("CustomStartNobles", "False"));
 		STARTING_ADENA = newbiechar.getProperty("StartingAdena", 100);
 		ALLOW_CUSTOM_SPAWN_LOCATION = Boolean.parseBoolean(newbiechar.getProperty("AllowCustomSpawnLocation", "false"));

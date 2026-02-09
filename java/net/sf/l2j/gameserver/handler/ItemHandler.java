@@ -47,7 +47,6 @@ import net.sf.l2j.gameserver.handler.itemhandlers.custom.NoblesItem;
 import net.sf.l2j.gameserver.handler.itemhandlers.custom.OfflineClick;
 import net.sf.l2j.gameserver.handler.itemhandlers.custom.RoletaItem;
 import net.sf.l2j.gameserver.handler.itemhandlers.custom.SexCoin;
-import net.sf.l2j.gameserver.handler.itemhandlers.custom.Skins;
 import net.sf.l2j.gameserver.handler.itemhandlers.custom.TeleportBook;
 import net.sf.l2j.gameserver.handler.itemhandlers.custom.VipItemClick;
 import net.sf.l2j.gameserver.model.item.kind.EtcItem;
@@ -77,7 +76,6 @@ public class ItemHandler
 		registerItemHandler(new HeroItemClick());
 		registerItemHandler(new AugmentSkills());
 		registerItemHandler(new TeleportBook());
-		registerItemHandler(new Skins());
 		registerItemHandler(new RoletaItem());
 		registerItemHandler(new AllyNameChange());
 		registerItemHandler(new ClanFull());

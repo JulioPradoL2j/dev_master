@@ -1935,12 +1935,7 @@ public class FakePlayer extends Player
 				player.setVip(rset.getInt("vip") == 1 ? true : false);
 				player.setVipEndTime(rset.getLong("vip_end"));
 				
-				final int fakeWeapon = rset.getInt("fakeWeaponObjectId");
-				final ItemInstance weaponItem = player.getInventory().getItemByObjectId(fakeWeapon);
-				
-				player.setFakeWeaponObjectId(weaponItem != null ? fakeWeapon : 0);
-				player.setFakeWeaponItemId(weaponItem != null ? weaponItem.getItemId() : 0);
-				
+			 
 				player.setAio(rset.getInt("aio") == 1 ? true : false);
 				player.setAioEndTime(rset.getLong("aio_end"));
 				

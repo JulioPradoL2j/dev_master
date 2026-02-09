@@ -23,7 +23,6 @@ import net.sf.l2j.event.tvt.VoicedTvTEvent;
 import net.sf.l2j.gameserver.handler.custom.CustomBypassHandler;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.GainXpSpMod;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Repair;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.SkinsVIP;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.VoicedBanking;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.VoicedBossSpawn;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.VoicedBuffs;
@@ -137,10 +136,7 @@ public class VoicedCommandHandler
 		{
 			registerHandler(new VoicedBossSpawn());
 		}
-    	if(Config.ENABLE_COMAND_SKIN)
-    	{
-    		registerHandler(new SkinsVIP());
-    	}
+ 
     	if(Config.ENABLE_AUTO_FARM_COMMAND)
     	{
     		registerHandler(new VoicedAutofarm());	

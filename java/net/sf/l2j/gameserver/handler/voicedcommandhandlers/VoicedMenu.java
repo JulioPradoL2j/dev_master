@@ -2,10 +2,8 @@ package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.dresmee.DressMe;
 import net.sf.l2j.event.bossevent.KTBConfig;
 import net.sf.l2j.event.bossevent.KTBEvent;
 import net.sf.l2j.event.bossevent.KTBManager;
@@ -36,11 +34,9 @@ import net.sf.l2j.event.tvt.TvTEvent;
 import net.sf.l2j.events.eventpvp.PvPEvent;
 import net.sf.l2j.events.eventpvp.PvPEventNext;
 import net.sf.l2j.gameserver.GameServer;
-import net.sf.l2j.gameserver.ThreadPool;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.custom.AutoGoldBar;
-import net.sf.l2j.gameserver.instancemanager.custom.DressMeData;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
@@ -165,143 +161,7 @@ public class VoicedMenu implements IVoicedCommandHandler
 			}
 			showMenuHtml(activeChar);
 		}
-		else if (command.equals("skins"))
-		{
-			final DressMe dress = DressMeData.getInstance().getItemId(0);
-			activeChar.setDress(dress);
-			activeChar.broadcastUserInfo();
-		}
-		else if (command.equals("bp_changedressmestatus"))
-		{
-			if (activeChar.getDress() == null)
-			{
-				activeChar.sendMessage("you are not equipped with dressme");
-			}
-			else if (activeChar.isDressMeEnabled())
-			{
-				activeChar.setDressMeEnabled(false);
-				activeChar.broadcastUserInfo();
-			}
-			else
-			{
-				activeChar.setDressMeEnabled(true);
-				activeChar.broadcastUserInfo();
-			}
-			showMenuHtml(activeChar);
-		}
-		else if (command.startsWith("hair"))
-		{
-			
-			if (activeChar.getDress() == null)
-			{
-				activeChar.sendMessage("You are not wearing a skin.");
-				return false;
-			}
-			
-			if (activeChar.getDress() != null)
-			{
-				activeChar.getDress().setHairId(0);
-				activeChar.broadcastUserInfo();
-			}
-		}
-		else if (command.equals("disable_Helm"))
-		{
-			
-			if (!activeChar.isVip())
-			{
-				activeChar.sendMessage("Exclusive command for Vip's");
-			}
-			
-			DressMe dress = activeChar.getDress();
-			
-			if (activeChar.getDress() == null)
-			{
-				activeChar.sendMessage("you are not equipped with dressme.");
-				return false;
-			}
-			if (activeChar.getDress() != null)
-			{
-				dress.setHairId(0);
-				activeChar.broadcastUserInfo();
-			}
-		}
-		else if (command.equals("disable_skin"))
-		{
-			
-			if (!activeChar.isVip())
-			{
-				activeChar.sendMessage("Exclusive command for Vip's");
-			}
-			
-			if (activeChar.getDress() == null)
-			{
-				activeChar.sendMessage("you are not equipped with dressme.");
-				return false;
-			}
-			if (activeChar.getDress() != null)
-			{
-				activeChar.setDress(null);
-				activeChar.broadcastUserInfo();
-			}
-		}
-		else if (command.startsWith("trySkin"))
-			if (activeChar.isVip())
-			{
-				
-				StringTokenizer st = new StringTokenizer(command);
-				st.nextToken();
-				int skinId = Integer.parseInt(st.nextToken());
-				
-				final DressMe dress = DressMeData.getInstance().getItemId(skinId);
-				
-				if (dress != null)
-				{
-					activeChar.setDress(dress);
-					DressMeData.getInstance().reloadPL();
-					activeChar.broadcastUserInfo();
-				}
-				else
-				{
-					activeChar.sendMessage("Invalid skin.");
-					return false;
-				}
-			}
-			else
-			{
-				if (!activeChar.isInsideZone(ZoneId.TOWN))
-				{
-					activeChar.sendMessage("This command can only be used within a city.");
-					return false;
-				}
-				
-				if (activeChar.getDress() != null)
-				{
-					activeChar.sendMessage("Wait, you are experiencing a skin.");
-					return false;
-				}
-				
-				StringTokenizer st = new StringTokenizer(command);
-				st.nextToken();
-				int skinId = Integer.parseInt(st.nextToken());
-				
-				final DressMe dress = DressMeData.getInstance().getItemId(skinId);
-				final DressMe dress2 = DressMeData.getInstance().getItemId(0);
-				
-				if (dress != null)
-				{
-					activeChar.setDress(dress);
-					activeChar.broadcastUserInfo();
-					ThreadPool.schedule(() -> {
-						activeChar.setDress(dress2);
-						activeChar.broadcastUserInfo();
-					}, 3000L);
-				}
-				else
-				{
-					activeChar.sendMessage("Invalid skin.");
-					return false;
-				}
-			}
+		
 		else if (command.equalsIgnoreCase("setAutoGb"))
 		{
 			if (activeChar.isAutoGb())
@@ -316,29 +176,14 @@ public class VoicedMenu implements IVoicedCommandHandler
 			}
 			VoicedMenu.showMenuHtml(activeChar);
 		}
-		/*
-		 * else if (command.equalsIgnoreCase("setAutoPotion")) { if (activeChar.isAutoPotion()) { if (!userAcpMap.containsKey(activeChar.toString())) { activeChar.setAutoPotion(false); activeChar.sendMessage("Was not included"); } else { userAcpMap.remove(activeChar.toString()).interrupt(); //and
-		 * interrupt it activeChar.sendMessage("Auto Potion Disabled!"); activeChar.setAutoPotion(false); } } else { if(activeChar._inEventCTF && activeChar._haveFlagCTF) { activeChar.setAutoPotion(false); activeChar.sendMessage("nao e permitido usar Auto Potion Com arma Do CTF."); return false ; }
-		 * if(activeChar.isDead()) { activeChar.setAutoPotion(false); activeChar.sendMessage("nao e permitido usar Auto Potion morto."); return false ; } if(activeChar.isInOlympiadMode()) { activeChar.setAutoPotion(false); activeChar.sendMessage("nao e permitido usar Auto Potion nas Olympiadas.");
-		 * return false ; } if (!ACP_ON) { activeChar.sendMessage("The function is disabled on the server!"); return false; } if (userAcpMap.containsKey(activeChar.toString())) { activeChar.setAutoPotion(false); activeChar.sendMessage("Already included!"); } else { activeChar.setAutoPotion(true);
-		 * activeChar.sendMessage("Auto Potion Activated!"); Thread t = new Thread(new AcpHealer(activeChar)); userAcpMap.put(activeChar.toString(), t); t.start(); showMenuHtml(activeChar); return true; } } VoicedMenu.showMenuHtml(activeChar); }
-		 */
+		
 		else if (command.equals("mission"))
 		{
 			showMissionHtml(activeChar);
 		}
-		/*
-		 * else if (command.startsWith("multisell")) { try { activeChar.setIsUsingCMultisell(true); MultisellData.getInstance().separateAndSend(command.substring(9).trim(), activeChar, null, false); } catch (Exception e) { activeChar.sendMessage("This list does not exist."); } }
-		 */
+		
 		else if (command.equals("info_pt"))
 			showInfoPtHtml(activeChar);
-		
-		/*
-		 * else if (command.equals("vip")) { if (activeChar.isVip()) sendVipWindow(activeChar); else if(!activeChar.isVip()) activeChar.sendMessage("You are not VIP member."); }
-		 */
-		/*
-		 * else if (command.equals("hideSkillsAnimation")) { if (activeChar.isDisableSkillAnimation()) activeChar.setDisableSkillAnimation(false); else activeChar.setDisableSkillAnimation(true); showMenuHtml(activeChar); }
-		 */
 		
 		else if (command.equals("info_sp"))
 			showInfoSpHtml(activeChar);

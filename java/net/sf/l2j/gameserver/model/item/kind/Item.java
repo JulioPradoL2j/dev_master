@@ -12,8 +12,8 @@ import net.sf.l2j.gameserver.datatables.xml.IconTable;
 import net.sf.l2j.gameserver.instancemanager.custom.HeroManagerCustom;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.Creature;
-import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.L2Summon;
+import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.holder.IntIntHolder;
 import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
 import net.sf.l2j.gameserver.model.item.type.ActionType;
@@ -129,7 +129,7 @@ public abstract class Item
 		_materialType = set.getEnum("material", MaterialType.class, MaterialType.STEEL);
 		_duration = set.getInteger("duration", -1);
 		_bodyPart = ItemTable._slots.get(set.getString("bodypart", "none"));
-		if(Config.BLOCK_SELL_ITEMS_ADENA)
+		if (Config.BLOCK_SELL_ITEMS_ADENA)
 		{
 			_referencePrice = 0;
 		}
@@ -137,7 +137,7 @@ public abstract class Item
 		{
 			_referencePrice = set.getInteger("price", 0);
 		}
-		//_referencePrice = set.getInteger("price", 0);
+		// _referencePrice = set.getInteger("price", 0);
 		_crystalType = set.getEnum("crystal_type", CrystalType.class, CrystalType.NONE);
 		_crystalCount = set.getInteger("crystal_count", 0);
 		
@@ -147,7 +147,7 @@ public abstract class Item
 		_destroyable = set.getBool("is_destroyable", true);
 		_tradable = set.getBool("is_tradable", true);
 		_depositable = set.getBool("is_depositable", true);
-		_isfakeWeapon = set.getBool("is_fake_weapon", false);
+ 
 		_heroItem = (_itemId >= 6611 && _itemId <= 6621) || _itemId == 6842;
 		_isOlyRestricted = set.getBool("is_oly_restricted", false);
 		
@@ -291,10 +291,10 @@ public abstract class Item
 				case TYPE2_SHIELD_ARMOR:
 				case TYPE2_ACCESSORY:
 					return _crystalCount + getCrystalType().getCrystalEnchantBonusArmor() * (3 * enchantLevel - 6);
-					
+				
 				case TYPE2_WEAPON:
 					return _crystalCount + getCrystalType().getCrystalEnchantBonusWeapon() * (2 * enchantLevel - 3);
-					
+				
 				default:
 					return _crystalCount;
 			}
@@ -484,23 +484,23 @@ public abstract class Item
 			return false;
 		}
 		// Adicionando verificação para GM poder usar itens de herói, mesmo que não sejam herói.
-	    if (activeChar instanceof Player && !activeChar.getActingPlayer().isInOlympiadMode() && !isFakeWeapon())
-	    {
-	        Player player = (Player) activeChar;
-
-	        // Se o personagem for GM, ele pode usar itens de herói independentemente de ser herói
-	        if (player.isGM() || Config.PLAYERS_NORMAIS_USED_RESTRICTION_ITEMS)
-	        {
-	            return true; // Permite o uso do item de herói para GMs e quando Config esta true, todos jogadores podem usar items
-	        }
-	        
-	        // Bloqueia o uso de itens de herói para jogadores normais que não são heróis nem têm privilégios de herói
-	        if (!player.isHero() && !HeroManagerCustom.getInstance().hasHeroPrivileges(player.getObjectId()) && isHeroItem())
-	        {
-	         	activeChar.getActingPlayer().sendPacket(SystemMessageId.CANNOT_EQUIP_ITEM_DUE_TO_BAD_CONDITION);
-	            return false;
-	        }
-	    }
+		if (activeChar instanceof Player && !activeChar.getActingPlayer().isInOlympiadMode())
+		{
+			Player player = (Player) activeChar;
+			
+			// Se o personagem for GM, ele pode usar itens de herói independentemente de ser herói
+			if (player.isGM() || Config.PLAYERS_NORMAIS_USED_RESTRICTION_ITEMS)
+			{
+				return true; // Permite o uso do item de herói para GMs e quando Config esta true, todos jogadores podem usar items
+			}
+			
+			// Bloqueia o uso de itens de herói para jogadores normais que não são heróis nem têm privilégios de herói
+			if (!player.isHero() && !HeroManagerCustom.getInstance().hasHeroPrivileges(player.getObjectId()) && isHeroItem())
+			{
+				activeChar.getActingPlayer().sendPacket(SystemMessageId.CANNOT_EQUIP_ITEM_DUE_TO_BAD_CONDITION);
+				return false;
+			}
+		}
 		if (_preConditions == null)
 			return true;
 		
@@ -603,6 +603,7 @@ public abstract class Item
 	{
 		return _questEvents;
 	}
+	
 	public boolean searchItemByType(String itemType)
 	{
 		switch (itemType)
@@ -676,30 +677,31 @@ public abstract class Item
 		}
 		return false;
 	}
-	public String getIcon() 
+	
+	public String getIcon()
 	{
 		return IconTable.getIcon(getItemId());
 	}
 	
-	private final boolean _isfakeWeapon;
-	public boolean isFakeWeapon()
-	{
-		return _isfakeWeapon;
-	}
-
 	private final List<RewardHolder> _luckBoxRewards = new ArrayList<>();
-	public void addLuckBoxReward(RewardHolder reward) {
+	
+	public void addLuckBoxReward(RewardHolder reward)
+	{
 		_luckBoxRewards.add(reward);
 	}
-	public List<RewardHolder> getLuckBoxRewards() {
+	
+	public List<RewardHolder> getLuckBoxRewards()
+	{
 		return _luckBoxRewards;
 	}
-
+	
 	private List<RewardHolder> _boxRewards = new ArrayList<>();
+	
 	public void addBoxReward(RewardHolder reward)
 	{
 		_boxRewards.add(reward);
 	}
+	
 	public List<RewardHolder> getBoxRewards()
 	{
 		return _boxRewards.isEmpty() ? Collections.emptyList() : _boxRewards;

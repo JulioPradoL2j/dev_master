@@ -7,7 +7,6 @@ import net.sf.l2j.event.lastman.LMConfig;
 import net.sf.l2j.event.lastman.LMEvent;
 import net.sf.l2j.event.tournament.ArenaConfig;
 import net.sf.l2j.gameserver.ThreadPool;
-import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -44,23 +43,10 @@ public final class UseItem extends L2GameClientPacket
 	private int _objectId;
 	private boolean _ctrlPressed;
 	
-	/*public static class WeaponEquipTask implements Runnable
-	{
-		ItemInstance _item;
-		L2PcInstance _activeChar;
-		
-		public WeaponEquipTask(ItemInstance it, L2PcInstance character)
-		{
-			_item = it;
-			_activeChar = character;
-		}
-		
-		@Override
-		public void run()
-		{
-			_activeChar.useEquippableItem(_item, false);
-		}
-	}*/
+	/*
+	 * public static class WeaponEquipTask implements Runnable { ItemInstance _item; L2PcInstance _activeChar; public WeaponEquipTask(ItemInstance it, L2PcInstance character) { _item = it; _activeChar = character; }
+	 * @Override public void run() { _activeChar.useEquippableItem(_item, false); } }
+	 */
 	
 	@Override
 	protected void readImpl()
@@ -81,11 +67,11 @@ public final class UseItem extends L2GameClientPacket
 			return;
 		}
 		
-		//if (activeChar.isInStoreMode())
-		//{
-		//	activeChar.sendPacket(SystemMessageId.ITEMS_UNAVAILABLE_FOR_STORE_MANUFACTURE);
-		//	return;
-		//}
+		// if (activeChar.isInStoreMode())
+		// {
+		// activeChar.sendPacket(SystemMessageId.ITEMS_UNAVAILABLE_FOR_STORE_MANUFACTURE);
+		// return;
+		// }
 		
 		if (activeChar.getActiveTradeList() != null)
 		{
@@ -128,36 +114,35 @@ public final class UseItem extends L2GameClientPacket
 		}
 		// Check if the item is a timed item
 		long remainingTime = TimedItemManager.getInstance().getRemainingTime(item.getObjectId());
-		if (remainingTime > 0) 
+		if (remainingTime > 0)
 		{
-		    long days = remainingTime / (60 * 60 * 24);  // Dias
-		    long hours = (remainingTime % (60 * 60 * 24)) / (60 * 60);  // Horas
-		    long minutes = (remainingTime % (60 * 60)) / 60;  // Minutos
-		    long seconds = remainingTime % 60;  // Segundos
-
-		    activeChar.sendMessage("Your item will expire in " + days + " day(s), " + hours + " hour(s), " + minutes + " min(s), and " + seconds + " second(s).");
-		} 
-		else 
-		{
-		    // Verifica se o item tem configuração de tempo no XML
-		    if (TimeItemData.getInstance().isTimedItem(item.getItemId()))
-		    {
-		        activeChar.sendMessage("This item has expired.");
-		    }
+			long days = remainingTime / (60 * 60 * 24); // Dias
+			long hours = (remainingTime % (60 * 60 * 24)) / (60 * 60); // Horas
+			long minutes = (remainingTime % (60 * 60)) / 60; // Minutos
+			long seconds = remainingTime % 60; // Segundos
+			
+			activeChar.sendMessage("Your item will expire in " + days + " day(s), " + hours + " hour(s), " + minutes + " min(s), and " + seconds + " second(s).");
 		}
-
-
-		if(activeChar.isInOlympiadMode() && Config.LISTID_RESTRICT_OLY.contains(item.getItemId()))
+		else
 		{
-			activeChar.sendMessage("Can only be used -> " + item.getItemName() +" in Olympiad.");
+			// Verifica se o item tem configuração de tempo no XML
+			if (TimeItemData.getInstance().isTimedItem(item.getItemId()))
+			{
+				activeChar.sendMessage("This item has expired.");
+			}
+		}
+		
+		if (activeChar.isInOlympiadMode() && Config.LISTID_RESTRICT_OLY.contains(item.getItemId()))
+		{
+			activeChar.sendMessage("Can only be used -> " + item.getItemName() + " in Olympiad.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		
 		if (!(activeChar.isClanLeader()) && item.getItemId() == 6841 && !activeChar.isGM())
 		{
-		    activeChar.sendPacket(SystemMessageId.CANNOT_EQUIP_ITEM_DUE_TO_BAD_CONDITION);
-		    return;
+			activeChar.sendPacket(SystemMessageId.CANNOT_EQUIP_ITEM_DUE_TO_BAD_CONDITION);
+			return;
 		}
 		
 		if (LMEvent.isStarted() && LMEvent.isPlayerParticipant(activeChar.getObjectId()))
@@ -176,9 +161,9 @@ public final class UseItem extends L2GameClientPacket
 		}
 		if (Config.ALT_DISABLE_BOW_CLASSES)
 		{
-			if(item.getItem() instanceof Weapon && ((Weapon)item.getItem()).getItemType() == WeaponType.BOW && !activeChar.isGM() && !activeChar.isInOlympiadMode())
+			if (item.getItem() instanceof Weapon && ((Weapon) item.getItem()).getItemType() == WeaponType.BOW && !activeChar.isGM() && !activeChar.isInOlympiadMode())
 			{
-				if(Config.DISABLE_BOW_CLASSES.contains(activeChar.getClassId().getId()))
+				if (Config.DISABLE_BOW_CLASSES.contains(activeChar.getClassId().getId()))
 				{
 					activeChar.sendMessage("This item can not be equipped by your class");
 					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -187,7 +172,6 @@ public final class UseItem extends L2GameClientPacket
 			}
 		}
 		
-	
 		if (Config.NOTALLOWEDUSEHEAVY.contains(activeChar.getClassId().getId()) && !activeChar.isGM() && !activeChar.isInOlympiadMode() && Config.ENABLE_NO_USE_SETSOLY)
 		{
 			if (item.getItemType() == ArmorType.HEAVY)
@@ -225,10 +209,8 @@ public final class UseItem extends L2GameClientPacket
 			}
 		}
 		
-		
 		if (activeChar.isGM())
 			activeChar.sendPacket(new CreatureSay(0, Say2.PARTY, "", "{ID}  " + item.getItemId() + "   {NAME}  " + item.getItemName()));
-		
 		
 		if (!Config.KARMA_PLAYER_CAN_TELEPORT && activeChar.getKarma() > 0)
 		{
@@ -308,7 +290,7 @@ public final class UseItem extends L2GameClientPacket
 		}
 		if (!activeChar.getInventory().canManipulateWithItemId(item.getItemId()))
 			return;
-		if(!Config.LISTID_RESTRICT_OLY.contains(item.getItemId()) && activeChar.isInOlympiadMode())
+		if (!Config.LISTID_RESTRICT_OLY.contains(item.getItemId()) && activeChar.isInOlympiadMode())
 		{
 			if (Config.OLLY_GRADE_A && item.getItem().getCrystalType() == CrystalType.S && (activeChar.isInOlympiadMode() || activeChar.isOlympiadProtection() || OlympiadManager.getInstance().isRegistered(activeChar) || OlympiadManager.getInstance().isRegisteredInComp(activeChar)))
 			{
@@ -316,7 +298,7 @@ public final class UseItem extends L2GameClientPacket
 				return;
 			}
 		}
-		if(Config.BLOCK_REGISTER_ITEMS_OLYMPIAD_ENCHANT)
+		if (Config.BLOCK_REGISTER_ITEMS_OLYMPIAD_ENCHANT)
 		{
 			if (item.getEnchantLevel() > Config.ALT_OLY_ENCHANT_LIMIT && (activeChar.isInOlympiadMode() || activeChar.isOlympiadProtection() || OlympiadManager.getInstance().isRegistered(activeChar) || OlympiadManager.getInstance().isRegisteredInComp(activeChar)))
 			{
@@ -330,31 +312,33 @@ public final class UseItem extends L2GameClientPacket
 				return;
 		}
 		
-	//	if ((item.getItemId() == 8663 || item.getItemId() == 4422 || item.getItemId() == 4423 || item.getItemId() == 4424) && ((activeChar._inEventTvT && (TvT.is_teleport() || TvT.is_started())) || (activeChar._inEventCTF && (CTF.is_teleport() || CTF.is_started()))))
-	//		return;
+		// if ((item.getItemId() == 8663 || item.getItemId() == 4422 || item.getItemId() == 4423 || item.getItemId() == 4424) && ((activeChar._inEventTvT && (TvT.is_teleport() || TvT.is_started())) || (activeChar._inEventCTF && (CTF.is_teleport() || CTF.is_started()))))
+		// return;
 		
-	//	if ((item.getItemId() == 1538 || item.getItemId() == 3958 || item.getItemId() == 5858 || item.getItemId() == 5859 || item.getItemId() == 9156) && ((activeChar._inEventTvT && TvT.is_started() && !Config.TVT_ALLOW_POTIONS) || (activeChar._inEventCTF && CTF.is_started() && !Config.CTF_ALLOW_POTIONS)))
-	//	{
-	//		activeChar.sendMessage("You can not use this item in Combat/Event mode..");
-	//		return;
-	//	}
-	//	if ((item.getItemId() == 1538 || item.getItemId() == 3958 || item.getItemId() == 5858 || item.getItemId() == 5859 || item.getItemId() == 9156) && (activeChar._inEventCTF && activeChar._haveFlagCTF))
-	//	{
-	//		activeChar.sendMessage("This item can not be used Potions when you have the flag..");
-	//		return;
-	//	}
+		// if ((item.getItemId() == 1538 || item.getItemId() == 3958 || item.getItemId() == 5858 || item.getItemId() == 5859 || item.getItemId() == 9156) && ((activeChar._inEventTvT && TvT.is_started() && !Config.TVT_ALLOW_POTIONS) || (activeChar._inEventCTF && CTF.is_started() &&
+		// !Config.CTF_ALLOW_POTIONS)))
+		// {
+		// activeChar.sendMessage("You can not use this item in Combat/Event mode..");
+		// return;
+		// }
+		// if ((item.getItemId() == 1538 || item.getItemId() == 3958 || item.getItemId() == 5858 || item.getItemId() == 5859 || item.getItemId() == 9156) && (activeChar._inEventCTF && activeChar._haveFlagCTF))
+		// {
+		// activeChar.sendMessage("This item can not be used Potions when you have the flag..");
+		// return;
+		// }
 		
 		if (item.isEquipable())
 		{
-		//	if (activeChar.isCastingNow() || activeChar.isCastingSimultaneouslyNow())
-		//	if (activeChar.isCastingNow() || activeChar.isCastingSimultaneouslyNow() || (activeChar._inEventCTF && activeChar._haveFlagCTF && (item.getItem().getBodyPart() == Item.SLOT_LR_HAND || item.getItem().getBodyPart() == Item.SLOT_L_HAND || item.getItem().getBodyPart() == Item.SLOT_R_HAND)))
-		//	{
-		//		if (activeChar._inEventCTF && activeChar._haveFlagCTF)
-		//			activeChar.sendMessage("This item can not be equipped when you have the flag.");
-		//		else
-		//		activeChar.sendPacket(SystemMessageId.CANNOT_USE_ITEM_WHILE_USING_MAGIC);
-		//		return;
-		//	}
+			// if (activeChar.isCastingNow() || activeChar.isCastingSimultaneouslyNow())
+			// if (activeChar.isCastingNow() || activeChar.isCastingSimultaneouslyNow() || (activeChar._inEventCTF && activeChar._haveFlagCTF && (item.getItem().getBodyPart() == Item.SLOT_LR_HAND || item.getItem().getBodyPart() == Item.SLOT_L_HAND || item.getItem().getBodyPart() ==
+			// Item.SLOT_R_HAND)))
+			// {
+			// if (activeChar._inEventCTF && activeChar._haveFlagCTF)
+			// activeChar.sendMessage("This item can not be equipped when you have the flag.");
+			// else
+			// activeChar.sendPacket(SystemMessageId.CANNOT_USE_ITEM_WHILE_USING_MAGIC);
+			// return;
+			// }
 			if (activeChar.isCastingNow() || activeChar.isCastingSimultaneouslyNow())
 			{
 				activeChar.sendPacket(SystemMessageId.CANNOT_USE_ITEM_WHILE_USING_MAGIC);
@@ -383,83 +367,16 @@ public final class UseItem extends L2GameClientPacket
 			if (activeChar.isCursedWeaponEquipped() && item.getItemId() == 6408) // Don't allow to put formal wear
 				return;
 			
-			if (activeChar.getFakeWeaponObjectId() > 0 && activeChar.isCursedWeaponEquipped())
-			{
-				activeChar.sendPacket(SystemMessageId.CANNOT_EQUIP_ITEM_DUE_TO_BAD_CONDITION);
-				return;
-			}
-			
-			if (activeChar.isAttackingNow() && item.isFakeWeapon())
-			{
-				activeChar.sendMessage("You can't change weapon skin while attacking.");
-				return;
-			}
-			
-			//if (activeChar.isAttackingNow())
-			//	ThreadPoolManager.getInstance().scheduleGeneral(new WeaponEquipTask(item, activeChar), (activeChar.getAttackEndTime() - System.currentTimeMillis()));
-			//else
-			//	activeChar.useEquippableItem(item, true);
 			if (activeChar.isAttackingNow())
-				ThreadPool.schedule(() ->
-				{
+				ThreadPool.schedule(() -> {
 					final ItemInstance itemToTest = activeChar.getInventory().getItemByObjectId(_objectId);
 					if (itemToTest == null)
 						return;
 					
 					activeChar.useEquippableItem(itemToTest, false);
 				}, activeChar.getAttackEndTime() - System.currentTimeMillis());
+			
 			else
-				if (item.isFakeWeapon())
-				{
-					if (activeChar.getFakeWeaponObjectId() == item.getObjectId())
-					{
-						activeChar.setFakeWeaponObjectId(0);
-						activeChar.setFakeWeaponItemId(0);
-						
-						for (int s : FAKE_WEAPON_SKILLS)
-						{
-							final L2Skill skill = SkillTable.getInstance().getInfo(s, 1);
-							if (skill != null)
-							{
-								activeChar.removeSkill(skill, false);
-								activeChar.sendSkillList();
-							}
-						}
-					}
-					else
-					{
-						for (int s : FAKE_WEAPON_SKILLS)
-						{
-							final L2Skill skill = SkillTable.getInstance().getInfo(s, 1);
-							if (skill != null)
-							{
-								activeChar.removeSkill(skill, false);
-								activeChar.sendSkillList();
-							}
-						}
-
-						activeChar.setFakeWeaponObjectId(item.getObjectId());
-						activeChar.setFakeWeaponItemId(item.getItemId());
-						
-						if (activeChar.getFakeWeaponItemId() >= 30511 && activeChar.getFakeWeaponItemId() <= 30521)
-						{
-							L2Skill skill = SkillTable.getInstance().getInfo(24502, 1);
-							if (skill != null)
-								activeChar.addSkill(skill, false);
-						}
-						
-						if (activeChar.getFakeWeaponItemId() >= 30522 && activeChar.getFakeWeaponItemId() <= 30532)
-						{
-							L2Skill skill = SkillTable.getInstance().getInfo(24503, 1);
-							if (skill != null)
-								activeChar.addSkill(skill, false);
-						}
-					}
-
-					activeChar.broadcastUserInfo();
-					activeChar.sendPacket(new ItemList(activeChar, false));
-				}
-				else
 				activeChar.useEquippableItem(item, true);
 		}
 		else
@@ -490,9 +407,10 @@ public final class UseItem extends L2GameClientPacket
 			}
 		}
 	}
+	
 	public static final int[] FAKE_WEAPON_SKILLS =
-    {
-        24502,
-        24503
-    };
+	{
+		24502,
+		24503
+	};
 }

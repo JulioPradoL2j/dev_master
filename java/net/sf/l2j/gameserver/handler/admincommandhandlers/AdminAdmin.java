@@ -30,7 +30,6 @@ import net.sf.l2j.gameserver.datatables.xml.RouletteData;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-import net.sf.l2j.gameserver.instancemanager.custom.DressMeData;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -215,11 +214,6 @@ public class AdminAdmin implements IAdminCommandHandler
 						ArenaConfig.init();
 						Config.loadGameServer();
 						activeChar.sendMessage("Configs files have been reloaded.");
-					}
-					else if (type.startsWith("dress"))
-					{
-						DressMeData.getInstance().reload();
-						activeChar.sendMessage("Dress me have been reloaded.");
 					}
 					else if (type.startsWith("crest"))
 					{

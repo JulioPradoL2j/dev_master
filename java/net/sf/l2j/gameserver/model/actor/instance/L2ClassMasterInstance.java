@@ -827,7 +827,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 			player.setBaseClass(player.getActiveClass());
 		DollsTable.refreshAllRuneSkills(player);
 		player.removeItens();
-		player.removeFakeWeapon();
+		 
 		player.sendPacket(new HennaInfo(player));
 		player.broadcastUserInfo();
 		RemoteClassMaster.showQuestionMark(player);

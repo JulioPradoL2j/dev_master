@@ -12,7 +12,6 @@ import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
 import net.sf.l2j.gameserver.model.itemcontainer.Inventory;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
@@ -20,7 +19,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 public class L2CTFFlagInstance extends L2NpcInstance
 {
 	private static final String flagsPath = "data/html/mods/events/ctf/flags/";
-
+	
 	public L2CTFFlagInstance(int objectId, NpcTemplate template)
 	{
 		super(objectId, template);
@@ -31,13 +30,13 @@ public class L2CTFFlagInstance extends L2NpcInstance
 	{
 		if (playerInstance == null)
 			return;
-
+		
 		if (CTFEvent.isStarting() || CTFEvent.isStarted())
 		{
 			final String flagTitle = getTitle();
 			final String team = CTFEvent.getParticipantTeam(playerInstance.getObjectId()).getName();
 			final String enemyteam = CTFEvent.getParticipantEnemyTeam(playerInstance.getObjectId()).getName();
-
+			
 			// player talking to friendly flag
 			if (flagTitle.equals(team))
 			{
@@ -46,7 +45,7 @@ public class L2CTFFlagInstance extends L2NpcInstance
 				{
 					final String htmContent = HtmCache.getInstance().getHtm(flagsPath + "flag_friendly_missing.htm");
 					NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
-
+					
 					npcHtmlMessage.setHtml(htmContent);
 					npcHtmlMessage.replace("%enemyteam%", enemyteam);
 					npcHtmlMessage.replace("%team%", team);
@@ -58,7 +57,7 @@ public class L2CTFFlagInstance extends L2NpcInstance
 				{
 					if (CTFConfig.CTF_EVENT_CAPTURE_SKILL > 0)
 						playerInstance.broadcastPacket(new MagicSkillUse(playerInstance, CTFConfig.CTF_EVENT_CAPTURE_SKILL, 1, 1, 1));
-
+					
 					CTFEvent.removeFlagCarrier(playerInstance);
 					CTFEvent.getParticipantTeam(playerInstance.getObjectId()).increasePoints();
 					CTFEvent.broadcastScreenMessage("Team " + team + " has scored by capturing Team " + enemyteam + "'s flag!", 7);
@@ -69,7 +68,7 @@ public class L2CTFFlagInstance extends L2NpcInstance
 				{
 					final String htmContent = HtmCache.getInstance().getHtm(flagsPath + "flag_friendly.htm");
 					NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
-
+					
 					npcHtmlMessage.setHtml(htmContent);
 					npcHtmlMessage.replace("%enemyteam%", enemyteam);
 					npcHtmlMessage.replace("%team%", team);
@@ -85,7 +84,7 @@ public class L2CTFFlagInstance extends L2NpcInstance
 				{
 					final String htmContent = HtmCache.getInstance().getHtm(flagsPath + "flag_enemy.htm");
 					NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
-
+					
 					npcHtmlMessage.setHtml(htmContent);
 					npcHtmlMessage.replace("%enemyteam%", enemyteam);
 					npcHtmlMessage.replace("%team%", team);
@@ -97,7 +96,7 @@ public class L2CTFFlagInstance extends L2NpcInstance
 				{
 					final String htmContent = HtmCache.getInstance().getHtm(flagsPath + "flag_enemy_missing.htm");
 					NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
-
+					
 					npcHtmlMessage.setHtml(htmContent);
 					npcHtmlMessage.replace("%enemyteam%", enemyteam);
 					npcHtmlMessage.replace("%player%", CTFEvent.getTeamCarrier(playerInstance).getName());
@@ -108,42 +107,30 @@ public class L2CTFFlagInstance extends L2NpcInstance
 				{
 					if (CTFConfig.CTF_EVENT_CAPTURE_SKILL > 0)
 						playerInstance.broadcastPacket(new MagicSkillUse(playerInstance, CTFConfig.CTF_EVENT_CAPTURE_SKILL, 1, 1, 1));
-
+					
 					// 1. Salva armas antigas
-					CTFEvent.setCarrierUnequippedWeapons(
-						playerInstance,
-						playerInstance.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND),
-						playerInstance.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND)
-					);
-
+					CTFEvent.setCarrierUnequippedWeapons(playerInstance, playerInstance.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND), playerInstance.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND));
+					
 					// 2. Desequipa arma antiga
 					playerInstance.getInventory().unEquipItemInSlot(Inventory.PAPERDOLL_RHAND);
 					playerInstance.getInventory().unEquipItemInSlot(Inventory.PAPERDOLL_LHAND);
-
-					// 3. Remove skin fake weapon (se tiver)
-					if (playerInstance.getFakeWeaponItemId() != 0)
-					{
-						playerInstance.setFakeWeaponItemId(0);
-						playerInstance.setFakeWeaponObjectId(0);
-						playerInstance.sendPacket(new ItemList(playerInstance, false));
-					}
-
+					
 					// 4. Cria e equipa a flag
 					ItemInstance flagItem = ItemTable.getInstance().createItem("CTF", CTFEvent.getEnemyTeamFlagId(playerInstance), 1, playerInstance, null);
 					ItemInstance[] removed = playerInstance.getInventory().equipItemAndRecord(flagItem);
-
+					
 					// 5. Atualiza inventário e visual
 					InventoryUpdate iu = new InventoryUpdate();
 					iu.addItems(Arrays.asList(removed));
 					iu.addItem(flagItem);
 					playerInstance.sendPacket(iu);
-
+					
 					// 6. Bloqueia inventário
 					playerInstance.getInventory().blockAllItems();
-
+					
 					// 7. Atualiza visual
 					playerInstance.broadcastUserInfo();
-
+					
 					// 8. Marca como carregador
 					CTFEvent.setTeamCarrier(playerInstance);
 					CTFEvent.broadcastScreenMessage("Team " + team + " has taken the Team " + enemyteam + " flag!", 5);

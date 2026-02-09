@@ -29,14 +29,13 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.Creature;
 import net.sf.l2j.gameserver.model.actor.L2Npc;
-import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.L2Summon;
+import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
 import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
-import net.sf.l2j.gameserver.model.item.kind.Weapon;
 import net.sf.l2j.gameserver.model.itemcontainer.Inventory;
 import net.sf.l2j.gameserver.model.olympiad.OlympiadManager;
 import net.sf.l2j.gameserver.network.clientpackets.Say2;
@@ -44,7 +43,6 @@ import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.DeleteObject;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowScreenMessage;
-import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
@@ -1657,26 +1655,6 @@ public class CTFEvent
 	    if (carrierLHand != null && player.getInventory().getItemByObjectId(carrierLHand.getObjectId()) != null)
 	        player.getInventory().equipItem(carrierLHand);
 
-	    // Agora força reaplicar a skin fake
-	    ItemInstance weapon = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-
-	    if (weapon != null && weapon.getItem() instanceof Weapon)
-	    {
-	        player.setFakeWeaponItemId(weapon.getItemId());
-	        player.setFakeWeaponObjectId(weapon.getObjectId());
-
-	        // Envia pacotes para atualizar visual da skin fake
-	        player.sendPacket(new ItemList(player, false));
-	        player.broadcastUserInfo();
-	    }
-	    else
-	    {
-	        // Sem arma equipada, limpa skin fake
-	        player.setFakeWeaponItemId(0);
-	        player.setFakeWeaponObjectId(0);
-	        player.sendPacket(new ItemList(player, false));
-	        player.broadcastUserInfo();
-	    }
 
 	    setCarrierUnequippedWeapons(player, null, null);
 

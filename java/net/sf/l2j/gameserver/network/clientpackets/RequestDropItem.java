@@ -50,12 +50,6 @@ public final class RequestDropItem extends L2GameClientPacket
 		if (item.isQuestItem())
 			return;
 		
-		if (activeChar.getFakeWeaponObjectId() == item.getObjectId())
-		{
-			activeChar.sendPacket(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
-			return;
-		}
-		
 		if (_count > item.getCount())
 		{
 			activeChar.sendPacket(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);

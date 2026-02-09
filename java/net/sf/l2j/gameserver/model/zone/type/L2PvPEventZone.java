@@ -26,14 +26,7 @@ public class L2PvPEventZone extends L2SpawnZone
 				final L2Party party = player.getParty();
 				party.removePartyMember(player, null);
 			}
-			if(player.isInsideZone(ZoneId.PVP_CUSTOM) && player.isDressMeEnabled())
-			{
-				player.setDressMeHelmEnabled(false);
-				player.setDressMeEnabled(false);
-				player.sendMessage("Impossible Used Skin in Event PvP!");
-				player.updatePvPFlag(1);
-				return;
-			}
+			 
 			if (player.isAio() || player.isSellBuff())
 			{
 				character.teleToLocation(83597, 147888, -3405, 0);

@@ -31,7 +31,6 @@ import net.sf.l2j.commons.random.Rnd;
 import net.sf.l2j.dailyreward.DailyRewardManager;
 import net.sf.l2j.dailyreward.PlayerVar;
 import net.sf.l2j.dailyreward.PlayerVariables;
-import net.sf.l2j.dresmee.DressMe;
 import net.sf.l2j.dungeon.Dungeon;
 import net.sf.l2j.event.bossevent.KTBConfig;
 import net.sf.l2j.event.bossevent.KTBEvent;
@@ -91,7 +90,6 @@ import net.sf.l2j.gameserver.instancemanager.custom.ChatBanManager;
 import net.sf.l2j.gameserver.instancemanager.custom.ChatGlobalManager;
 import net.sf.l2j.gameserver.instancemanager.custom.ChatHeroManager;
 import net.sf.l2j.gameserver.instancemanager.custom.ChatVipManager;
-import net.sf.l2j.gameserver.instancemanager.custom.DressMeData;
 import net.sf.l2j.gameserver.instancemanager.custom.HeroManagerCustom;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.FishData;
@@ -1679,27 +1677,11 @@ public class Player extends Playable
 					
 					sendMessage("Two-handed weapon unequipped to equip shield.");
 					
-					if (getFakeWeaponItemId() != 0)
-					{
-						setFakeWeaponItemId(0);
-						setFakeWeaponObjectId(0);
-						sendPacket(new ItemList(this, false));
-						broadcastUserInfo();
-					}
+					 
 				}
 				// Se arma 1 mão, mantém skin fake weapon
 			}
-			else if (item.getItem() instanceof Weapon)
-			{
-				// Se for uma nova arma, remove skin anterior
-				if (getFakeWeaponItemId() != 0)
-				{
-					setFakeWeaponItemId(0);
-					setFakeWeaponObjectId(0);
-					sendPacket(new ItemList(this, false));
-					broadcastUserInfo();
-				}
-			}
+			 
 			
 			items = getInventory().equipItemAndRecord(item);
 			
@@ -1730,16 +1712,7 @@ public class Player extends Playable
 			int slot = getInventory().getSlotFromItem(item);
 			items = getInventory().unEquipItemInBodySlotAndRecord(slot);
 			
-			// Remove fake weapon ao desequipar arma
-			if (item.getItem() instanceof Weapon && getFakeWeaponItemId() != 0)
-			{
-				setFakeWeaponItemId(0);
-				setFakeWeaponObjectId(0);
-				sendPacket(new ItemList(this, false));
-				broadcastUserInfo();
-			}
 			 
-			
 		}
 		
 		refreshExpertisePenalty();
@@ -5822,11 +5795,7 @@ public class Player extends Playable
 				player.setVip(rset.getInt("vip") == 1 ? true : false);
 				player.setVipEndTime(rset.getLong("vip_end"));
 				
-				final int fakeWeapon = rset.getInt("fakeWeaponObjectId");
-				final ItemInstance weaponItem = player.getInventory().getItemByObjectId(fakeWeapon);
-				
-				player.setFakeWeaponObjectId(weaponItem != null ? fakeWeapon : 0);
-				player.setFakeWeaponItemId(weaponItem != null ? weaponItem.getItemId() : 0);
+				 
 				
 				player.setAio(rset.getInt("aio") == 1 ? true : false);
 				player.setAioEndTime(rset.getLong("aio_end"));
@@ -6171,8 +6140,8 @@ public class Player extends Playable
 			statement.setString(52, StringToHex(Integer.toHexString(getAppearance().getTitleColor()).toUpperCase()));
 			statement.setInt(53, isVip() ? 1 : 0);
 			statement.setLong(54, getVipEndTime());
-			statement.setLong(55, getFakeWeaponObjectId());
-			statement.setLong(56, getFakeWeaponItemId());
+			statement.setLong(55, 0);
+			statement.setLong(56, 0);
 			statement.setInt(57, isAio() ? 1 : 0);
 			statement.setLong(58, getAioEndTime());
 			statement.setInt(59, getObjectId());
@@ -9014,7 +8983,7 @@ public class Player extends Playable
 	public boolean addSubClass(int classId, int classIndex)
 	{
 		removeItens();
-		removeFakeWeapon();
+		 
 		if (!_subclassLock.tryLock())
 			return false;
 		
@@ -9281,7 +9250,7 @@ public class Player extends Playable
 			restoreEffects();
 			updateEffectIcons();
 			sendPacket(new EtcStatusUpdate(this));
-			removeFakeWeapon();
+		 
 			// If player has quest "Repent Your Sins", remove it
 			QuestState st = getQuestState("Q422_RepentYourSins");
 			if (st != null)
@@ -12434,52 +12403,6 @@ public class Player extends Playable
 		return true;
 	}
 	
-	private boolean _tryDressed;
-	
-	public boolean isTryDressMeEnabled()
-	{
-		return this._tryDressed;
-	}
-	
-	public void setTryDressMeEnabled(final boolean val)
-	{
-		this._tryDressed = val;
-	}
-	
-	private DressMeData _dressmedata = null;
-	private boolean _dressed = false;
-	
-	public DressMeData getDressMeData()
-	{
-		return _dressmedata;
-	}
-	
-	public void setDressMeData(DressMeData val)
-	{
-		_dressmedata = val;
-	}
-	
-	public boolean isDressMeEnabled()
-	{
-		return _dressed;
-	}
-	
-	public void setDressMeEnabled(boolean val)
-	{
-		_dressed = val;
-	}
-	
-	private boolean _dressedHelm = false;
-	
-	public boolean isDressMeHelmEnabled()
-	{
-		return _dressedHelm;
-	}
-	
-	public void setDressMeHelmEnabled(boolean val)
-	{
-		_dressedHelm = val;
-	}
 	
 	public static String StringToHex(String color)
 	{
@@ -12506,30 +12429,6 @@ public class Player extends Playable
 				break;
 		}
 		return color;
-	}
-	
-	private boolean _disableddressed;
-	
-	public boolean isDressMeDisabled()
-	{
-		return _disableddressed;
-	}
-	
-	public void setDressMeDisabled(boolean val)
-	{
-		_disableddressed = val;
-	}
-	
-	private DressMe _dressMe;
-	
-	public DressMe getDress()
-	{
-		return _dressMe;
-	}
-	
-	public void setDress(DressMe val)
-	{
-		_dressMe = val;
 	}
 	
 	private boolean _isCMultisell = false;
@@ -13784,80 +13683,7 @@ public class Player extends Playable
 		return _hwid;
 	}
 	
-	private int _fakeWeaponObjectId;
-	private int _fakeWeaponItemId;
-	
-	public int getFakeWeaponItemId()
-	{
-		return _fakeWeaponItemId;
-	}
-	
-	public void setFakeWeaponObjectId(int objectId)
-	{
-		_fakeWeaponObjectId = objectId;
-	}
-	
-	public int getFakeWeaponObjectId()
-	{
-		return _fakeWeaponObjectId;
-	}
-	
-	public void setFakeWeaponItemId(int itemId)
-	{
-		_fakeWeaponItemId = itemId;
-		
-		for (int s : FAKE_WEAPON_SKILLS)
-		{
-			final L2Skill skill = SkillTable.getInstance().getInfo(s, 1);
-			if (skill != null)
-			{
-				removeSkill(skill, false);
-				sendSkillList();
-			}
-		}
-		
-		if (getFakeWeaponItemId() >= 30511 && getFakeWeaponItemId() <= 30521)
-		{
-			L2Skill skill = SkillTable.getInstance().getInfo(24502, 1);
-			if (skill != null)
-				addSkill(skill, false);
-		}
-		
-		if (getFakeWeaponItemId() >= 30522 && getFakeWeaponItemId() <= 30532)
-		{
-			L2Skill skill = SkillTable.getInstance().getInfo(24503, 1);
-			if (skill != null)
-				addSkill(skill, false);
-		}
-	}
-	
-	public static final int[] FAKE_WEAPON_SKILLS =
-	{
-		24502,
-		24503
-	};
-	
-	public void removeFakeWeapon()
-	{
-		if (getFakeWeaponObjectId() > 0)
-		{
-			setFakeWeaponObjectId(0);
-			setFakeWeaponItemId(0);
-			
-			for (int s : FAKE_WEAPON_SKILLS)
-			{
-				final L2Skill skill = SkillTable.getInstance().getInfo(s, 1);
-				if (skill != null)
-				{
-					removeSkill(skill, false);
-					sendSkillList();
-				}
-			}
-			
-			broadcastUserInfo();
-			sendPacket(new ItemList(this, false));
-		}
-	}
+	 
 	
 	private boolean autoAntiKsProtection = false;
 	
