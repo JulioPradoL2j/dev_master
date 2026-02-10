@@ -21,8 +21,8 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.model.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.model.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.model.L2SiegeGuardAI;
-import net.sf.l2j.gameserver.datatables.HerbDropTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.xml.HerbDropData;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.AbsorbInfo;
 import net.sf.l2j.gameserver.model.AggroInfo;
@@ -208,7 +208,6 @@ public class Attackable extends L2Npc
 			
 			if (player != null)
 			{
-			 
 				
 				List<Quest> quests = getTemplate().getEventQuests(EventType.ON_KILL);
 				if (quests != null)
@@ -334,9 +333,6 @@ public class Attackable extends L2Npc
 						sp *= Config.VIP_XP_SP_RATE;
 					}
 					
-	
-					
-					
 					// AQUI: aplica redução se estiver chat banido
 					if (attacker.isChatBanned())
 					{
@@ -368,7 +364,6 @@ public class Attackable extends L2Npc
 							pet.getStat().setSp(sp / 2);
 						}
 					}
-					
 					
 				}
 			}
@@ -447,10 +442,6 @@ public class Attackable extends L2Npc
 					sp /= 2;
 				}
 				
-				
-
-				
-				
 				exp *= partyMul;
 				sp *= partyMul;
 				
@@ -465,7 +456,6 @@ public class Attackable extends L2Npc
 				// Distribute Experience and SP rewards to L2PcInstance Party members in the known area of the last attacker
 				if (partyDmg > 0)
 					attackerParty.distributeXpAndSp(exp, sp, rewardedMembers, partyLvl);
-				
 				
 				if (attacker.getPet() != null)
 				{
@@ -1368,31 +1358,37 @@ public class Attackable extends L2Npc
 		}
 		
 		// Herbs.
-		if (getTemplate().getDropHerbGroup() > 0)
+		final int herbGroup = getTemplate().getDropHerbGroup();
+		if (herbGroup > 0)
 		{
-			for (DropCategory cat : HerbDropTable.getInstance().getHerbDroplist(getTemplate().getDropHerbGroup()))
+			final List<DropCategory> drops = HerbDropData.getInstance().resolveDrops(getNpcId(), herbGroup);
+			
+			for (DropCategory cat : drops)
 			{
 				final IntIntHolder item = calculateCategorizedHerbItem(cat, levelModifier);
-				if (item != null)
+				if (item == null)
+					continue;
+				
+				if (Config.AUTO_LOOT_HERBS)
 				{
-					if (Config.AUTO_LOOT_HERBS)
-						player.addItem("Loot", item.getId(), 1, this, true);
-					else
-					{
-						// If multiple similar herbs drop, split them and make a unique drop per item.
-						final int count = item.getValue();
-						if (count > 1)
-						{
-							item.setValue(1);
-							for (int i = 0; i < count; i++)
-								dropItem(player, item);
-						}
-						else
-							dropItem(player, item);
-					}
+					player.addItem("Loot", item.getId(), 1, this, true);
+					continue;
+				}
+				
+				final int count = item.getValue();
+				if (count > 1)
+				{
+					item.setValue(1);
+					for (int i = 0; i < count; i++)
+						dropItem(player, item);
+				}
+				else
+				{
+					dropItem(player, item);
 				}
 			}
 		}
+		
 	}
 	
 	/**

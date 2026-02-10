@@ -30,4 +30,8 @@
 		<item id="8609" category="5" chance="30000" /><!-- Herb of Casting Spd. -->
 		<item id="8611" category="6" chance="30000" /><!-- Herb of Speed -->
 	</group>
+	
+	<npc id="18001" baseGroup="0" merge="true">
+    	<item id="8612" category="3" chance="500"/>
+  	</npc>
 </list>

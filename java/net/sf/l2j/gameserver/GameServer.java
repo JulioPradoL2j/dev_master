@@ -73,7 +73,6 @@ import net.sf.l2j.gameserver.datatables.FishTable;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.HelperBuffTable;
 import net.sf.l2j.gameserver.datatables.HennaTable;
-import net.sf.l2j.gameserver.datatables.HerbDropTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.MultisellData;
@@ -91,6 +90,7 @@ import net.sf.l2j.gameserver.datatables.SummonItemsData;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.xml.DressMeData;
 import net.sf.l2j.gameserver.datatables.xml.FakePcsTable;
+import net.sf.l2j.gameserver.datatables.xml.HerbDropData;
 import net.sf.l2j.gameserver.datatables.xml.IconTable;
 import net.sf.l2j.gameserver.datatables.xml.RouletteData;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
@@ -320,7 +320,8 @@ public class GameServer
 		
 		StringUtil.printSection("NPCs");
 		BufferTable.getInstance();
-		HerbDropTable.getInstance();
+		HerbDropData.getInstance();
+		
 		NpcTable.getInstance();
 		NpcWalkerRoutesTable.getInstance();
 		DoorTable.getInstance().spawn();

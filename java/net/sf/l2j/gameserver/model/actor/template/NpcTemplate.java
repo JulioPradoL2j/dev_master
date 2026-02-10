@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import net.sf.l2j.gameserver.datatables.HerbDropTable;
+import net.sf.l2j.gameserver.datatables.xml.HerbDropData;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.MinionData;
 import net.sf.l2j.gameserver.model.base.ClassId;
@@ -127,10 +127,13 @@ public class NpcTemplate extends CharTemplate
 		_corpseTime = set.getInteger("corpseTime", 7);
 		
 		_dropHerbGroup = set.getInteger("dropHerbGroup", 0);
-		if (_dropHerbGroup > 0 && HerbDropTable.getInstance().getHerbDroplist(_dropHerbGroup) == null)
+		if (_dropHerbGroup > 0 && HerbDropData.getInstance().getGroup(_dropHerbGroup) == null)
 		{
-			_log.warning("Missing dropHerbGroup information for npcId: " + _npcId + ", dropHerbGroup: " + _dropHerbGroup);
-			_dropHerbGroup = 0;
+			if (HerbDropData.getInstance().getOverride(_npcId) == null)
+			{
+				_log.warning("Missing dropHerbGroup information for npcId: " + _npcId + ", dropHerbGroup: " + _dropHerbGroup);
+				_dropHerbGroup = 0;
+			}
 		}
 		
 		if (set.containsKey("raceId"))
@@ -222,7 +225,6 @@ public class NpcTemplate extends CharTemplate
 	{
 		return _cantBeChampionMonster;
 	}
-	
 	
 	public byte getLevel()
 	{
