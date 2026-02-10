@@ -14,11 +14,9 @@ Else
     path = Replace(path, "Program Files", "Progra~1")
 End If
 
-
-
 ' Generate command.
 Dim command
-command = path & "java -Xmx2000m -cp ../libs/*; net.sf.l2j.gameserver.GameServer"
+command = path & "java -Duser.timezone=Etc/GMT+3 -Xmx2000m -cp ../libs/*; net.sf.l2j.gameserver.GameServer"
 
 ' Run the server.
 Dim exitcode

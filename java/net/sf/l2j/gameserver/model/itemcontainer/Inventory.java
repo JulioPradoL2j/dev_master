@@ -13,8 +13,8 @@ import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.instancemanager.custom.HeroManagerCustom;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.Playable;
+import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
 import net.sf.l2j.gameserver.model.item.instance.ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.item.kind.Item;
@@ -48,6 +48,7 @@ public abstract class Inventory extends ItemContainer
 	public static final int PAPERDOLL_HAIR = 15;
 	public static final int PAPERDOLL_HAIRALL = 16;
 	public static final int PAPERDOLL_TOTALSLOTS = 17;
+ 
 	
 	private final ItemInstance[] _paperdoll;
 	private final List<OnEquipListener> _paperdollListeners;
@@ -176,7 +177,7 @@ public abstract class Inventory extends ItemContainer
 		{
 			if (!_items.contains(item))
 				return null;
-			
+				
 			// Adjust item quantity and create new instance to drop
 			// Directly drop entire item
 			if (item.getCount() > count)
@@ -670,7 +671,7 @@ public abstract class Inventory extends ItemContainer
 			// Se o jogador é GM, ele pode usar itens de herói independentemente de ser herói ou não
 			if (player.isInStoreMode() || (item.isHeroItem() && !player.isHero() && !HeroManagerCustom.getInstance().hasHeroPrivileges(player.getObjectId()) && !player.isGM() && !Config.PLAYERS_NORMAIS_USED_RESTRICTION_ITEMS))
 			{
-				return;  // Bloqueia o uso do item de herói para jogadores normais sem privilégios de herói
+				return; // Bloqueia o uso do item de herói para jogadores normais sem privilégios de herói
 			}
 		}
 		
@@ -678,13 +679,14 @@ public abstract class Inventory extends ItemContainer
 		
 		// check if player wear formal
 		ItemInstance formal = getPaperdollItem(PAPERDOLL_CHEST);
-	//	if (formal != null && formal.getItem().getBodyPart() == Item.SLOT_ALLDRESS)
+		// if (formal != null && formal.getItem().getBodyPart() == Item.SLOT_ALLDRESS)
 		if (formal != null && formal.getItem().getBodyPart() == Item.SLOT_ALLDRESS && !Config.USE_ITEMS_FORMALWEAR)
 		{
 			// only chest target can pass this
 			switch (targetSlot)
 			{
 				case Item.SLOT_LR_HAND:
+					
 				case Item.SLOT_L_HAND:
 				case Item.SLOT_R_HAND:
 					unEquipItemInBodySlotAndRecord(Item.SLOT_ALLDRESS);
@@ -700,8 +702,11 @@ public abstract class Inventory extends ItemContainer
 		switch (targetSlot)
 		{
 			case Item.SLOT_LR_HAND:
+				
 				setPaperdollItem(PAPERDOLL_LHAND, null);
 				setPaperdollItem(PAPERDOLL_RHAND, item);
+
+				
 				break;
 			
 			case Item.SLOT_L_HAND:
@@ -818,14 +823,14 @@ public abstract class Inventory extends ItemContainer
 			
 			case Item.SLOT_ALLDRESS:
 				// formal dress
-				if(!Config.USE_ITEMS_FORMALWEAR)
+				if (!Config.USE_ITEMS_FORMALWEAR)
 				{
 					setPaperdollItem(PAPERDOLL_LHAND, null);
-					setPaperdollItem(PAPERDOLL_RHAND, null);	
+					setPaperdollItem(PAPERDOLL_RHAND, null);
 				}
 				setPaperdollItem(PAPERDOLL_LEGS, null);
-		//		setPaperdollItem(PAPERDOLL_LHAND, null);
-		//		setPaperdollItem(PAPERDOLL_RHAND, null);
+				// setPaperdollItem(PAPERDOLL_LHAND, null);
+				// setPaperdollItem(PAPERDOLL_RHAND, null);
 				setPaperdollItem(PAPERDOLL_HEAD, null);
 				setPaperdollItem(PAPERDOLL_FEET, null);
 				setPaperdollItem(PAPERDOLL_GLOVES, null);
@@ -993,4 +998,85 @@ public abstract class Inventory extends ItemContainer
 			}
 		}
 	}
+	
+	private final int[] _paperdollVisualId = new int[PAPERDOLL_TOTALSLOTS];
+	private int _visualMask;
+	
+	public synchronized int setPaperdollVisualItemId(int slot, int itemId)
+	{
+		final int oldId = _paperdollVisualId[slot];
+		if (oldId == itemId)
+			return oldId;
+		
+		_paperdollVisualId[slot] = Math.max(0, itemId);
+		
+		recomputeVisualMask();
+		
+		final Object owner = getOwner();
+		if (owner instanceof Player)
+			((Player) owner).broadcastUserInfo();
+		
+		return oldId;
+	}
+	
+	public int getPaperdollVisualItemId(int slot)
+	{
+		return _paperdollVisualId[slot];
+	}
+	
+	public int getPaperdollItemIdOrVisual(int slot)
+	{
+		final int vid = getPaperdollVisualItemId(slot);
+		return (vid > 0) ? vid : getPaperdollItemId(slot);
+	}
+	
+	public int getVisualMask()
+	{
+		return _visualMask;
+	}
+	
+	private void recomputeVisualMask()
+	{
+		int mask = 0;
+		
+		for (int i = 0; i < PAPERDOLL_TOTALSLOTS; i++)
+		{
+			final int id = _paperdollVisualId[i];
+			if (id <= 0)
+				continue;
+			
+			final Item item = ItemTable.getInstance().getTemplate(id);
+			if (item == null)
+				continue;
+			
+			// two-piece: só ativa máscara se ambos presentes e com mesma mask
+			if (item.getBodyPart() == Item.SLOT_CHEST)
+			{
+				final int legsId = _paperdollVisualId[PAPERDOLL_LEGS];
+				if (legsId > 0)
+				{
+					final Item legs = ItemTable.getInstance().getTemplate(legsId);
+					if (legs != null && legs.getItemMask() == item.getItemMask())
+						mask |= item.getItemMask();
+				}
+			}
+			else if (item.getBodyPart() == Item.SLOT_LEGS)
+			{
+				final int chestId = _paperdollVisualId[PAPERDOLL_CHEST];
+				if (chestId > 0)
+				{
+					final Item chest = ItemTable.getInstance().getTemplate(chestId);
+					if (chest != null && chest.getItemMask() == item.getItemMask())
+						mask |= item.getItemMask();
+				}
+			}
+			else
+			{
+				mask |= item.getItemMask();
+			}
+		}
+		
+		_visualMask = mask;
+	}
+	
 }

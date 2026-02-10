@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dressMeList>
+
+  <!--
+    ======================================================================
+     				ATENÇÃO – SISTEMA DRESSME / SKINS
+    ======================================================================
+     Para aplicar QUALQUER visual definido neste arquivo, é necessário:
+
+     1) actionUse COM HANDLER DA AÇÃO
+	 
+		Exemplo ("bypass -h dressme skin"): OPEN PAINEL
+        Exemplo ("bypass -h dressme action 9101"):
+		Exemplo ("bypass -h dressme disable"):
+		
+     IMPORTANTE:
+     - Sem o Bypass, o DressMe NÃO FUNCIONA.
+     - O actionUse usado pelo bypass DressMe.
+    ======================================================================
+    -->
+    
+	<!-- DC Sets -->
+	<dress actionUse="9101" name="Dark Crystal Heavy Set" type="ARMOR" isVip="false">
+	<visualSet chest="365" legs="388" gloves="5765" feet="5777" helmet="6841" />
+	</dress>
+	
+	<dress actionUse="9102" name="Dark Crystal Light Set" type="ARMOR" isVip="false">
+	<visualSet chest="2385" legs="2389" gloves="5766" feet="5778" helmet="6841" />
+	</dress>
+	
+	<dress actionUse="9103" name="Dark Crystal Robe Set" type="ARMOR" isVip="false">
+	<visualSet chest="2407" legs="0" gloves="5767" feet="5779" helmet="6841" />
+	</dress>
+	
+	<!-- S80 Sets -->
+	<dress actionUse="9104" name="Imperial Crusader Set" type="ARMOR" isVip="false">
+	<visualSet chest="6373" legs="6374" gloves="6375" feet="6376" helmet="6841" />
+	</dress>
+	
+	<dress actionUse="9100" name="Draconic Armor" type="ARMOR" isVip="false">
+	<visualSet chest="6379" legs="0" gloves="6380" feet="6381" helmet="6841" />
+	</dress>
+	
+	<dress actionUse="9105" name="Major Arcana Set" type="ARMOR" isVip="false">
+	<visualSet chest="6383" legs="0" gloves="6384" feet="6385" helmet="6841" />
+	</dress>
+	
+	<!-- Clan Oath Sets -->
+	<dress actionUse="9106" name="Clan Oath Heavy Set" type="ARMOR" isVip="false">
+	<visualSet chest="7851" legs="0" gloves="7852" feet="7853" helmet="6841" />
+	</dress>
+	
+	<dress actionUse="9107" name="Clan Oath Light Set" type="ARMOR" isVip="false">
+	<visualSet chest="7854" legs="0" gloves="7855" feet="7856" helmet="6841" />
+	</dress>
+	
+	<dress actionUse="9108" name="Clan Oath Robe Set" type="ARMOR" isVip="false">
+	<visualSet chest="7857" legs="0" gloves="7858" feet="7859" helmet="6841" />
+	</dress>
+	
+	<!-- Apella Sets -->
+	<dress actionUse="9109" name="Apella Heavy Set" type="ARMOR" isVip="false">
+	<visualSet chest="7861" legs="0" gloves="7862" feet="7863" helmet="6841" />
+	</dress>
+	
+	<dress actionUse="9110" name="Apella Light Set" type="ARMOR" isVip="false">
+	<visualSet chest="7864" legs="0" gloves="7865" feet="7866" helmet="6841" />
+	</dress>
+	
+	<dress actionUse="9111" name="Apella Robe Set" type="ARMOR" isVip="false">
+	<visualSet chest="7867" legs="0" gloves="7868" feet="7869" helmet="6841" />
+	</dress>
+  
+	<!-- WEAPONS -->
+	
+	<dress actionUse="9500" name="Draconic Bow Weapon (Focus)" type="WEAPON" isVip="false">
+	<visualWep type="bow" rhand="7577" lhand="0" lrhand="0" />
+	</dress>
+	
+	<dress actionUse="9501" name="Angel Slayer Weapon (Haste)" type="WEAPON" isVip="false">
+	<visualWep type="dagger" rhand="6592" lhand="0" lrhand="0" />
+	</dress>
+	
+	<dress actionUse="9502" name="Shining Bow Weapon (Focus)" type="WEAPON" isVip="false">
+	<visualWep type="bow" rhand="6594" lhand="0" lrhand="0" />
+	</dress>
+	
+	<dress actionUse="9503" name="Saint Spear Weapon (Haste)" type="WEAPON" isVip="false">
+	<visualWep type="pole" rhand="6601" lhand="0" lrhand="0" />
+	</dress>
+	
+	<dress actionUse="9504" name="Demon Splinter Weapon (Crt. Stun)" type="WEAPON" isVip="false">
+	<visualWep type="dualfist" rhand="0" lhand="0" lrhand="6602" />
+	</dress>
+	
+	<dress actionUse="9505" name="Heavens Divider Weapon (Haste)" type="WEAPON" isVip="false">
+	<visualWep type="sword" rhand="6605" lhand="0" lrhand="0" />
+	</dress>
+	
+	<dress actionUse="9506" name="Arcana Mace Weapon (Acumen)" type="WEAPON" isVip="false">
+	<visualWep type="blunt" rhand="6608" lhand="0" lrhand="0" />
+	</dress>
+	
+	<dress actionUse="9507" name="Dragon Hunter Axe Weapon (Health)" type="WEAPON" isVip="false">
+	<visualWep type="blunt" rhand="6597" lhand="0" lrhand="0" />
+	</dress>
+	
+	<dress actionUse="9508" name="Imperial Staff Weapon (Empower)" type="WEAPON" isVip="false">
+	<visualWep type="staff" rhand="6587" lhand="0" lrhand="0" />
+	</dress>
+	
+	<dress actionUse="9509" name="Basalt Battlehammer Weapon (Health)" type="WEAPON" isVip="false">
+	<visualWep type="blunt" rhand="6585" lhand="0" lrhand="0" />
+	</dress>
+	
+	<dress actionUse="9510" name="Tallum Blade / Dark Legion's Edge Weapon" type="WEAPON" isVip="false">
+	<visualWep type="dual" rhand="0" lhand="0" lrhand="6580" />
+	</dress>
+	
+	<dress actionUse="9511" name="Forgotten Blade Weapon (Haste)" type="WEAPON" isVip="false">
+	<visualWep type="sword" rhand="6581" lhand="0" lrhand="0" />
+	</dress>
+	
+</dressMeList>

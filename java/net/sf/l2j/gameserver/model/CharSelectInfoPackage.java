@@ -195,7 +195,32 @@ public class CharSelectInfoPackage
 	{
 		return _paperdoll[slot][1];
 	}
-	
+	public void setPaperdollObjectId(int slot, int objectId)
+	{
+	    if (slot < 0 || slot >= _paperdoll.length)
+	        return;
+
+	    _paperdoll[slot][0] = objectId;
+	}
+
+	public void setPaperdollEnchant(int slot, int enchant)
+	{
+	    if (slot < 0 || slot >= _paperdoll.length)
+	        return;
+
+	    _paperdoll[slot][2] = enchant;
+	}
+
+	public void setPaperdollVisual(int slot, int itemId)
+	{
+	    if (slot < 0 || slot >= _paperdoll.length)
+	        return;
+
+	    _paperdoll[slot][0] = 0;      // objectId fake
+	    _paperdoll[slot][1] = itemId; // itemId visual
+	    _paperdoll[slot][2] = 0;      // enchant fake (seguro)
+	}
+
 	public int getLevel()
 	{
 		return _level;

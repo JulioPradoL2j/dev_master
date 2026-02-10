@@ -72,6 +72,7 @@ import net.sf.l2j.gameserver.datatables.RecipeTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTable.FrequentSkill;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
+import net.sf.l2j.gameserver.datatables.xml.DressMeData;
 import net.sf.l2j.gameserver.geoengine.GeoEngine;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
@@ -148,6 +149,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Duel.DuelState;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.holder.DressMeHolder;
 import net.sf.l2j.gameserver.model.holder.IntIntHolder;
 import net.sf.l2j.gameserver.model.holder.SkillUseHolder;
 import net.sf.l2j.gameserver.model.item.Henna;
@@ -1677,11 +1679,9 @@ public class Player extends Playable
 					
 					sendMessage("Two-handed weapon unequipped to equip shield.");
 					
-					 
 				}
 				// Se arma 1 mão, mantém skin fake weapon
 			}
-			 
 			
 			items = getInventory().equipItemAndRecord(item);
 			
@@ -1697,7 +1697,6 @@ public class Player extends Playable
 				if ((bodyPart & Item.SLOT_ALLWEAPON) != 0)
 					rechargeShots(true, true);
 				
-				 
 			}
 			else
 				sendPacket(SystemMessageId.CANNOT_EQUIP_ITEM_DUE_TO_BAD_CONDITION);
@@ -1712,7 +1711,6 @@ public class Player extends Playable
 			int slot = getInventory().getSlotFromItem(item);
 			items = getInventory().unEquipItemInBodySlotAndRecord(slot);
 			
-			 
 		}
 		
 		refreshExpertisePenalty();
@@ -2735,7 +2733,7 @@ public class Player extends Playable
 			else
 				sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(item));
 		}
-	 
+		
 		return true;
 	}
 	
@@ -3646,7 +3644,7 @@ public class Player extends Playable
 			
 			// Remove the ItemInstance from the world and send GetItem packets
 			item.pickupMe(this);
-			 
+			
 			// item must be removed from ItemsOnGroundManager if is active
 			ItemsOnGroundTaskManager.getInstance().remove(item);
 		}
@@ -4067,8 +4065,6 @@ public class Player extends Playable
 				LMEvent.onKill(killer, this);
 				TvTEvent.onKill(killer, this);
 				
-				 
-				
 			}
 			
 			KTBEvent.onDie(this);
@@ -4149,7 +4145,7 @@ public class Player extends Playable
 		// Icons update in order to get retained buffs list
 		updateEffectIcons();
 		quakeSystem = 0;
-	 
+		
 		return true;
 	}
 	
@@ -4279,8 +4275,6 @@ public class Player extends Playable
 				// if (Config.ALT_GIVE_PVP_IN_ARENA)
 				setPvpKills(getPvpKills() + 1);
 				
-			 
-				
 				// Send UserInfo packet to attacker with its Karma and PK Counter
 				sendPacket(new UserInfo(this));
 			}
@@ -4294,7 +4288,7 @@ public class Player extends Playable
 			{
 				// Add PvP point to attacker.
 				setPvpKills(getPvpKills() + 1);
-				 
+				
 				if (Config.ALLOW_PVP_NAME_COLOR_SYSTEM /* && !isVip() */)
 				{
 					colorsCheckName();
@@ -5794,8 +5788,6 @@ public class Player extends Playable
 				
 				player.setVip(rset.getInt("vip") == 1 ? true : false);
 				player.setVipEndTime(rset.getLong("vip_end"));
-				
-				 
 				
 				player.setAio(rset.getInt("aio") == 1 ? true : false);
 				player.setAioEndTime(rset.getLong("aio_end"));
@@ -8983,7 +8975,7 @@ public class Player extends Playable
 	public boolean addSubClass(int classId, int classIndex)
 	{
 		removeItens();
-		 
+		
 		if (!_subclassLock.tryLock())
 			return false;
 		
@@ -9250,7 +9242,7 @@ public class Player extends Playable
 			restoreEffects();
 			updateEffectIcons();
 			sendPacket(new EtcStatusUpdate(this));
-		 
+			
 			// If player has quest "Repent Your Sins", remove it
 			QuestState st = getQuestState("Q422_RepentYourSins");
 			if (st != null)
@@ -9371,8 +9363,6 @@ public class Player extends Playable
 			if (isInRefusalMode())
 				sendMessage("Entering world in Message Refusal mode.");
 		}
-		
-		 
 		
 		if (HeroManagerCustom.getInstance().hasHeroPrivileges(getObjectId()))
 		{
@@ -9540,7 +9530,7 @@ public class Player extends Playable
 			}, (int) (2000 / getStat().getMovementSpeedMultiplier()));
 			setIsParalyzed(true);
 		}
-	 
+		
 	}
 	
 	@Override
@@ -9812,7 +9802,7 @@ public class Player extends Playable
 		FOSEvent.onTeleported(this);
 		CTFEvent.onTeleported(this);
 		TvTEvent.onTeleported(this);
-		 
+		
 	}
 	
 	/*
@@ -9984,7 +9974,7 @@ public class Player extends Playable
 			unSummonAgathion();
 			lostAgathionSkills();
 		}
-		 
+		
 		cleanup();
 		store();
 		super.deleteMe();
@@ -11090,7 +11080,6 @@ public class Player extends Playable
 		if (isInOlympiadMode() && target instanceof Player && ((Player) target).isInOlympiadMode() && ((Player) target).getOlympiadGameId() == getOlympiadGameId())
 			OlympiadGameManager.getInstance().notifyCompetitorDamage(this, damage);
 		
-		 
 	}
 	
 	public void checkItemRestriction()
@@ -12403,7 +12392,6 @@ public class Player extends Playable
 		return true;
 	}
 	
-	
 	public static String StringToHex(String color)
 	{
 		switch (color.length())
@@ -13683,8 +13671,6 @@ public class Player extends Playable
 		return _hwid;
 	}
 	
-	 
-	
 	private boolean autoAntiKsProtection = false;
 	
 	public void setAntiKsProtection(boolean val)
@@ -13964,12 +13950,298 @@ public class Player extends Playable
 	
 	public void setPartyInvite(Player requestor, Player target)
 	{
-	
+		
 	}
-
+	
 	public Player getRequestAssistent()
 	{
 		Player createnew = getClient().getActiveChar();
 		return createnew;
 	}
+	
+	private long _lastDressMeSummonTime;
+	
+	public long getLastDressMeSummonTime()
+	{
+		return _lastDressMeSummonTime;
+	}
+	
+	public void setLastDressMeSummonTime(long time)
+	{
+		_lastDressMeSummonTime = time;
+	}
+	
+	private boolean _isDressMe;
+	
+	public boolean isDressMe()
+	{
+		return _isDressMe;
+	}
+	
+	public void setDressMe(boolean val)
+	{
+		_isDressMe = val;
+	}
+	
+	private boolean _isDressMeDisableHair;
+	
+	public boolean isDressMeDisableHair()
+	{
+		return _isDressMeDisableHair;
+	}
+	
+	public void setDressMeDisableHair(boolean val)
+	{
+		_isDressMeDisableHair = val;
+	}
+	
+	private DressMeHolder _armorSkin;
+	private DressMeHolder _weaponSkin;
+	
+	public DressMeHolder getArmorSkin()
+	{
+		return _armorSkin;
+	}
+	
+	public void setArmorSkin(DressMeHolder skin)
+	{
+		_armorSkin = skin;
+	}
+	
+	public DressMeHolder getWeaponSkin()
+	{
+		return _weaponSkin;
+	}
+	
+	public void setWeaponSkin(DressMeHolder skin)
+	{
+		_weaponSkin = skin;
+	}
+	
+	public void setDressVisual(int chest, int legs, int gloves, int feet, int helmet)
+	{
+		final Inventory inv = getInventory();
+		
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_CHEST, chest);
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_LEGS, legs);
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_GLOVES, gloves);
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_FEET, feet);
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_HEAD, helmet);
+		broadcastUserInfo();
+	}
+	
+	public void setWeaponVisual(int rightHandId, int leftHandId, int twoHandId)
+	{
+		
+		Inventory inv = getInventory();
+		
+		if (rightHandId > 0)
+			inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_RHAND, rightHandId);
+		if (leftHandId > 0)
+			inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_LHAND, leftHandId);
+		if (twoHandId > 0)
+		{
+			inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_RHAND, twoHandId);
+			inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_LHAND, twoHandId);
+		}
+		broadcastUserInfo();
+		
+	}
+	
+	public void applyDressMe(DressMeHolder skin, DressMeSource source, int sourceId)
+	{
+		if (skin == null)
+			return;
+		
+	 
+		switch (skin.getType())
+		{
+			case ARMOR:
+			case CLOAK:
+			{
+				setArmorSkin(skin);
+				setDressVisual(skin.getChestId(), skin.getLegsId(), skin.getGlovesId(), skin.getFeetId(), skin.getHelmetId());
+				
+				getMemos().set(MEMO_ARMOR_SRC, source.getId());
+				getMemos().set(MEMO_ARMOR_ID, sourceId);
+				break;
+			}
+			case WEAPON:
+			{
+				setWeaponSkin(skin);
+				setWeaponVisual(skin.getRightHandId(), skin.getLeftHandId(), skin.getTwoHandId());
+				
+				getMemos().set(MEMO_WEAPON_SRC, source.getId());
+				getMemos().set(MEMO_WEAPON_ID, sourceId);
+				break;
+			}
+		}
+		
+		setDressMe(true);
+		getMemos().set(MEMO_DRESS_HAIR_OFF, isDressMeDisableHair() ? 1 : 0);
+		
+		broadcastUserInfo();
+	}
+	
+	public void removeDressMeArmor()
+	{
+		
+		_armorSkin = null;
+		
+		final Inventory inv = getInventory();
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_CHEST, 0);
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_LEGS, 0);
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_GLOVES, 0);
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_FEET, 0);
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_HEAD, 0);
+		getMemos().unset(MEMO_ARMOR_SRC);
+		getMemos().unset(MEMO_ARMOR_ID);
+		
+		getMemos().hasChanges();
+		broadcastUserInfo();
+		checkIfNoDressMe();
+	}
+	
+	public void removeDressMeWeapon()
+	{
+		
+		_weaponSkin = null;
+		
+		final Inventory inv = getInventory();
+		// Remove SEMPRE os dois. Isso evita sobrar shield/weapon visual antigo.
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_RHAND, 0);
+		inv.setPaperdollVisualItemId(Inventory.PAPERDOLL_LHAND, 0);
+		getMemos().unset(MEMO_WEAPON_SRC);
+		getMemos().unset(MEMO_WEAPON_ID);
+		getMemos().hasChanges();
+		broadcastUserInfo();
+		checkIfNoDressMe();
+	}
+	
+	private void checkIfNoDressMe()
+	{
+		if (_armorSkin == null && _weaponSkin == null)
+			setDressMe(false);
+	}
+	
+	private static final String MEMO_ARMOR_SRC = "dressme.armor.src"; // 1 skill, 2 item, 3 action
+	private static final String MEMO_ARMOR_ID = "dressme.armor.id"; // id conforme src
+	
+	private static final String MEMO_WEAPON_SRC = "dressme.weapon.src";
+	private static final String MEMO_WEAPON_ID = "dressme.weapon.id";
+	
+	private static final String MEMO_DRESS_HAIR_OFF = "dressme.hairOff"; // 0/1
+	
+	public enum DressMeSource
+	{
+		SKILL(1),
+		ITEM(2),
+		ACTION(3);
+		
+		private final int _id;
+		
+		DressMeSource(int id)
+		{
+			_id = id;
+		}
+		
+		public int getId()
+		{
+			return _id;
+		}
+		
+		public static DressMeSource fromId(int id)
+		{
+			switch (id)
+			{
+				case 1:
+					return SKILL;
+				case 2:
+					return ITEM;
+				case 3:
+					return ACTION;
+				default:
+					return ITEM; // fallback seguro
+			}
+		}
+	}
+	
+	private static DressMeHolder resolveDress(DressMeSource src, int id)
+	{
+		if (id <= 0)
+			return null;
+		
+		switch (src)
+		{
+			case SKILL:
+				return DressMeData.getInstance().getBySkillId(id);
+			case ITEM:
+				return DressMeData.getInstance().getByItemId(id);
+			case ACTION:
+				return DressMeData.getInstance().getByActionId(id);
+			default:
+				return DressMeData.getInstance().getByItemId(id);
+		}
+	}
+	
+	public void restoreDressMeFromMemos()
+	{
+		setDressMeDisableHair(getMemos().getInteger(MEMO_DRESS_HAIR_OFF, 0) == 1);
+		
+		// ARMOR
+		final DressMeSource armorSrc = DressMeSource.fromId(getMemos().getInteger(MEMO_ARMOR_SRC, 2));
+		final int armorId = getMemos().getInteger(MEMO_ARMOR_ID, 0);
+		
+		DressMeHolder armor = resolveDress(armorSrc, armorId);
+		
+		// fallback: tenta pelos outros ids que existirem no holder (se seu XML for misto)
+		if (armor == null && armorId > 0)
+		{
+			armor = DressMeData.getInstance().getByItemId(armorId);
+			if (armor == null)
+				armor = DressMeData.getInstance().getBySkillId(armorId);
+			if (armor == null)
+				armor = DressMeData.getInstance().getByActionId(armorId);
+		}
+		
+		if (armor != null)
+		{
+			setArmorSkin(armor);
+			setDressVisual(armor.getChestId(), armor.getLegsId(), armor.getGlovesId(), armor.getFeetId(), armor.getHelmetId());
+		}
+		else
+		{
+			getMemos().unset(MEMO_ARMOR_SRC);
+			getMemos().unset(MEMO_ARMOR_ID);
+		}
+		
+		// WEAPON
+		final DressMeSource weaponSrc = DressMeSource.fromId(getMemos().getInteger(MEMO_WEAPON_SRC, 2));
+		final int weaponId = getMemos().getInteger(MEMO_WEAPON_ID, 0);
+		
+		DressMeHolder weapon = resolveDress(weaponSrc, weaponId);
+		
+		if (weapon == null && weaponId > 0)
+		{
+			weapon = DressMeData.getInstance().getByItemId(weaponId);
+			if (weapon == null)
+				weapon = DressMeData.getInstance().getBySkillId(weaponId);
+			if (weapon == null)
+				weapon = DressMeData.getInstance().getByActionId(weaponId);
+		}
+		
+		if (weapon != null)
+		{
+			setWeaponSkin(weapon);
+			setWeaponVisual(weapon.getRightHandId(), weapon.getLeftHandId(), weapon.getTwoHandId());
+		}
+		else
+		{
+			getMemos().unset(MEMO_WEAPON_SRC);
+			getMemos().unset(MEMO_WEAPON_ID);
+		}
+		
+		setDressMe(_armorSkin != null || _weaponSkin != null);
+	}
+	
 }

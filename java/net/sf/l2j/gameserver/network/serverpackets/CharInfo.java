@@ -13,6 +13,9 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.Player;
+import net.sf.l2j.gameserver.model.holder.DressMeHolder;
+import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
+import net.sf.l2j.gameserver.model.item.kind.Weapon;
 import net.sf.l2j.gameserver.model.itemcontainer.Inventory;
 import net.sf.l2j.gameserver.model.zone.ZoneId;
 import net.sf.l2j.gameserver.skills.AbnormalEffect;
@@ -116,20 +119,77 @@ public class CharInfo extends L2GameServerPacket
 		else
 			writeD(_activeChar.getBaseClass());
 		
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
+		DressMeHolder armorSkin = _activeChar.getArmorSkin();
+		DressMeHolder weaponSkin = _activeChar.getWeaponSkin();
+		
+		final int hairallItemId = _inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL);
+		
+		final int hairallVisual = _activeChar.isDressMeDisableHair() ? hairallItemId : (armorSkin != null && hairallItemId > 0 && armorSkin.getHelmetId() > 0 ? armorSkin.getHelmetId() : hairallItemId);
+		
+		writeD(hairallVisual);
+		
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
 		
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
+		int rhand = _inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND);
+		int lhand = _inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND);
+		
+		if (_activeChar.isDressMe() && weaponSkin != null)
+		{
+			String equippedWeaponType = "";
+			ItemInstance weaponInstance = _activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
+			
+			if (weaponInstance != null && weaponInstance.getItem() instanceof Weapon)
+			{
+				Weapon weapon = (Weapon) weaponInstance.getItem();
+				equippedWeaponType = weapon.getItemType().toString().toLowerCase();
+			}
+			
+			if (equippedWeaponType.equalsIgnoreCase(weaponSkin.getWeaponTypeVisual()))
+			{
+				
+				if (weaponSkin.getTwoHandId() > 0)
+				{
+					rhand = weaponSkin.getTwoHandId();
+					lhand = 0;
+				}
+				else
+				{
+					if (weaponSkin.getRightHandId() > 0 && rhand > 0)
+						rhand = weaponSkin.getRightHandId();
+					if (weaponSkin.getLeftHandId() > 0 && lhand > 0)
+						lhand = weaponSkin.getLeftHandId();
+				}
+				
+			}
+		}
+		
+		writeD(rhand); // PaperdollItemId RHAND
+		writeD(lhand); // PaperdollItemId LHAND
+		
+		int glovesOId = _inv.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES);
+		int chestOId = _inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST);
+		int legsOId = _inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS);
+		int feetOId = _inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET);
+		
+		writeD((armorSkin != null && glovesOId > 0 && armorSkin.getGlovesId() > 0) ? armorSkin.getGlovesId() : glovesOId);
+		writeD((armorSkin != null && chestOId > 0 && armorSkin.getChestId() > 0) ? armorSkin.getChestId() : chestOId);
+		writeD((armorSkin != null && legsOId > 0 && armorSkin.getLegsId() > 0) ? armorSkin.getLegsId() : legsOId);
+		writeD((armorSkin != null && feetOId > 0 && armorSkin.getFeetId() > 0) ? armorSkin.getFeetId() : feetOId);
+		
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+		writeD(rhand);
 		
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
+		final int hairItemId = _inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR);
+		
+		final int hairVisual = _activeChar.isDressMeDisableHair() ? hairItemId : (armorSkin != null && hairItemId > 0 && armorSkin.getHelmetId() > 0 ? armorSkin.getHelmetId() : hairItemId);
+		
+		writeD(hairVisual);
+		
+		final int faceItemId = _inv.getPaperdollItemId(Inventory.PAPERDOLL_FACE);
+		
+		final int faceVisual = _activeChar.isDressMeDisableHair() ? faceItemId : (armorSkin != null && faceItemId > 0 && armorSkin.getHelmetId() > 0 ? armorSkin.getHelmetId() : faceItemId);
+		
+		writeD(faceVisual);
 		
 		// c6 new h's
 		writeH(0x00);
@@ -425,4 +485,5 @@ public class CharInfo extends L2GameServerPacket
 		else
 			writeD(0x00);
 	}
+	
 }

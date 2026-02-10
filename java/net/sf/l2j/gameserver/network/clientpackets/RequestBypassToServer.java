@@ -15,6 +15,7 @@ import java.util.logging.Level;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.commons.lang.StringUtil;
+import net.sf.l2j.commons.lang.Tokenizer;
 import net.sf.l2j.commons.random.Rnd;
 import net.sf.l2j.dailyreward.IBypassHandler;
 import net.sf.l2j.dailyreward.PlayerVariables;
@@ -63,6 +64,7 @@ import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
+import net.sf.l2j.gameserver.datatables.xml.DressMeData;
 import net.sf.l2j.gameserver.datatables.xml.IconTable;
 import net.sf.l2j.gameserver.datatables.xml.RouletteData;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
@@ -86,6 +88,7 @@ import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.instance.L2OlympiadManagerInstance;
 import net.sf.l2j.gameserver.model.base.Sex;
 import net.sf.l2j.gameserver.model.entity.Hero;
+import net.sf.l2j.gameserver.model.holder.DressMeHolder;
 import net.sf.l2j.gameserver.model.item.instance.ItemInstance;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.olympiad.OlympiadManager;
@@ -114,6 +117,7 @@ import net.sf.l2j.timezone.TimeFarmZoneManager;
 public final class RequestBypassToServer extends L2GameClientPacket
 {
 	private String _command;
+	private static final long COOLDOWN_MS = 10000L;
 	
 	@Override
 	protected void readImpl()
@@ -129,7 +133,6 @@ public final class RequestBypassToServer extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		
- 
 		if (_command.startsWith("custom_"))
 		{
 			// Player player = getClient().getPlayer();
@@ -180,6 +183,89 @@ public final class RequestBypassToServer extends L2GameClientPacket
 					GMAudit.auditGMAction(activeChar.getName() + " [" + activeChar.getObjectId() + "]", _command, (activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target"));
 				
 				ach.useAdminCommand(_command, activeChar);
+			}
+			if (_command.startsWith("dressme"))
+			{
+				final Tokenizer tokenizer = new Tokenizer(_command);
+				final String param = tokenizer.getToken(1);
+				switch (param.toLowerCase())
+				{
+					case "action":
+						int actionUse = Integer.parseInt(tokenizer.getToken(2));
+						
+						// Opção: actionUse aponta direto para a entrada do DressMeData via actionUse
+						
+						final DressMeHolder dress = DressMeData.getInstance().getByActionId(actionUse);
+						
+						if (dress == null)
+						{
+							activeChar.sendMessage("Visual not found for this actionUse.");
+							return;
+						}
+						
+						// VIP gate (ajuste o método real)
+						if (dress.isVip() && !activeChar.isVip())
+						{
+							activeChar.sendMessage("This visual is VIP-only.");
+							return;
+						}
+						
+						// cooldown
+						final long now = System.currentTimeMillis();
+						if (now - activeChar.getLastDressMeSummonTime() < COOLDOWN_MS)
+						{
+							activeChar.sendMessage("You need to wait before using DressMe again.");
+							return;
+						}
+						
+						if (activeChar.getWeaponSkin() != null && activeChar.getWeaponSkin().getItemId() == actionUse)
+						{
+							activeChar.sendMessage("This weapon look is already active.");
+							activeChar.removeDressMeWeapon();
+							return;
+						}
+						if (activeChar.getArmorSkin() != null && activeChar.getArmorSkin().getItemId() == actionUse)
+						{
+							activeChar.sendMessage("This armor look is already active.");
+							activeChar.removeDressMeArmor();
+							return;
+						}
+						
+						activeChar.applyDressMe(dress, Player.DressMeSource.ACTION, actionUse);
+						activeChar.setLastDressMeSummonTime(now);
+						openPanelSkin(activeChar);
+						break;
+					
+					case "disable":
+						
+						if (activeChar.getWeaponSkin() != null)
+						{
+							activeChar.sendMessage("This weapon look is already active.");
+							activeChar.removeDressMeWeapon();
+							
+						}
+						
+						if (activeChar.getArmorSkin() != null)
+						{
+							activeChar.sendMessage("This armor look is already active.");
+							activeChar.removeDressMeArmor();
+							
+						}
+						openPanelSkin(activeChar);
+						break;
+					case "skin":
+						NpcHtmlMessage html = new NpcHtmlMessage(0);
+						html.setFile("data/html/mods/menu/tryskin.htm");
+						activeChar.sendPacket(html);
+						break;
+					case "hair_disable":
+						activeChar.setDressMeDisableHair(!activeChar.isDressMeDisableHair());
+						String MEMO_DRESS_HAIR_OFF = "dressme.hairOff";
+						activeChar.getMemos().set(MEMO_DRESS_HAIR_OFF, activeChar.isDressMeDisableHair() ? "1" : "0");
+						activeChar.broadcastUserInfo();
+						openPanelSkin(activeChar);
+						break;
+				}
 			}
 			else if (_command.startsWith("broser"))
 			{
@@ -1909,6 +1995,13 @@ public final class RequestBypassToServer extends L2GameClientPacket
 		
 		sb.append("</body></html>");
 		html.setHtml(sb.toString());
+		player.sendPacket(html);
+	}
+	
+	private static void openPanelSkin(Player player)
+	{
+		NpcHtmlMessage html = new NpcHtmlMessage(0);
+		html.setFile("data/html/mods/menu/tryskin.htm");
 		player.sendPacket(html);
 	}
 	

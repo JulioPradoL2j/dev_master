@@ -22,6 +22,8 @@ import net.sf.l2j.gameserver.templates.StatsSet;
  */
 public enum L2SkillType
 {
+	DRESSME,
+	
 	// Damage
 	PDAM,
 	FATAL,

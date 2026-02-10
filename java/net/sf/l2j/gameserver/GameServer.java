@@ -89,6 +89,7 @@ import net.sf.l2j.gameserver.datatables.SpellbookTable;
 import net.sf.l2j.gameserver.datatables.StaticObjects;
 import net.sf.l2j.gameserver.datatables.SummonItemsData;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
+import net.sf.l2j.gameserver.datatables.xml.DressMeData;
 import net.sf.l2j.gameserver.datatables.xml.FakePcsTable;
 import net.sf.l2j.gameserver.datatables.xml.IconTable;
 import net.sf.l2j.gameserver.datatables.xml.RouletteData;
@@ -381,10 +382,13 @@ public class GameServer
 		
 		Hwid.Init();
 		
+		StringUtil.printSection("DressMe Data");
+		DressMeData.getInstance();
+		
 		StringUtil.printSection("Custom World");
 		IPManager.getInstance();
 		RouletteData.getInstance();
-		 
+		DressMeData.getInstance();
 		HeroManagerCustom.getInstance();
 		UpgradeItemData.getInstance();
 		DollsTable.getInstance();

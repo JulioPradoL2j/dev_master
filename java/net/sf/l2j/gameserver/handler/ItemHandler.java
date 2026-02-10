@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.handler.itemhandlers.SpiritShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.SummonItems;
 import net.sf.l2j.gameserver.handler.itemhandlers.custom.AioItemClick;
 import net.sf.l2j.gameserver.handler.itemhandlers.custom.AllyNameChange;
+import net.sf.l2j.gameserver.handler.itemhandlers.custom.ApplySkins;
 import net.sf.l2j.gameserver.handler.itemhandlers.custom.AugmentSkills;
 import net.sf.l2j.gameserver.handler.itemhandlers.custom.BoxRewards;
 import net.sf.l2j.gameserver.handler.itemhandlers.custom.ClanFull;
@@ -71,7 +72,7 @@ public class ItemHandler
 		{
 			registerItemHandler(new VipItemClick());	
 		}
-		
+		registerItemHandler(new ApplySkins());
 		registerItemHandler(new BoxRewards());
 		registerItemHandler(new HeroItemClick());
 		registerItemHandler(new AugmentSkills());

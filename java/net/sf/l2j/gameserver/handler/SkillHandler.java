@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.SummonFriend;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sweep;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.handler.skillhandlers.Unlock;
+import net.sf.l2j.gameserver.handler.skillhandlers.applySkins;
 import net.sf.l2j.gameserver.templates.skills.L2SkillType;
 
 public class SkillHandler
@@ -47,6 +48,7 @@ public class SkillHandler
 	
 	protected SkillHandler()
 	{
+		registerSkillHandler(new applySkins());
 		registerSkillHandler(new BalanceLife());
 		registerSkillHandler(new Blow());
 		registerSkillHandler(new Cancel());

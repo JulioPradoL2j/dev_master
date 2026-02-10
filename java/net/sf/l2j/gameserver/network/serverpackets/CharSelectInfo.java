@@ -9,10 +9,13 @@ import java.util.logging.Level;
 
 import net.sf.l2j.gameserver.ConnectionPool;
 import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.datatables.xml.DressMeData;
 import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.holder.DressMeHolder;
 import net.sf.l2j.gameserver.model.itemcontainer.Inventory;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.OfflineMemos;
 
 public class CharSelectInfo extends L2GameServerPacket
 {
@@ -67,6 +70,8 @@ public class CharSelectInfo extends L2GameServerPacket
 			CharSelectInfoPackage charInfoPackage = _characterPackages[i];
 			final int fakeWeaponObjectId = charInfoPackage.getFakeWeaponObjectId();
 			final int fakeWeaponItemId = charInfoPackage.getFakeWeaponItemId();
+			applyDressMeVisualsToPaperdoll(charInfoPackage);
+			
 			writeS(charInfoPackage.getName());
 			writeD(charInfoPackage.getCharId());
 			writeS(_loginName);
@@ -114,7 +119,7 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_RFINGER));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LFINGER));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HEAD));
-		//	writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND));
+			// writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND));
 			writeD(fakeWeaponObjectId == 0 ? charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND) : fakeWeaponObjectId);
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LHAND));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_GLOVES));
@@ -122,7 +127,7 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LEGS));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FEET));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
-		//	writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND));
+			// writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND));
 			writeD(fakeWeaponObjectId == 0 ? charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND) : fakeWeaponObjectId);
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
@@ -134,7 +139,7 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RFINGER));
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LFINGER));
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
-		//	writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+			// writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
 			writeD(fakeWeaponItemId == 0 ? charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND) : fakeWeaponItemId);
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
@@ -142,7 +147,7 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
-		//	writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+			// writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
 			writeD(fakeWeaponItemId == 0 ? charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND) : fakeWeaponItemId);
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
 			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FACE));
@@ -315,4 +320,109 @@ public class CharSelectInfo extends L2GameServerPacket
 		
 		return charInfopackage;
 	}
+	
+	private static void applyDressMeVisualsToPaperdoll(CharSelectInfoPackage pkg)
+	{
+		final int objectId = pkg.getObjectId(); // o obj_Id do DB
+		
+		// Toggle
+		final boolean hairOff = OfflineMemos.getInstance().getInt(objectId, "dressme.hairOff", 0) == 1;
+		
+		// ARMOR
+		final int armorSrc = OfflineMemos.getInstance().getInt(objectId, "dressme.armor.src", 0);
+		final int armorId = OfflineMemos.getInstance().getInt(objectId, "dressme.armor.id", 0);
+		
+		DressMeHolder armor = resolveOfflineDress(armorSrc, armorId);
+		
+		// fallback (migração/ids mistos)
+		if (armor == null && armorId > 0)
+		{
+			armor = DressMeData.getInstance().getByItemId(armorId);
+			if (armor == null)
+				armor = DressMeData.getInstance().getBySkillId(armorId);
+			if (armor == null)
+				armor = DressMeData.getInstance().getByActionId(armorId);
+		}
+		
+		if (armor != null)
+		{
+			pkg.setPaperdollVisual(Inventory.PAPERDOLL_GLOVES, armor.getGlovesId());
+			pkg.setPaperdollVisual(Inventory.PAPERDOLL_CHEST, armor.getChestId());
+			pkg.setPaperdollVisual(Inventory.PAPERDOLL_LEGS, armor.getLegsId());
+			pkg.setPaperdollVisual(Inventory.PAPERDOLL_FEET, armor.getFeetId());
+			
+			// Coroa / acessório → SOMENTE HAIRALL
+			if (!hairOff && armor.getHelmetId() > 0)
+			{
+				pkg.setPaperdollVisual(Inventory.PAPERDOLL_HAIRALL, armor.getHelmetId());
+				pkg.setPaperdollVisual(Inventory.PAPERDOLL_HAIR, armor.getHelmetId());
+				pkg.setPaperdollVisual(Inventory.PAPERDOLL_FACE, armor.getHelmetId());
+			}
+			else
+				pkg.setPaperdollVisual(Inventory.PAPERDOLL_HAIRALL, 0);
+		}
+		
+		// WEAPON
+		final int wepSrc = OfflineMemos.getInstance().getInt(objectId, "dressme.weapon.src", 0);
+		final int wepId = OfflineMemos.getInstance().getInt(objectId, "dressme.weapon.id", 0);
+		
+		DressMeHolder weapon = resolveOfflineDress(wepSrc, wepId);
+		
+		if (weapon == null && wepId > 0)
+		{
+			weapon = DressMeData.getInstance().getByItemId(wepId);
+			if (weapon == null)
+				weapon = DressMeData.getInstance().getBySkillId(wepId);
+			if (weapon == null)
+				weapon = DressMeData.getInstance().getByActionId(wepId);
+		}
+		
+		if (weapon != null)
+		{
+			final int twoHand = weapon.getTwoHandId();
+			
+			if (twoHand > 0)
+			{
+				pkg.setPaperdollVisual(Inventory.PAPERDOLL_RHAND, twoHand);
+				pkg.setPaperdollVisual(Inventory.PAPERDOLL_LHAND, 0); // 2H regra
+			}
+			else
+			{
+				if (weapon.getRightHandId() > 0)
+					pkg.setPaperdollVisual(Inventory.PAPERDOLL_RHAND, weapon.getRightHandId());
+				if (weapon.getLeftHandId() > 0)
+					pkg.setPaperdollVisual(Inventory.PAPERDOLL_LHAND, weapon.getLeftHandId());
+			}
+		}
+	}
+	
+	private static DressMeHolder resolveOfflineDress(int src, int id)
+	{
+		if (id <= 0)
+			return null;
+		
+		switch (src)
+		{
+			case 1: // SKILL
+				return DressMeData.getInstance().getBySkillId(id);
+			
+			case 2: // ITEM
+				return DressMeData.getInstance().getByItemId(id);
+			
+			case 3: // ACTION
+				return DressMeData.getInstance().getByActionId(id);
+			
+			default:
+			{
+				// Fallback seguro (migração / configs antigas)
+				DressMeHolder d = DressMeData.getInstance().getByItemId(id);
+				if (d == null)
+					d = DressMeData.getInstance().getBySkillId(id);
+				if (d == null)
+					d = DressMeData.getInstance().getByActionId(id);
+				return d;
+			}
+		}
+	}
+	
 }
