@@ -5,8 +5,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -46,8 +49,8 @@ public class ItemsSearchFrame
 		if (!searchById && query.length() < 2)
 			return;
 		
-		File[] files = ITEMS_ROOT.listFiles(f -> f.getName().endsWith(".xml"));
-		if (files == null)
+		List<File> files = listXmlRecursively(ITEMS_ROOT);
+		if (files.isEmpty())
 			return;
 		
 		for (File file : files)
@@ -65,7 +68,7 @@ public class ItemsSearchFrame
 					String id = item.getAttribute("id");
 					String name = item.getAttribute("name");
 					
-					if (name == null)
+					if (name == null || name.isEmpty() || id == null || id.isEmpty())
 						continue;
 					
 					boolean match = searchById ? id.equals(query) : name.toLowerCase().contains(query);
@@ -101,7 +104,7 @@ public class ItemsSearchFrame
 		JFrame frame = new JFrame("Search Item");
 		frame.setSize(420, 260);
 		frame.setMinimumSize(new Dimension(420, 260));
-
+		
 		frame.setLayout(new BorderLayout());
 		frame.setIconImages(icons);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -138,23 +141,22 @@ public class ItemsSearchFrame
 		};
 		
 		// depois de criar a JTable
-
+		
 		JTable table = new JTable(model);
 		table.setRowHeight(22);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setFillsViewportHeight(true);
-
+		
 		// Ajuste de colunas
 		table.getColumnModel().getColumn(0).setPreferredWidth(80);
 		table.getColumnModel().getColumn(0).setMaxWidth(90);
-
+		
 		table.getColumnModel().getColumn(1).setPreferredWidth(280);
-
+		
 		JScrollPane scroll = new JScrollPane(table);
 		scroll.setPreferredSize(new Dimension(390, 170));
-
+		
 		frame.add(scroll, BorderLayout.CENTER);
-
 		
 		/* ================= EVENTS ================= */
 		
@@ -187,4 +189,20 @@ public class ItemsSearchFrame
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
+	
+	private static List<File> listXmlRecursively(File root)
+	{
+		if (root == null || !root.exists())
+			return List.of();
+		
+		try (Stream<Path> walk = Files.walk(root.toPath()))
+		{
+			return walk.filter(Files::isRegularFile).filter(p -> p.getFileName().toString().toLowerCase().endsWith(".xml")).map(Path::toFile).collect(java.util.stream.Collectors.toList());
+		}
+		catch (Exception e)
+		{
+			return List.of();
+		}
+	}
+	
 }

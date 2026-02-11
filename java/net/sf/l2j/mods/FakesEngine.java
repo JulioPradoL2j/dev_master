@@ -10,7 +10,6 @@ import net.sf.l2j.mods.data.FakePlayerData;
 import net.sf.l2j.mods.data.FakePrivateBuyData;
 import net.sf.l2j.mods.data.FakePrivateSellData;
 import net.sf.l2j.mods.engine.FakePlayerRestoreEngine;
-import net.sf.l2j.mods.gui.PhantomPanel;
 import net.sf.l2j.mods.task.FakePlayerAiEngine;
 
 public class FakesEngine
@@ -33,7 +32,6 @@ public class FakesEngine
 		loadData();
 		registerAdmin();
 		FakePlayerAiEngine.start();
-		new PhantomPanel();
 	}
 	
 	private static void loadData()

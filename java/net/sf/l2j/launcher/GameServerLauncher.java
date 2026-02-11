@@ -182,11 +182,11 @@ public class GameServerLauncher
 			mnFontSize.add(item);
 		}
 		
-		final JMenu mnfakes = new JMenu("FakePlayer");
+		final JMenu mnfakes = new JMenu("Phantoms");
 		mnfakes.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		menuBar.add(mnfakes);
 		
-		final JMenuItem mntmfakes = new JMenuItem("Panel");
+		final JMenuItem mntmfakes = new JMenuItem("Open Panel");
 		mntmfakes.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		mntmfakes.addActionListener(new ActionListener()
 		{
@@ -198,11 +198,9 @@ public class GameServerLauncher
 		});
 		mnfakes.add(mntmfakes);
 		
-		
-		
-		final JMenu mnAdmin = new JMenu("Item");
-		mnAdmin.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		menuBar.add(mnAdmin);
+		final JMenu mnItems = new JMenu("Item");
+		mnItems.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		menuBar.add(mnItems);
 		
 		final JMenuItem mntmSearchItemss = new JMenuItem("Search");
 		mntmSearchItemss.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -214,7 +212,7 @@ public class GameServerLauncher
 				ItemsSearchFrame.openSearchItem();
 			}
 		});
-		mnAdmin.add(mntmSearchItemss);
+		mnItems.add(mntmSearchItemss);
 		
 		final JMenu mnReload = new JMenu("Balance");
 		mnReload.setFont(new Font("Segoe UI", Font.PLAIN, 12));

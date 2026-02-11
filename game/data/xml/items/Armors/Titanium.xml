@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='utf-8'?>
+<list>
+<!-- Light Set -->
+<item id="9217" type="Armor" name="Titanium Leather Armor">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="LIGHT" />
+		<set name="bodypart" val="fullarmor" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="870" />
+		<set name="material" val="LEATHER" />
+		<set name="weight" val="4950" />
+		<set name="price" val="17400000" />
+		<for>
+			<add order="0x10" stat="pDef" val="249" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+	<item id="9218" type="Armor" name="Titanium Leather Gloves">
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="gloves" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="179" />
+		<set name="material" val="LEATHER" />
+		<set name="weight" val="540" />
+		<set name="price" val="3580000" />
+		<for>
+			<add order="0x10" stat="pDef" val="55" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+	<item id="9219" type="Armor" name="Titanium Leather Boots">
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="feet" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="179" />
+		<set name="material" val="LEATHER" />
+		<set name="weight" val="1110" />
+		<set name="price" val="3580000" />
+		<for>
+			<add order="0x10" stat="pDef" val="55" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+	<item id="9220" type="Armor" name="Titanium Leather Helmet">
+		<set name="default_action" val="equip" />
+		<set name="bodypart" val="head" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="268" />
+		<set name="material" val="BONE" />
+		<set name="weight" val="550" />
+		<set name="price" val="5370000" />
+		<for>
+			<add order="0x10" stat="pDef" val="83" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+	
+	<!-- Heavy Set -->
+	
+	<item id="9221" type="Armor" name="Titanium Heavy Armor">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="HEAVY" />
+		<set name="bodypart" val="fullarmor" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="870" />
+		<set name="material" val="LEATHER" />
+		<set name="weight" val="4950" />
+		<set name="price" val="17400000" />
+		<for>
+			<add order="0x10" stat="pDef" val="249" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+	<item id="9222" type="Armor" name="Titanium Heavy Gloves">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="HEAVY" />
+		<set name="bodypart" val="gloves" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="179" />
+		<set name="material" val="LEATHER" />
+		<set name="weight" val="540" />
+		<set name="price" val="3580000" />
+		<for>
+			<add order="0x10" stat="pDef" val="55" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+	<item id="9223" type="Armor" name="Titanium Heavy Boots">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="HEAVY" />
+		<set name="bodypart" val="feet" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="179" />
+		<set name="material" val="LEATHER" />
+		<set name="weight" val="1110" />
+		<set name="price" val="3580000" />
+		<for>
+			<add order="0x10" stat="pDef" val="55" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+	<item id="9224" type="Armor" name="Titanium Heavy Helmet">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="HEAVY" />
+		<set name="bodypart" val="head" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="268" />
+		<set name="material" val="BONE" />
+		<set name="weight" val="550" />
+		<set name="price" val="5370000" />
+		<for>
+			<add order="0x10" stat="pDef" val="83" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+
+	<!-- Robe Set -->
+	
+	<item id="9225" type="Armor" name="Titanium Robe Armor">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="MAGIC" />
+		<set name="bodypart" val="fullarmor" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="870" />
+		<set name="material" val="LEATHER" />
+		<set name="weight" val="4950" />
+		<set name="price" val="17400000" />
+		<for>
+			<add order="0x10" stat="pDef" val="249" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+	<item id="9226" type="Armor" name="Titanium Robe Gloves">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="MAGIC" />
+		<set name="bodypart" val="gloves" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="179" />
+		<set name="material" val="LEATHER" />
+		<set name="weight" val="540" />
+		<set name="price" val="3580000" />
+		<for>
+			<add order="0x10" stat="pDef" val="55" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+	<item id="9227" type="Armor" name="Titanium Robe Boots">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="MAGIC" />
+		<set name="bodypart" val="feet" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="179" />
+		<set name="material" val="LEATHER" />
+		<set name="weight" val="1110" />
+		<set name="price" val="3580000" />
+		<for>
+			<add order="0x10" stat="pDef" val="55" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+	<item id="9228" type="Armor" name="Titanium Robe Helmet">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="MAGIC" />
+		<set name="bodypart" val="head" />
+		<set name="crystal_type" val="S" />
+		<set name="crystal_count" val="268" />
+		<set name="material" val="BONE" />
+		<set name="weight" val="550" />
+		<set name="price" val="5370000" />
+		<for>
+			<add order="0x10" stat="pDef" val="83" />
+			<enchant order="0x0C" stat="pDef" val="0" />
+		</for>
+	</item>
+</list>

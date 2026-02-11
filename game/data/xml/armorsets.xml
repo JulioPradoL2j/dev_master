@@ -51,4 +51,7 @@
 	<armorset chest="7861" legs="0" head="7860" gloves="7862" feet="7863" skillId="3608" shield="0" shieldSkillId="0" enchant6Skill="3620" />
 	<armorset chest="7864" legs="0" head="7860" gloves="7865" feet="7866" skillId="3609" shield="0" shieldSkillId="0" enchant6Skill="3621" />
 	<armorset chest="7867" legs="0" head="7860" gloves="7868" feet="7869" skillId="3610" shield="0" shieldSkillId="0" enchant6Skill="3622" />
+	<armorset chest="9221" legs="0" head="9224" gloves="9222" feet="9223" skillId="7250" shield="0" shieldSkillId="0" enchant6Skill="3624" />
+	<armorset chest="9217" legs="0" head="9220" gloves="9218" feet="9219" skillId="7251" shield="0" shieldSkillId="0" enchant6Skill="3624" />
+	<armorset chest="9225" legs="0" head="9228" gloves="9226" feet="9227" skillId="7252" shield="0" shieldSkillId="0" enchant6Skill="3624" />
 </list>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <list>
-	<item id="9506" type="EtcItem" name="Gold Scroll: Enchant Weapon (All Grades)">
+	<item id="9700" type="EtcItem" name="Gold Scroll: Enchant Weapon (All Grades)">
 		<set name="default_action" val="skill_reduce" />
 		<set name="etcitem_type" val="bless_scrl_enchant_wp" />
 		<set name="material" val="PAPER" />
@@ -11,7 +11,7 @@
 		<set name="is_stackable" val="true" />
 		<set name="item_skill" val="2027-1" />
 	</item>
-	<item id="9507" type="EtcItem" name="Gold Scroll: Enchant Armor (All Grades)">
+	<item id="9701" type="EtcItem" name="Gold Scroll: Enchant Armor (All Grades)">
 		<set name="default_action" val="skill_reduce" />
 		<set name="etcitem_type" val="bless_scrl_enchant_am" />
 		<set name="material" val="PAPER" />

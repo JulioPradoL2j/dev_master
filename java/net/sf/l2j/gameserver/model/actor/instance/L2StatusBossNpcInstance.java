@@ -1,8 +1,8 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.VoicedBossSpawn; // Adicione a importação
 import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.actor.template.NpcTemplate;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.VoicedBossSpawn; // Adicione a importação
 
 public class L2StatusBossNpcInstance extends L2NpcInstance
 {
