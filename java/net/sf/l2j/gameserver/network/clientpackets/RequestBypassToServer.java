@@ -66,6 +66,7 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.xml.DressMeData;
 import net.sf.l2j.gameserver.datatables.xml.IconTable;
+import net.sf.l2j.gameserver.datatables.xml.MerchantData;
 import net.sf.l2j.gameserver.datatables.xml.RouletteData;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.BypassHandler;
@@ -184,6 +185,55 @@ public final class RequestBypassToServer extends L2GameClientPacket
 				
 				ach.useAdminCommand(_command, activeChar);
 			}
+			
+			if (_command.startsWith("merchant"))
+			{
+				final Tokenizer tokenizer = new Tokenizer(_command);
+				final String param = tokenizer.getToken(1);
+				
+				switch (param.toLowerCase())
+				{
+					case "chat":
+					{
+						String htmlnavi = tokenizer.getToken(2);
+						NpcHtmlMessage html = new NpcHtmlMessage(0);
+						html.setFile("data/html/merchant/" + htmlnavi + ".htm");
+						html.replace("%BACK%", "bypass -h merchant chat 55500");
+						activeChar.sendPacket(html);
+						break;
+					}
+					
+					case "action":
+					{
+						String category = tokenizer.getToken(2);
+						String grade = tokenizer.getToken(3);
+						int page = tokenizer.getAsInteger(4, 0); // se não tiver, 1
+						MerchantData.getInstance().showList(activeChar, category, grade, page);
+						break;
+					}
+					
+					case "show":
+					{
+						String category = tokenizer.getToken(2);
+						String grade = tokenizer.getToken(3);
+						int page = tokenizer.getAsInteger(4, 0);
+						int index = tokenizer.getAsInteger(5, 0);
+						MerchantData.getInstance().showDetail(activeChar, category, grade, page, index);
+						break;
+					}
+					
+					case "buy":
+					{
+						String category = tokenizer.getToken(2);
+						String grade = tokenizer.getToken(3);
+						int page = tokenizer.getAsInteger(4, 0);
+						int index = tokenizer.getAsInteger(5, 0);
+						MerchantData.getInstance().buy(activeChar, category, grade, page, index);
+						break;
+					}
+				}
+			}
+			
 			if (_command.startsWith("dressme"))
 			{
 				final Tokenizer tokenizer = new Tokenizer(_command);

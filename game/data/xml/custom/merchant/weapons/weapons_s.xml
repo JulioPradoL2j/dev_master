@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="weapons" grade="S">
+    <!-- Draconic Bow (Focus) -->
+    <merchant product="7577-1" ingredient="57-5;6392-30" enchantLevel="3"/>
+    <!-- Angel Slayer Weapon (Haste) -->
+    <merchant product="6592-1" ingredient="57-5" enchantLevel="3"/>
+    <!-- Shining Bow Weapon (Focus) -->
+    <merchant product="6594-1" ingredient="57-5" enchantLevel="3"/>
+    <!-- Saint Spear Weapon (Haste) -->
+    <merchant product="6601-1" ingredient="57-5" enchantLevel="3"/>
+    <!-- Demon Splinter Weapon (Crt. Stun) -->
+    <merchant product="6602-1" ingredient="57-5" enchantLevel="3"/>
+    <!-- Heavens Divider Weapon (Haste) -->
+    <merchant product="6605-1" ingredient="57-5" enchantLevel="3"/>
+    <!-- Arcana Mace Weapon (Acumen) -->
+    <merchant product="6608-1" ingredient="57-5" enchantLevel="3"/>
+    <!-- Dragon Hunter Axe Weapon (Health) -->
+    <merchant product="6597-1" ingredient="57-5" enchantLevel="3"/>
+    <!-- Imperial Staff Weapon (Empower) -->
+    <merchant product="6587-1" ingredient="57-5" enchantLevel="3"/>
+    <!-- Basalt Battlehammer Weapon (Health) -->
+    <merchant product="6585-1" ingredient="57-5" enchantLevel="3"/>
+    <!-- Tallum Blade / Dark Legion's Edge Weapon -->
+    <merchant product="6580-1" ingredient="57-5" enchantLevel="3"/>
+    <!-- Forgotten Blade Weapon (Haste) -->
+    <merchant product="6581-1" ingredient="57-5" enchantLevel="3"/>  
+</merchantList>

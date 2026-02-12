@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.xml.DressMeData;
 import net.sf.l2j.gameserver.datatables.xml.FakePcsTable;
+import net.sf.l2j.gameserver.datatables.xml.MerchantData;
 import net.sf.l2j.gameserver.datatables.xml.RouletteData;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
@@ -198,6 +199,11 @@ public class AdminAdmin implements IAdminCommandHandler
 						AdminCommandAccessRights.getInstance().reload();
 						activeChar.sendMessage("Admin commands rights have been reloaded.");
 					}
+					else if (type.startsWith("merchant"))
+					{
+						MerchantData.getInstance().reload();
+						activeChar.sendMessage("The content of data/xml/custom/merchant alls .xml has been reloaded.");
+					}
 					else if (type.startsWith("dressme"))
 					{
 						DressMeData.getInstance().reload();
@@ -332,7 +338,7 @@ public class AdminAdmin implements IAdminCommandHandler
 					{
 						activeChar.sendMessage("Usage : //reload <acar|announcement|config|crest|door>");
 						activeChar.sendMessage("Usage : //reload <htm|item|multisell|npc|npcwalker>");
-						activeChar.sendMessage("Usage : //reload <skill|teleport|zone>");
+						activeChar.sendMessage("Usage : //reload <skill|teleport|zone|dressme|merchant>");
 					}
 				}
 				while (st.hasMoreTokens());
@@ -341,7 +347,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			{
 				activeChar.sendMessage("Usage : //reload <acar|announcement|config|crest|door>");
 				activeChar.sendMessage("Usage : //reload <htm|item|multisell|npc|npcwalker>");
-				activeChar.sendMessage("Usage : //reload <skill|teleport|zone| dressme>");
+				activeChar.sendMessage("Usage : //reload <skill|teleport|zone|dressme|merchant>");
 			}
 		}
 		return true;

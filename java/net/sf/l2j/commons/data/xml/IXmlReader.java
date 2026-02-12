@@ -46,6 +46,39 @@ public interface IXmlReader
 	
 	void parseDocument(Document doc, Path path);
 	
+	default void parseDirectory(String root)
+	{
+		parseDirectory(Paths.get(root), p -> p.getFileName().toString().toLowerCase().endsWith(".xml"), false, true, true);
+	}
+	
+	default void parseDirectory(Path root, Predicate<Path> fileFilter, boolean validate, boolean ignoreComments, boolean ignoreWhitespaces)
+	{
+		if (!Files.isDirectory(root))
+		{
+			LOGGER.info("Could not parse directory: {" + root + "} (not a directory)");
+			return;
+		}
+		
+		try
+		{
+			Files.walkFileTree(root, EnumSet.noneOf(FileVisitOption.class), Integer.MAX_VALUE, new SimpleFileVisitor<Path>()
+			{
+				@Override
+				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+				{
+					if (attrs.isRegularFile() && fileFilter.test(file))
+						parseFile(file, validate, ignoreComments, ignoreWhitespaces);
+					
+					return FileVisitResult.CONTINUE;
+				}
+			});
+		}
+		catch (IOException e)
+		{
+			LOGGER.info("Could not parse directory: {" + root + "} ");
+		}
+	}
+	
 	default void parseFile(String path)
 	{
 		parseFile(Paths.get(path), false, true, true);

@@ -1,10 +1,14 @@
 package net.sf.l2j.gameserver.templates;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.sf.l2j.gameserver.model.holder.IntIntHolder;
+import net.sf.l2j.gameserver.model.holder.MerchantIntHolder;
 
 /**
  * This class is used in order to have a set of couples (key,value).<BR>
@@ -393,6 +397,118 @@ public class StatsSet extends HashMap<String, Object>
 			return Enum.valueOf(enumClass, (String) val);
 		
 		return defaultValue;
+	}
+
+	
+	public MerchantIntHolder getMerchantIntHolder(final String key)
+	{
+		final Object val = get(key);
+		
+		if (val instanceof String[])
+		{
+			final String[] toSplit = (String[]) val;
+			return new MerchantIntHolder(Integer.parseInt(toSplit[0]), Integer.parseInt(toSplit[1]));
+		}
+		
+		if (val instanceof String)
+		{
+			final String[] toSplit = ((String) val).split("-");
+			return new MerchantIntHolder(Integer.parseInt(toSplit[0]), Integer.parseInt(toSplit[1]));
+		}
+		
+		throw new IllegalArgumentException("StatsSet : int-int (MerchantIntHolder) required, but found: " + val + " for key: " + key + ".");
+	}
+	
+	public List<MerchantIntHolder> getMerchantHolderList(final String key)
+	{
+		final Object val = get(key);
+		
+		if (val instanceof String)
+		{
+			// String exists, but it empty : return a generic empty List.
+			final String string = ((String) val);
+			if (string.isEmpty())
+				return Collections.emptyList();
+			
+			// Single entry ; return the entry under List form.
+			if (!string.contains(";"))
+			{
+				final String[] toSplit = string.split("-");
+				return Arrays.asList(new MerchantIntHolder(Integer.parseInt(toSplit[0]), Integer.parseInt(toSplit[1])));
+			}
+			
+			// First split is using ";", second is using "-". Exemple : 1234-12;1234-12.
+			final String[] entries = string.split(";");
+			final List<MerchantIntHolder> list = new ArrayList<>(entries.length);
+			
+			// Feed the List.
+			for (String entry : entries)
+			{
+				final String[] toSplit = entry.split("-");
+				list.add(new MerchantIntHolder(Integer.parseInt(toSplit[0]), Integer.parseInt(toSplit[1])));
+			}
+			
+			return list;
+		}
+		
+		throw new IllegalArgumentException("StatsSet : int-int;int-int (List<MerchantIntHolder>) required, but found: " + val + " for key: " + key + ".");
+	}
+	
+	
+	
+	
+	public IntIntHolder getIntIntHolder(final String key)
+	{
+		final Object val = get(key);
+		
+		if (val instanceof String[])
+		{
+			final String[] toSplit = (String[]) val;
+			return new IntIntHolder(Integer.parseInt(toSplit[0]), Integer.parseInt(toSplit[1]));
+		}
+		
+		if (val instanceof String)
+		{
+			final String[] toSplit = ((String) val).split("-");
+			return new IntIntHolder(Integer.parseInt(toSplit[0]), Integer.parseInt(toSplit[1]));
+		}
+		
+		throw new IllegalArgumentException("StatsSet : int-int (IntIntHolder) required, but found: " + val + " for key: " + key + ".");
+	}
+	
+	public List<IntIntHolder> getIntIntHolderList(final String key)
+	{
+		final Object val = get(key);
+		
+		if (val instanceof String)
+		{
+			// String exists, but it empty : return a generic empty List.
+			final String string = ((String) val);
+			if (string.isEmpty())
+				return Collections.emptyList();
+			
+			// Single entry ; return the entry under List form.
+			if (!string.contains(";"))
+			{
+				final String[] toSplit = string.split("-");
+				return Arrays.asList(new IntIntHolder(Integer.parseInt(toSplit[0]), Integer.parseInt(toSplit[1])));
+			}
+			
+			// First split is using ";", second is using "-". Exemple : 1234-12;1234-12.
+			final String[] entries = string.split(";");
+			final List<IntIntHolder> list = new ArrayList<>(entries.length);
+			
+			// Feed the List.
+			for (String entry : entries)
+			{
+				final String[] toSplit = entry.split("-");
+				list.add(new IntIntHolder(Integer.parseInt(toSplit[0]), Integer.parseInt(toSplit[1])));
+			}
+			
+			return list;
+		}
+		
+		throw new IllegalArgumentException("StatsSet : int-int;int-int (List<IntIntHolder>) required, but found: " + val + " for key: " + key + ".");
 	}
 
 }

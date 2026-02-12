@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="accessories" grade="HAIR">
+    <!-- The Lord's (Crown) -->
+    <merchant product="6841-1" ingredient="" />
+	<!-- Demon Homs -->
+    <merchant product="8187-1" ingredient="" />
+	<!-- Little Angel Wings -->
+    <merchant product="8188-1" ingredient="" />
+
+</merchantList>

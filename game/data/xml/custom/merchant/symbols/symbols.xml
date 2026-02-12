@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="symbols" grade="NG">
+    <!-- Greater Dye of Strength <Str +1 Con -1> -->
+    <merchant product="4553-10" ingredient="57-100"/>
+</merchantList>

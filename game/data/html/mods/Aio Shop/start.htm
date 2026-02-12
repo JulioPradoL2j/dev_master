@@ -1,22 +1,114 @@
 <html>
-   <title>Aio Shop</title>
-   <body>
-      <br>
- 
-      <center>
-         <font color=99FF66>Quando voce faz um AIO, seu personagem nao<br1>
-         podera dar hits ou usar skills fora da cidade.</font><br1>
-         <font color=FF0055>Use um personagem alternativo para isso!</font><br>
-         <img src=L2UI_CH3.herotower_deco width=256 height=32><br>
-         <font color=FF9900>Os precos dos pacotes de dias sao em<br1>
-         "Gold Bar".</font><br>
-         <button value="30 Dias [10 GB]" action="bypass -h npc_%objectId%_add_aio 3470 10 30" width=100 height=15 back="sek.cbui94" fore="sek.cbui92"><br>
-         <button value="60 Dias [20 GB]" action="bypass -h npc_%objectId%_add_aio 3470 20 60" width=100 height=15 back="sek.cbui94" fore="sek.cbui92"><br>
-         <button value="180 Dias [40 GB]" action="bypass -h npc_%objectId%_add_aio 3470 40 180" width=100 height=15 back="sek.cbui94" fore="sek.cbui92"><br>
-         <button value="365 Dias [80 GB]" action="bypass -h npc_%objectId%_add_aio 3470 80 365" width=100 height=15 back="sek.cbui94" fore="sek.cbui92"><br>
-         <font color=0099FF>Se voce clicar em "Remover AIO" seu status AIO<br1>
-         sera removido e voce perdera os creditos restantes.</font><br>
-         <button value="Remover Aio" action="bypass -h npc_%objectId%_remove_aio" width=100 height=15 back="sek.cbui94" fore="sek.cbui92">
-      </center>
-   </body>
+  <title>AIO Shop</title>
+  <body>
+    <br1>
+
+    <center>
+
+      <!-- ===== Header ===== -->
+      <table width=280 cellpadding=0 cellspacing=0 bgcolor=000000>
+        <tr>
+          <td align=center>
+            <br1>
+            <font color=E6EAF2><b>[ AIO SHOP ]</b></font><br1>
+            <font color=A8B0C0>Torne-se AIO e receba buffs exclusivos.</font>
+            <br1>
+            <img src="L2UI_CH3.herotower_deco" width=256 height=32>
+          </td>
+        </tr>
+
+        <!-- ===== Info Card ===== -->
+        <tr>
+          <td>
+            <table width=280 bgcolor=000000>
+              <tr>
+                <td align=center>
+					Quando voce faz um 'AIO', seu personagem nao<br1>
+                    podera dar hits ou usar skills fora da cidade.
+                   <br1>
+                  <font color=FF0055>
+                    Use um personagem alternativo para isso!
+                  </font>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td><br></td></tr>
+
+        <!-- ===== Pricing Card ===== -->
+        <tr>
+          <td>
+            <table width=280 bgcolor=000000>
+              <tr>
+                <td align=center>
+                    Os precos dos pacotes de dias sao em<br1>
+                       <font color=FFB84D> "Gold Bar".
+                  </font>
+                </td>
+              </tr>
+
+              <tr><td align=center><img src="L2UI_CH3.onscrmsg_pattern01" width=256 height=16></td></tr>
+
+              <!-- ===== Buttons ===== -->
+              <tr>
+                <td align=center>
+                  <button value="30 Dias  [10 GB]"
+                          action="bypass -h npc_%objectId%_add_aio 3470 10 30"
+                          width=100 height=22
+                          back="sek.cbui94" fore="sek.cbui92">
+                  <br1>
+
+                  <button value="60 Dias  [20 GB]"
+                          action="bypass -h npc_%objectId%_add_aio 3470 20 60"
+                          width=100 height=22
+                          back="sek.cbui94" fore="sek.cbui92">
+                  <br1>
+
+                  <button value="180 Dias [40 GB]"
+                          action="bypass -h npc_%objectId%_add_aio 3470 40 180"
+                          width=100 height=22
+                          back="sek.cbui94" fore="sek.cbui92">
+                  <br1>
+
+                  <button value="365 Dias [80 GB]"
+                          action="bypass -h npc_%objectId%_add_aio 3470 80 365"
+                          width=100 height=22
+                          back="sek.cbui94" fore="sek.cbui92">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td><br></td></tr>
+
+        <!-- ===== Warning Card ===== -->
+        <tr>
+          <td>
+            <table width=280 bgcolor=000000>
+              <tr>
+                <td align=center>
+                 <font color=FF0055>Se voce clicar em "Remover AIO"</font><br1> <font color=66B2FF>sera removido e voce perdera os creditos restantes.</font>
+                </td>
+              </tr>
+              <tr><td align=center> </td></tr>
+              <tr>
+                <td align=center>
+                  <button value="Remover aio"
+                          action="bypass -h npc_%objectId%_remove_aio"
+                          width=100 height=22
+                          back="sek.cbui94" fore="sek.cbui92">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td><br></td></tr>
+      </table>
+
+    </center>
+  </body>
 </html>
