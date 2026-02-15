@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="weapons" grade="D">
+<!-- Sword of Mystic -->
+<merchant product="143-1" ingredient=""/>
+<!-- Knight's Sword -->
+<merchant product="128-1" ingredient=""/>
+<!-- Elven Sword -->
+<merchant product="130-1" ingredient=""/>
+<!-- Two-Handed Sword -->
+<merchant product="124-1" ingredient=""/>
+<!-- Sword of Revolution -->
+<merchant product="129-1" ingredient=""/>
+<!-- Claymore -->
+<merchant product="70-1" ingredient=""/>
+<!-- Assassin Knife -->
+<merchant product="221-1" ingredient=""/>
+<!-- Mystic Knife -->
+<merchant product="239-1" ingredient=""/>
+<!-- Kukuri -->
+<merchant product="223-1" ingredient=""/>
+<!-- Cursed Maingauche -->
+<merchant product="1660-1" ingredient=""/>
+<!-- Maingauche -->
+<merchant product="224-1" ingredient=""/>
+<!-- Mithril Dagger -->
+<merchant product="225-1" ingredient=""/>
+<!-- Strengthened Bow -->
+<merchant product="274-1" ingredient=""/>
+<!-- Dark Elven bow -->
+<merchant product="277-1" ingredient=""/>
+<!-- Long Bow -->
+<merchant product="275-1" ingredient=""/>
+<!-- Gastraphetes -->
+<merchant product="278-1" ingredient=""/>
+<!-- Strengthened Long Bow -->
+<merchant product="279-1" ingredient=""/>
+<!-- Light Crossbow -->
+<merchant product="280-1" ingredient=""/>
+<!-- Bagh-Nakh -->
+<merchant product="258-1" ingredient=""/>
+<!-- Single-Edged Jamadhr -->
+<merchant product="259-1" ingredient=""/>
+<!-- Triple-Edged Jamadhr -->
+<merchant product="260-1" ingredient=""/>
+<!-- Bich'Hwa -->
+<merchant product="261-1" ingredient=""/>
+<!-- Traveler's Jamadhr -->
+<merchant product="7828-1" ingredient=""/>
+<!-- Scallop Jamadhr -->
+<merchant product="262-1" ingredient=""/>
+<!-- Trident -->
+<merchant product="291-1" ingredient=""/>
+<!-- Dwarven Trident -->
+<merchant product="295-1" ingredient=""/>
+<!-- War Hammer -->
+<merchant product="293-1" ingredient=""/>
+<!-- War Pick -->
+<merchant product="294-1" ingredient=""/>
+<!-- Winged Spear -->
+<merchant product="93-1" ingredient=""/>
+<!-- Glaive -->
+<merchant product="297-1" ingredient=""/>
+<!-- Heavy Mace -->
+<merchant product="166-1" ingredient=""/>
+<!-- Tomahawk -->
+<merchant product="86-1" ingredient=""/>
+<!-- Spiked Club -->
+<merchant product="157-1" ingredient=""/>
+<!-- Staff of Life -->
+<merchant product="189-1" ingredient=""/>
+<!-- Tarbar -->
+<merchant product="158-1" ingredient=""/>
+<!-- Bonebreaker -->
+<merchant product="159-1" ingredient=""/>
+<!-- Bone Staff -->
+<merchant product="178-1" ingredient=""/>
+<!-- Mystic Staff -->
+<merchant product="183-1" ingredient=""/>
+<!-- Staff of Magic -->
+<merchant product="186-1" ingredient=""/>
+<!-- Goat Head Staff -->
+<merchant product="90-1" ingredient=""/>
+<!-- Atuba Mace -->
+<merchant product="190-1" ingredient=""/>
+<!-- Ghost Staff -->
+<merchant product="188-1" ingredient=""/>
+</merchantList>

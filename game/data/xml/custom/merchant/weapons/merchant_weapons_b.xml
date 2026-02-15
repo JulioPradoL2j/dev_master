@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="weapons" grade="B">
+<!-- Bow of Peril - Cheap Shot -->
+<merchant product="4830-1" ingredient=""/>
+<!-- Bow of Peril - Guidance -->
+<merchant product="4828-1" ingredient=""/>
+<!-- Bow of Peril - Quick Recovery -->
+<merchant product="4829-1" ingredient=""/>
+<!-- Dark Elven Long Bow [Miser] -->
+<merchant product="4827-1" ingredient=""/>
+<!-- Dark Elven Long Bow [Evasion] -->
+<merchant product="4825-1" ingredient=""/>
+<!-- Dark Elven Long Bow [Critical Bleed] -->
+<merchant product="4826-1" ingredient=""/>
+<!-- Demon Dagger - Critical Damage -->
+<merchant product="6359-1" ingredient=""/>
+<!-- Demon Dagger - Critical Bleed -->
+<merchant product="4780-1" ingredient=""/>
+<!-- Demon Dagger - Mortal Strike -->
+<merchant product="4782-1" ingredient=""/>
+<!-- Kris [Evasion] -->
+<merchant product="4777-1" ingredient=""/>
+<!-- Kris [Focus] -->
+<merchant product="4778-1" ingredient=""/>
+<!-- Kris [Back Blow] -->
+<merchant product="4779-1" ingredient=""/>
+<!-- Bellion Cestus - Rsk. Haste -->
+<merchant product="4806-1" ingredient=""/>
+<!-- Bellion Cestus - Critical Drain -->
+<merchant product="4804-1" ingredient=""/>
+<!-- Bellion Cestus - Critical Poison -->
+<merchant product="4805-1" ingredient=""/>
+<!-- Arthor Nail [Critical Potion] -->
+<merchant product="4801-1" ingredient=""/>
+<!-- Arthor Nail [Rsk. Evasion] -->
+<merchant product="4802-1" ingredient=""/>
+<!-- Arthor Nail [Rsk. Haste] -->
+<merchant product="4803-1" ingredient=""/>
+<!-- Lance - Anger -->
+<merchant product="4858-1" ingredient=""/>
+<!-- Lance - Critical Stun -->
+<merchant product="4859-1" ingredient=""/>
+<!-- Lance - Towering Blow -->
+<merchant product="4860-1" ingredient=""/>
+<!-- Great Axe [Anger] -->
+<merchant product="4855-1" ingredient=""/>
+<!-- Great Axe [Critical Stun] -->
+<merchant product="4856-1" ingredient=""/>
+<!-- Great Axe [Light] -->
+<merchant product="4857-1" ingredient=""/>
+<!-- Guardian Sword - Critical Bleed -->
+<merchant product="8107-1" ingredient=""/>
+<!-- Guardian Sword - Critical Drain -->
+<merchant product="8105-1" ingredient=""/>
+<!-- Guardian Sword - Health -->
+<merchant product="8106-1" ingredient=""/>
+<!-- Great Sword [Health] -->
+<merchant product="4723-1" ingredient=""/>
+<!-- Great Sword [Critical Damage] -->
+<merchant product="4724-1" ingredient=""/>
+<!-- Great Sword [Focus] -->
+<merchant product="4725-1" ingredient=""/>
+<!-- Sword of Damascus - Focus -->
+<merchant product="4717-1" ingredient=""/>
+<!-- Sword of Damascus - Haste -->
+<merchant product="4719-1" ingredient=""/>
+<!-- Sword of Damascus - Critical Damage -->
+<merchant product="4718-1" ingredient=""/>
+<!-- Keshanberk - Focus -->
+<merchant product="4715-1" ingredient=""/>
+<!-- Keshanberk - Back Blow -->
+<merchant product="4716-1" ingredient=""/>
+<!-- Keshanberk - Guidance -->
+<merchant product="4714-1" ingredient=""/>
+<!-- Star Buster - Haste -->
+<merchant product="8133-1" ingredient=""/>
+<!-- Star Buster - Health -->
+<merchant product="8132-1" ingredient=""/>
+<!-- Star Buster - Rsk. Focus -->
+<merchant product="8134-1" ingredient=""/>
+<!-- Ice Storm Hammer [Focus] -->
+<merchant product="8129-1" ingredient=""/>
+<!-- Ice Storm Hammer [Anger] -->
+<merchant product="8130-1" ingredient=""/>
+<!-- Ice Storm Hammer [Critical Bleed] -->
+<merchant product="8131-1" ingredient=""/>
+<!-- Kaim Vanul's Bones - Conversion -->
+<merchant product="8146-1" ingredient=""/>
+<!-- Kaim Vanul's Bones - Mana Up -->
+<merchant product="8144-1" ingredient=""/>
+<!-- Kaim Vanul's Bones - Magic Silence -->
+<merchant product="8145-1" ingredient=""/>
+<!-- Spell Breaker [Magic Hold] -->
+<merchant product="8143-1" ingredient=""/>
+<!-- Spell Breaker [Acumen] -->
+<merchant product="8141-1" ingredient=""/>
+<!-- Staff of Evil Spirits - Magic Poison -->
+<merchant product="4902-1" ingredient=""/>
+<!-- Sprite's Staff [Magic Hold] -->
+<merchant product="4899-1" ingredient=""/>
+<!-- Wizard's Tear - Acumen -->
+<merchant product="8117-1" ingredient=""/>
+<!-- Wizard's Tear - Conversion -->
+<merchant product="8119-1" ingredient=""/>
+<!-- Wizard's Tear - Magic Power -->
+<merchant product="8118-1" ingredient=""/>
+<!-- Valhalla -->
+<merchant product="7722-1" ingredient=""/>
+<!-- Valhalla -->
+<merchant product="7723-1" ingredient=""/>
+<!-- Valhalla -->
+<merchant product="7724-1" ingredient=""/>
+<!-- Art of Battle Axe [Health] -->
+<merchant product="4753-1" ingredient=""/>
+<!-- Art of Battle Axe [Rsk. Focus] -->
+<merchant product="4754-1" ingredient=""/>
+<!-- Art of Battle Axe [Haste] -->
+<merchant product="4755-1" ingredient=""/>
+<!-- Deadman's Glory [Anger] -->
+<merchant product="4750-1" ingredient=""/>
+<!-- Deadman's Glory [Health] -->
+<merchant product="4751-1" ingredient=""/>
+<!-- Deadman's Glory [Haste] -->
+<merchant product="4752-1" ingredient=""/>
+<!-- Tsurugi*Tsurugi -->
+<merchant product="2624-1" ingredient=""/>
+<!-- Samurai Long Sword*Samurai Long Sword -->
+<merchant product="2626-1" ingredient=""/>
+</merchantList>

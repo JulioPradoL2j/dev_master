@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="armors" grade="S">
+<!-- Imperial Crusader Breastplate -->
+<merchant product="6373-1" ingredient=""/>
+<merchant product="6374-1" ingredient=""/>
+<merchant product="6376-1" ingredient=""/>
+<merchant product="6375-1" ingredient=""/>
+<merchant product="6378-1" ingredient=""/>
+<!-- Imperial Crusader Shield -->
+<merchant product="6377-1" ingredient=""/>
+<!-- Draconic Leather Armor -->
+<merchant product="6379-1" ingredient=""/>
+<merchant product="6381-1" ingredient=""/>
+<merchant product="6380-1" ingredient=""/>
+<merchant product="6382-1" ingredient=""/>
+<!-- Major Arcana Robe -->
+<merchant product="6383-1" ingredient=""/>
+<merchant product="6385-1" ingredient=""/>
+<merchant product="6384-1" ingredient=""/>
+<merchant product="6386-1" ingredient=""/>
+</merchantList>

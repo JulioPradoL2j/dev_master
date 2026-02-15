@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="weapons" grade="A">
+<!-- Elemental Sword - Empower -->
+<merchant product="5640-1" ingredient="57-15000000"/>
+<!-- Elemental Sword - Magic Power -->
+<merchant product="5638-1" ingredient="57-15000000"/>
+<!-- Sword of Miracles - Acumen -->
+<merchant product="5643-1" ingredient="57-15000000"/>
+<!-- Sword of Miracles - Magic Power -->
+<merchant product="5641-1" ingredient="57-15000000"/>
+<!-- Sword of Miracles - Magic Silence -->
+<merchant product="5642-1" ingredient="57-15000000"/>
+<!-- Themis' Tongue - Magic Focus -->
+<merchant product="8814-1" ingredient="57-15000000"/>
+<!-- Themis' Tongue - Mana Up -->
+<merchant product="8812-1" ingredient="57-15000000"/>
+<!-- Tallum Blade - Anger -->
+<merchant product="5637-1" ingredient="57-15000000"/>
+<!-- Tallum Blade - Critical Poison -->
+<merchant product="5635-1" ingredient="57-15000000"/>
+<!-- Tallum Blade - Haste -->
+<merchant product="5636-1" ingredient="57-15000000"/>
+<!-- Tallum Blade - Health -->
+<merchant product="4720-1" ingredient="57-15000000"/>
+<!-- Dark Legion's Edge - Critical Damage -->
+<merchant product="5647-1" ingredient="57-15000000"/>
+<!-- Dark Legion's Edge - Health -->
+<merchant product="5648-1" ingredient="57-15000000"/>
+<!-- Dark Legion's Edge - Rsk. Focus -->
+<merchant product="5649-1" ingredient="57-15000000"/>
+<!-- Tallum Glaive - Guidance -->
+<merchant product="5632-1" ingredient="57-15000000"/>
+<!-- Tallum Glaive - Health -->
+<merchant product="5633-1" ingredient="57-15000000"/>
+<!-- Tallum Glaive - Wide Blow -->
+<merchant product="5634-1" ingredient="57-15000000"/>
+<!-- Sobekk's Hurricane - Critical Drain -->
+<merchant product="8811-1" ingredient="57-15000000"/>
+<!-- Sobekk's Hurricane - Haste -->
+<merchant product="8810-1" ingredient="57-15000000"/>
+<!-- Sobekk's Hurricane - Rsk. Haste -->
+<merchant product="8809-1" ingredient="57-15000000"/>
+<!-- Dragon Grinder - Guidance -->
+<merchant product="5624-1" ingredient="57-15000000"/>
+<!-- Dragon Grinder - Health -->
+<merchant product="5625-1" ingredient="57-15000000"/>
+<!-- Dragon Grinder - Rsk. Evasion -->
+<merchant product="5623-1" ingredient="57-15000000"/>
+<!-- Damascus * Tallum Blade -->
+<merchant product="8938-1" ingredient="57-15000000"/>
+<!-- Damascus*Damascus -->
+<merchant product="5706-1" ingredient="57-15000000"/>
+<!-- Keshanberk*Keshanberk -->
+<merchant product="5704-1" ingredient="57-15000000"/>
+<!-- Naga Storm - Back Blow -->
+<merchant product="8802-1" ingredient="57-15000000"/>
+<!-- Naga Storm - Critical Damage -->
+<merchant product="8801-1" ingredient="57-15000000"/>
+<!-- Naga Storm - Focus -->
+<merchant product="8800-1" ingredient="57-15000000"/>
+<!-- Soul Separator - Critical Damage -->
+<merchant product="5618-1" ingredient="57-15000000"/>
+<!-- Soul Separator - Guidance -->
+<merchant product="5617-1" ingredient="57-15000000"/>
+<!-- Bloody Orchid - Back Blow -->
+<merchant product="4785-1" ingredient="57-15000000"/>
+<!-- Bloody Orchid - Critical Bleed -->
+<merchant product="5616-1" ingredient="57-15000000"/>
+<!-- Bloody Orchid - Evasion -->
+<merchant product="5614-1" ingredient="57-15000000"/>
+<!-- Shyeed's Bow - Cheap Shot -->
+<merchant product="8806-1" ingredient="57-15000000"/>
+<!-- Shyeed's Bow - Focus -->
+<merchant product="8807-1" ingredient="57-15000000"/>
+<!-- Shyeed's Bow - Quick Recovery -->
+<merchant product="8808-1" ingredient="57-15000000"/>
+<!-- Soul Bow - Cheap Shot -->
+<merchant product="5611-1" ingredient="57-15000000"/>
+<!-- Soul Bow - Critical Poison -->
+<merchant product="5613-1" ingredient="57-15000000"/>
+<!-- Soul Bow - Quick Recovery -->
+<merchant product="5612-1" ingredient="57-15000000"/>
+<!-- Elysian - Anger -->
+<merchant product="5603-1" ingredient="57-15000000"/>
+<!-- Elysian - Critical Drain -->
+<merchant product="5604-1" ingredient="57-15000000"/>
+<!-- Elysian - Health -->
+<merchant product="5602-1" ingredient="57-15000000"/>
+<!-- Flaming Dragon Skull - Acumen -->
+<merchant product="8150-1" ingredient="57-15000000"/>
+<!-- Flaming Dragon Skull - Magic Power -->
+<merchant product="8151-1" ingredient="57-15000000"/>
+<!-- Flaming Dragon Skull - Magic Silence -->
+<merchant product="8152-1" ingredient="57-15000000"/>
+<!-- Spiritual Eye - Acumen -->
+<merchant product="8149-1" ingredient="57-15000000"/>
+<!-- Spiritual Eye - Magic Poison -->
+<merchant product="8148-1" ingredient="57-15000000"/>
+<!-- Spiritual Eye - Mana Up -->
+<merchant product="8147-1" ingredient="57-15000000"/>
+<!-- Dragon Slayer - Critical Bleed -->
+<merchant product="5645-1" ingredient="57-15000000"/>
+<!-- Dragon Slayer - Critical Drain -->
+<merchant product="5646-1" ingredient="57-15000000"/>
+<!-- Dragon Slayer - Health -->
+<merchant product="5644-1" ingredient="57-15000000"/>
+<!-- Doom Crusher - Anger -->
+<merchant product="8136-1" ingredient="57-15000000"/>
+<!-- Doom Crusher - Health -->
+<merchant product="8135-1" ingredient="57-15000000"/>
+<!-- Doom Crusher - Rsk. Haste -->
+<merchant product="8137-1" ingredient="57-15000000"/>
+<!-- Tiphon's Spear - Critical Stun -->
+<merchant product="8803-1" ingredient="57-15000000"/>
+<!-- Tiphon's Spear - Towering Blow -->
+<merchant product="8804-1" ingredient="57-15000000"/>
+<!-- Tiphon's Spear - Wild Blow -->
+<merchant product="8805-1" ingredient="57-15000000"/>
+<!-- Daimon Crystal - Acumen -->
+<merchant product="8819-1" ingredient="57-15000000"/>
+<!-- Daimon Crystal - Mana Up -->
+<merchant product="8818-1" ingredient="57-15000000"/>
+<!-- Sword of Ipos - Focus -->
+<merchant product="8791-1" ingredient="57-15000000"/>
+<!-- Sword of Ipos - Haste -->
+<merchant product="8792-1" ingredient="57-15000000"/>
+<!-- Sword of Ipos - Health -->
+<merchant product="8793-1" ingredient="57-15000000"/>
+</merchantList>

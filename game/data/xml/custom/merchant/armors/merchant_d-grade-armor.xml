@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="armors" grade="D">
+<!-- Brigandine Helmet -->
+<merchant product="2411-1" ingredient=""/>
+<!-- Brigandine Tunic -->
+<merchant product="352-1" ingredient=""/>
+<!-- Brigandine Gaiters -->
+<merchant product="2378-1" ingredient=""/>
+<!-- Brigandine Gauntlets -->
+<merchant product="2449-1" ingredient=""/>
+<!-- Brigandine Boots -->
+<merchant product="2425-1" ingredient=""/>
+<!-- Necklace of Darkness -->
+<merchant product="2493-1" ingredient=""/>
+<!-- Plate Helmet -->
+<merchant product="2412-1" ingredient=""/>
+<!-- Manticore Skin Shirt -->
+<merchant product="395-1" ingredient=""/>
+<!-- Manticore Skin Gaiters -->
+<merchant product="417-1" ingredient=""/>
+<!-- Manticore Skin Gloves -->
+<merchant product="2448-1" ingredient=""/>
+<!-- Manticore Skin Boots -->
+<merchant product="2424-1" ingredient=""/>
+<!-- Black Pearl Ring -->
+<merchant product="2493-1" ingredient=""/>
+<!-- Helmet -->
+<merchant product="47-1" ingredient=""/>
+<!-- Mithril Tunic -->
+<merchant product="437-1" ingredient=""/>
+<!-- Mithril Stockings -->
+<merchant product="470-1" ingredient=""/>
+<!-- Elven Mithril Gloves -->
+<merchant product="2450-1" ingredient=""/>
+<!-- Elven Mithril Boots -->
+<merchant product="2426-1" ingredient=""/>
+<!-- Omen Beast's Eye Earring -->
+<merchant product="626-1" ingredient=""/>
+</merchantList>

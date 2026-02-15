@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="symbols" grade="NG">
+<!-- Greater Dye of Strength <Str +1 Con -1> -->
+<merchant product="4553-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Strength <Str +1 Dex -1> -->
+<merchant product="4554-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Constitution <Con +1 Str -1> -->
+<merchant product="4555-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Constitution <Con +1 Dex -1> -->
+<merchant product="4556-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Dexterity <Dex +1 Str -1> -->
+<merchant product="4557-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Dexterity <Dex +1 Con -1> -->
+<merchant product="4558-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Intelligence <Int +1 Men -1> -->
+<merchant product="4559-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Intelligence <Int +1 Wit -1> -->
+<merchant product="4560-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Mental Strength <Men +1 Int -1> -->
+<merchant product="4561-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Mental Strength <Men +1 Wit -1> -->
+<merchant product="4562-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Wit <Wit +1 Int -1> -->
+<merchant product="4563-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Wit <Wit +1 Men -1> -->
+<merchant product="4564-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Strength <Str +2 Con -2> -->
+<merchant product="4589-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Strength <Str +2 Dex -2> -->
+<merchant product="4590-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Constitution <Con +2 Str -2> -->
+<merchant product="4591-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Constitution <Con +2 Dex -2> -->
+<merchant product="4592-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Dexterity <Dex +2 Str -2> -->
+<merchant product="4593-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Dexterity <Dex +2 Con -2> -->
+<merchant product="4594-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Intelligence <Int +2 Men -2> -->
+<merchant product="4595-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Intelligence <Int +2 Wit -2> -->
+<merchant product="4596-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Mental Strength <Men +2 Int -2> -->
+<merchant product="4597-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Mental Strength <Men +2 Wit -2> -->
+<merchant product="4598-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Wit <Wit +2 Int -2> -->
+<merchant product="4599-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Wit <Wit +2 Men -2> -->
+<merchant product="4600-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Strength <Str +3 Con -3> -->
+<merchant product="4601-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Strength <Str +3 Dex -3> -->
+<merchant product="4602-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Constitution <Con +3 Str -3> -->
+<merchant product="4603-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Constitution <Con +3 Dex -3> -->
+<merchant product="4604-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Dexterity <Dex +3 Str -3> -->
+<merchant product="4605-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Dexterity <Dex +3 Con -3> -->
+<merchant product="4606-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Intelligence <Int +3 Men -3> -->
+<merchant product="4607-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Intelligence <Int +3 Wit -3> -->
+<merchant product="4608-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Mental Strength <Men +3 Int -3> -->
+<merchant product="4609-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Mental Strength <Men +3 Wit -3> -->
+<merchant product="4610-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Wit <Wit +3 Int -3> -->
+<merchant product="4611-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Wit <Wit +3 Men -3> -->
+<merchant product="4612-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Strength <Str +4 Con -4> -->
+<merchant product="4613-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Strength <Str +4 Dex -4> -->
+<merchant product="4614-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Constitution <Con +4 Str -4> -->
+<merchant product="4615-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Constitution <Con +4 Dex -4> -->
+<merchant product="4616-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Dexterity <Dex +4 Str -4> -->
+<merchant product="4617-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Dexterity <Dex +4 Con -4> -->
+<merchant product="4618-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Intelligence <Int +4 Men -4> -->
+<merchant product="4619-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Intelligence <Int +4 Wit -4> -->
+<merchant product="4620-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Mental Strength <Men +4 Int -4> -->
+<merchant product="4621-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Mental Strength <Men +4 Wit -4> -->
+<merchant product="4622-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Wit <Wit +4 Int -4> -->
+<merchant product="4623-10" ingredient="" enchantLevel="0"/>
+<!-- Greater Dye of Wit <Wit +4 Men -4> -->
+<merchant product="4624-10" ingredient="" enchantLevel="0"/>
+</merchantList>

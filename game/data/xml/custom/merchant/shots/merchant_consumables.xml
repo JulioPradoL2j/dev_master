@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="shots" grade="S">
+<!-- Soulshot: D-Grade -->
+<merchant product="1463-1000" ingredient=""/>
+<!-- Soulshot: C-Grade -->
+<merchant product="1464-1000" ingredient=""/>
+<!-- Soulshot: B-Grade -->
+<merchant product="1465-1000" ingredient=""/>
+<!-- Soulshot: A-Grade -->
+<merchant product="1466-1000" ingredient=""/>
+<!-- Soulshot: S-Grade -->
+<merchant product="1467-1000" ingredient=""/>
+<!-- Blessed Spiritshot: D-Grade -->
+<merchant product="3948-1000" ingredient=""/>
+<!-- Blessed Spiritshot: C-Grade -->
+<merchant product="3949-1000" ingredient=""/>
+<!-- Blessed Spiritshot: B-Grade -->
+<merchant product="3950-1000" ingredient=""/>
+<!-- Blessed Spiritshot: A-Grade -->
+<merchant product="3951-1000" ingredient=""/>
+<!-- Blessed Spiritshot: S-Grade -->
+<merchant product="3952-1000" ingredient=""/>
+<!-- Bone Arrow -->
+<merchant product="1341-1000" ingredient=""/>
+<!-- Fine Steel Arrow -->
+<merchant product="1342-1000" ingredient=""/>
+<!-- Silver Arrow -->
+<merchant product="1343-1000" ingredient=""/>
+<!-- Mithril Arrow -->
+<merchant product="1344-1000" ingredient=""/>
+<!-- Shining Arrow -->
+<merchant product="1345-1000" ingredient=""/>
+<!-- Cursed Bones -->
+<merchant product="2508-1000" ingredient=""/>
+<!-- Phoenix Blood -->
+<merchant product="8873-1" ingredient=""/>
+<!-- Spirit Ore -->
+<merchant product="3031-1" ingredient=""/>
+<!-- Soul Ore -->
+<merchant product="1785-1" ingredient=""/>
+<!-- Crystal Grade - D -->
+<merchant product="1458-1000" ingredient=""/>
+<!-- Crystal Grade - C -->
+<merchant product="1459-1000" ingredient=""/>
+<!-- Crystal Grade - B -->
+<merchant product="1460-1000" ingredient=""/>
+<!-- Crystal Grade - A -->
+<merchant product="1461-1000" ingredient=""/>
+<!-- Gemstone C -->
+<merchant product="2131-1000" ingredient=""/>
+</merchantList>

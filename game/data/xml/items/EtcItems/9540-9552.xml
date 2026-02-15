@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<item id="9540" type="Armor" name="Tattoo of Fight Lv. 1">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			<mul order="0x30" stat="pAtkSpd" val="1.05"/> <!-- Attack Speed +5% -->
+			<mul order="0x30" stat="pAtk" val="1.05"/> <!-- P. Atk +5% -->
+			<add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			<add val='25' order='0x40' stat='runSpd'/>
+			<mul order="0x30" stat="pDef" val="1.05"/> <!-- P Def. +5% -->
+			<mul order="0x30" stat="mDef" val="1.05"/> <!-- P Def. +5% -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<item id="9541" type="Armor" name="Tattoo of Fight Lv. 2">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			<mul order="0x30" stat="pAtkSpd" val="1.10"/> <!-- Attack Speed +10% -->
+			<mul order="0x30" stat="pAtk" val="1.10"/> <!-- P. Atk +10% -->
+			<add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			<add val='25' order='0x40' stat='runSpd'/>
+			<mul order="0x30" stat="pDef" val="1.00"/> <!-- P Def. +10% -->
+			<mul order="0x30" stat="mDef" val="1.00"/> <!-- P Def. +10% -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<item id="9542" type="Armor" name="Tattoo of Fight Lv. 3">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			<mul order="0x30" stat="pAtkSpd" val="1.15"/> <!-- Attack Speed +15% -->
+			<mul order="0x30" stat="pAtk" val="1.15"/> <!-- P. Atk +15% -->
+			<add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			<add val='25' order='0x40' stat='runSpd'/>
+			<mul order="0x30" stat="pDef" val="1.00"/> <!-- P Def. +15% -->
+			<mul order="0x30" stat="mDef" val="1.00"/> <!-- P Def. +15% -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<item id="9543" type="Armor" name="Tattoo of Fight Lv. 4">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			<mul order="0x30" stat="pAtkSpd" val="1.16"/> <!-- Attack Speed +16% -->
+			<mul order="0x30" stat="pAtk" val="1.17"/> <!-- P. Atk +17% -->
+			<add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			<add val='25' order='0x40' stat='runSpd'/>
+			<mul order="0x30" stat="pDef" val="1.00"/> <!-- P Def. +8% -->
+			<mul order="0x30" stat="mDef" val="1.00"/> <!-- P Def. +8% -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<item id="9544" type="Armor" name="Tattoo of Fight Lv. 5">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			<mul order="0x30" stat="pAtkSpd" val="1.50"/> <!-- Attack Speed +50% -->
+			<mul order="0x30" stat="pAtk" val="1.25"/> <!-- P. Atk +20% -->
+			<add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			<add val='50' order='0x40' stat='runSpd'/>
+			<mul order="0x30" stat="pDef" val="1.10"/> <!-- P Def. +10% -->
+			<mul order="0x30" stat="mDef" val="1.10"/> <!-- M Def. +10% -->
+			<add order="0x40" stat="maxHp" val="5000"/> <!-- Maximum HP +1000 -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<item id="9545" type="Armor" name="Tattoo of Fight - Gm Power">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			<mul order="0x30" stat="pAtkSpd" val="1.50"/> <!-- Attack Speed +50% -->
+			<mul order="0x30" stat="pAtk" val="1.25"/> <!-- P. Atk +20% -->
+			<add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			<add val='50' order='0x40' stat='runSpd'/>
+			<mul order="0x30" stat="pDef" val="1.10"/> <!-- P Def. +10% -->
+			<mul order="0x30" stat="mDef" val="1.10"/> <!-- M Def. +10% -->
+			<add order="0x40" stat="maxHp" val="7000"/> <!-- Maximum HP +1000 -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<!-- Mages Tattos -->
+	<item id="9546" type="Armor" name="Tattoo of Mage Lv.1">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			<mul order="0x30" stat="mAtkSpd" val="1.05"/> <!-- cast Speed +5% -->
+			<mul order="0x30" stat="mAtk" val="1.05"/> <!-- M. Atk +5% -->
+			<add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			<add order="0x40" stat="maxLoad" val="6000"/> <!-- Weight Limit +6000 -->
+			<add val='25' order='0x40' stat='runSpd'/>
+			<mul order="0x30" stat="pDef" val="1.05"/> <!-- P Def. +5% -->
+			<mul order="0x30" stat="mDef" val="1.05"/> <!-- P Def. +5% -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<item id="9547" type="Armor" name="Tattoo of Mage Lv.2">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			 <mul order="0x30" stat="mAtkSpd" val="1.10"/> <!-- cast Speed +10% -->
+			 <mul order="0x30" stat="mAtk" val="1.10"/> <!-- M. Atk +10% -->
+			 <add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			 <add val='25' order='0x40' stat='runSpd'/>
+			 <mul order="0x30" stat="pDef" val="1.05"/> <!-- P Def. +10% -->
+			 <mul order="0x30" stat="mDef" val="1.05"/> <!-- P Def. +10% -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<item id="9548" type="Armor" name="Tattoo of Mage Lv.3">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			 <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- cast Speed +15% -->
+			 <mul order="0x30" stat="mAtk" val="1.15"/> <!-- M. Atk +15% -->
+			 <add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			 <add val='25' order='0x40' stat='runSpd'/>
+			 <mul order="0x30" stat="pDef" val="1.05"/> <!-- P Def. +15% -->
+			 <mul order="0x30" stat="mDef" val="1.05"/> <!-- P Def. +15% -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<item id="9549" type="Armor" name="Tattoo of Mage Lv.4">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			<mul order="0x30" stat="mAtkSpd" val="1.60"/> <!-- cast Speed +50% -->
+			<mul order="0x30" stat="mAtk" val="1.25"/> <!-- M. Atk +20% -->
+			<add order="0x40" stat="maxHp" val="5000"/> <!-- Maximum HP +1000 -->
+			<add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			<add val='25' order='0x40' stat='runSpd'/>
+			<mul order="0x30" stat="pDef" val="1.10"/> <!-- P Def. +10% -->
+			<mul order="0x30" stat="mDef" val="1.10"/> <!-- M Def. +10% -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<item id="9550" type="Armor" name="Tattoo of Mage Lv.5">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			<mul order="0x30" stat="mAtkSpd" val="1.60"/> <!-- cast Speed +50% -->
+			<mul order="0x30" stat="mAtk" val="1.25"/> <!-- M. Atk +20% -->
+			<add order="0x40" stat="maxHp" val="7000"/> <!-- Maximum HP +1000 -->
+			<add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			<add val='25' order='0x40' stat='runSpd'/>
+			<mul order="0x30" stat="pDef" val="1.10"/> <!-- P Def. +10% -->
+			<mul order="0x30" stat="mDef" val="1.10"/> <!-- M Def. +10% -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<item id="9551" type="Armor" name="Tattoo of Mage - Gm Power">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			<mul order="0x30" stat="mAtkSpd" val="1.60"/> <!-- cast Speed +50% -->
+			<mul order="0x30" stat="mAtk" val="1.25"/> <!-- M. Atk +20% -->
+			<add order="0x40" stat="maxHp" val="7000"/> <!-- Maximum HP +1000 -->
+			<add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			<add val='25' order='0x40' stat='runSpd'/>
+			<mul order="0x30" stat="pDef" val="1.10"/> <!-- P Def. +10% -->
+			<mul order="0x30" stat="mDef" val="1.10"/> <!-- M Def. +10% -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+	<item id="9552" type="Armor" name="TATOO AIO">
+		<set name="default_action" val="equip" />
+		<set name="armor_type" val="NONE" />
+		<set name="bodypart" val="underwear" />
+		<set name="material" val="DYESTUFF" />
+		<set name="weight" val="4200" />
+		<set name="price" val="36900" />
+		<for>
+			<mul order="0x30" stat="pAtkSpd" val="1.60"/> <!-- Attack Speed +50% -->
+			<mul order="0x30" stat="pAtk" val="1.35"/> <!-- P. Atk +20% -->
+			<mul order="0x30" stat="mAtkSpd" val="1.70"/> <!-- cast Speed +50% -->
+			<mul order="0x30" stat="mAtk" val="1.35"/> <!-- M. Atk +20% -->
+			<add order="0x40" stat="maxMp" val="1000"/> <!-- Maximum MP +1000 -->
+			<add order="0x40" stat="maxHp" val="10000"/> <!-- Maximum HP +10000 -->
+			<add val='50' order='0x40' stat='runSpd'/>
+			<mul order="0x30" stat="pDef" val="1.25"/> <!-- P Def. +15% -->
+			<mul order="0x30" stat="mDef" val="1.25"/> <!-- M Def. +15% -->
+			<enchant val='0' order='0x0C' stat='pDef'/>
+		</for>
+	</item>
+</list>

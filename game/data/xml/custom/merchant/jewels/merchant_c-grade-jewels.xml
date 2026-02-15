@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="jewels" grade="C">
+<!-- Ring of Binding -->
+<merchant product="886-1" ingredient="" enchantLevel="0"/>
+<!-- Earring of Binding -->
+<merchant product="854-1" ingredient="" enchantLevel="0"/>
+<!-- Necklace of Binding -->
+<merchant product="119-1" ingredient="" enchantLevel="0"/>
+<!-- Blessed Ring -->
+<merchant product="888-1" ingredient="" enchantLevel="0"/>
+<!-- Blessed Earring -->
+<merchant product="857-1" ingredient="" enchantLevel="0"/>
+<!-- Blessed Necklace -->
+<merchant product="919-1" ingredient="" enchantLevel="0"/>
+</merchantList>

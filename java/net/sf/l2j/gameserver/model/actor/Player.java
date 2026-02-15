@@ -5118,6 +5118,8 @@ public class Player extends Playable
 			
 			// Notify self and others about speed change
 			broadcastUserInfo();
+			sendPacket(new ValidateLocation(this));
+
 			
 			if (useFood)
 				startFeed(npcId);
@@ -5209,26 +5211,59 @@ public class Player extends Playable
 	
 	public boolean dismount()
 	{
-		sendPacket(new SetupGauge(3, 0, 0));
-		int petId = _mountNpcId;
-		if (setMount(0, 0, 0))
-		{
-			stopFeed();
-			
-			broadcastPacket(new Ride(getObjectId(), Ride.ACTION_DISMOUNT, 0));
-			
-			_petTemplate = null;
-			_petData = null;
-			_mountObjectId = 0;
-			
-			storePetFood(petId);
-			
-			// Notify self and others about speed change
-			broadcastUserInfo();
-			return true;
-		}
-		return false;
+	    sendPacket(new SetupGauge(3, 0, 0));
+
+	    final int petId = _mountNpcId;
+
+	    if (!setMount(0, 0, 0))
+	        return false;
+
+	    stopFeed();
+
+	    broadcastPacket(new Ride(getObjectId(), Ride.ACTION_DISMOUNT, 0));
+
+	    _petTemplate = null;
+	    _petData = null;
+	    _mountObjectId = 0;
+
+	    storePetFood(petId);
+
+	    // ===== FIX: revalidar Z/posição após mudar colisão do char =====
+	    // 1) revalida zona (evita estados bugados de ground/no-landing/etc.)
+	    try
+	    {
+	        revalidateZone(true);
+	    }
+	    catch (Exception ignored)
+	    {
+	    }
+
+	    // 2) “snap to ground” via geodata
+	    try
+	    {
+	        // Ajusta o Z para o chão no ponto atual
+	        final int x = getX();
+	        final int y = getY();
+	        final int z = getZ();
+
+	        // Se seu core tem GeoEngine, use. Se for GeoData, adapte.
+	        final int geoZ = GeoEngine.getInstance().getHeight(x, y, z);
+
+	        // Evita teleporte se a diferença for absurda (segurança)
+	        if (Math.abs(geoZ - z) <= 300)
+	            setXYZ(x, y, geoZ);
+	    }
+	    catch (Exception ignored)
+	    {
+	    }
+
+	    // 3) Atualiza para si e para os outros
+	    broadcastUserInfo();
+	    sendPacket(new ValidateLocation(this));
+
+	    return true;
 	}
+
 	
 	public void storePetFood(int petId)
 	{

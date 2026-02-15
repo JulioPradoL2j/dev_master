@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="weapons" grade="C">
+<!-- Eminence Bow [Guidance] -->
+<merchant product="4822-1" ingredient=""/>
+<!-- Eminence Bow [Miser] -->
+<merchant product="4823-1" ingredient=""/>
+<!-- Eminence Bow [Cheap Shot] -->
+<merchant product="4824-1" ingredient=""/>
+<!-- Akat Long Bow [Guidance] -->
+<merchant product="4819-1" ingredient=""/>
+<!-- Akat Long Bow [Evasion] -->
+<merchant product="4820-1" ingredient=""/>
+<!-- Akat Long Bow [Miser] -->
+<merchant product="4821-1" ingredient=""/>
+<!-- Elemental Bow [Guidance] -->
+<merchant product="4813-1" ingredient=""/>
+<!-- Elemental Bow [Miser] -->
+<merchant product="4814-1" ingredient=""/>
+<!-- Elemental Bow [Quick Recovery] -->
+<merchant product="4815-1" ingredient=""/>
+<!-- Crystallized Ice Bow [Guidance] -->
+<merchant product="4810-1" ingredient=""/>
+<!-- Crystallized Ice Bow [Evasion] -->
+<merchant product="4811-1" ingredient=""/>
+<!-- Crystallized Ice Bow [Quick Recovery] -->
+<merchant product="4812-1" ingredient=""/>
+<!-- Homunkulus's Sword [Acumen] -->
+<merchant product="6313-1" ingredient=""/>
+<!-- Homunkulus's Sword [Conversion] -->
+<merchant product="6314-1" ingredient=""/>
+<!-- Homunkulus's Sowrd [Magic Paralyze] -->
+<merchant product="6315-1" ingredient=""/>
+<!-- Sword of Whispering Death [Empower] -->
+<merchant product="6310-1" ingredient=""/>
+<!-- Sword of Whispering Death [Magic Power] -->
+<merchant product="6311-1" ingredient=""/>
+<!-- Sword of Whispering Death [Magic Silence] -->
+<merchant product="6312-1" ingredient=""/>
+<!-- Crystal Dagger [Critical Damage] -->
+<merchant product="6358-1" ingredient=""/>
+<!-- Crystal Dagger [Critical Bleed] -->
+<merchant product="4774-1" ingredient=""/>
+<!-- Crystal Dagger [Mortal Strike] -->
+<merchant product="4776-1" ingredient=""/>
+<!-- Dark Screamer [Evasion] -->
+<merchant product="4771-1" ingredient=""/>
+<!-- Dark Screamer [Focus] -->
+<merchant product="4772-1" ingredient=""/>
+<!-- Dark Screamer [Critical Bleed] -->
+<merchant product="4773-1" ingredient=""/>
+<!-- Cursed Dagger [Crit. Bleed] -->
+<merchant product="4759-1" ingredient=""/>
+<!-- Cursed Dagger [Critical Poison] -->
+<merchant product="4760-1" ingredient=""/>
+<!-- Cursed Dagger [Rsk. Haste] -->
+<merchant product="4761-1" ingredient=""/>
+<!-- Samurai Longsword [Rsk. Focus] -->
+<merchant product="4708-1" ingredient=""/>
+<!-- Samurai Longsword [Critical Damage] -->
+<merchant product="4709-1" ingredient=""/>
+<!-- Samurai Longsword [Haste] -->
+<merchant product="4710-1" ingredient=""/>
+<!-- Sword of Delusion [Focus] -->
+<merchant product="4699-1" ingredient=""/>
+<!-- Sword of Delusion [Heatl] -->
+<merchant product="4700-1" ingredient=""/>
+<!-- Sword of Delusion [Rsk. Haste] -->
+<merchant product="4701-1" ingredient=""/>
+<!-- Sword of Limit [Guidance] -->
+<merchant product="6307-1" ingredient=""/>
+<!-- Sword of Limit [Critical Drain] -->
+<merchant product="6308-1" ingredient=""/>
+<!-- Sword of Limit [Healt] -->
+<merchant product="6309-1" ingredient=""/>
+<!-- Great Pata [Critical Drain] -->
+<merchant product="4795-1" ingredient=""/>
+<!-- Great Pata [Critical Poison] -->
+<merchant product="4796-1" ingredient=""/>
+<!-- Great Pata [Rsk Haste] -->
+<merchant product="4797-1" ingredient=""/>
+<!-- Fisted Blade [Rsk. Evasion] -->
+<merchant product="4792-1" ingredient=""/>
+<!-- Fisted Blade [Rsk. Haste] -->
+<merchant product="4793-1" ingredient=""/>
+<!-- Fisted Blade [Haste] -->
+<merchant product="4794-1" ingredient=""/>
+<!-- Yaksa Mace [Anger] -->
+<merchant product="4744-1" ingredient=""/>
+<!-- Yaksa Mace [Health] -->
+<merchant product="4745-1" ingredient=""/>
+<!-- Yaksa Mace [Rsk. Focus] -->
+<merchant product="4746-1" ingredient=""/>
+<!-- War Axe [Ander] -->
+<merchant product="4741-1" ingredient=""/>
+<!-- War Axe [Health] -->
+<merchant product="4742-1" ingredient=""/>
+<!-- War Axe [Haste] -->
+<merchant product="4743-1" ingredient=""/>
+<!-- Orcish Poleaxe [Critical Stun] -->
+<merchant product="4852-1" ingredient=""/>
+<!-- Orcish Poleaxe [Long Blow] -->
+<merchant product="4853-1" ingredient=""/>
+<!-- Orcish Poleaxe [Wide Blow] -->
+<merchant product="4854-1" ingredient=""/>
+<!-- Poleaxe [Critical Stun] -->
+<merchant product="7719-1" ingredient=""/>
+<!-- Poleaxe [Towering Blow] -->
+<merchant product="7720-1" ingredient=""/>
+<!-- Poleaxe [Wide Blow] -->
+<merchant product="7721-1" ingredient=""/>
+<!-- Berserker Blade [Focus] -->
+<merchant product="6347-1" ingredient=""/>
+<!-- Berserker Blade [Critical Damage] -->
+<merchant product="6347-1" ingredient=""/>
+<!-- Berserker Blade [Haste] -->
+<merchant product="6347-1" ingredient=""/>
+<!-- Flamberge [Critical Damage] -->
+<merchant product="4711-1" ingredient=""/>
+<!-- Flamberge [Focus] -->
+<merchant product="4712-1" ingredient=""/>
+<!-- Flamberge [Light] -->
+<merchant product="4713-1" ingredient=""/>
+<!-- Deadman's Staff - Magic Regeneration -->
+<merchant product="4888-1" ingredient=""/>
+<!-- Deadman's Staff - Mental Shield -->
+<merchant product="4889-1" ingredient=""/>
+<!-- Deadman's Staff - Deadman's Staff - Magic Hold -->
+<merchant product="4890-1" ingredient=""/>
+<!-- Mace of The Underworld [Mana Up] -->
+<merchant product="7713-1" ingredient=""/>
+<!-- Mace of The Underworld [Magic Silence] -->
+<merchant product="7714-1" ingredient=""/>
+<!-- Mace of The Underworld [Conversion] -->
+<merchant product="7715-1" ingredient=""/>
+<!-- Demon's Staff [Magic Posion] -->
+<merchant product="4894-1" ingredient=""/>
+<!-- Demon's Staff [Magic Weakness] -->
+<merchant product="4895-1" ingredient=""/>
+<!-- Demon's Staff [Magic Chaos] -->
+<merchant product="4896-1" ingredient=""/>
+<!-- Ghoul's Staff [Rsk. Evasion] -->
+<merchant product="4891-1" ingredient=""/>
+<!-- Ghoul's Staff [Mana Up] -->
+<merchant product="4892-1" ingredient=""/>
+<!-- Inferno Staff [Acumen] -->
+<merchant product="7716-1" ingredient=""/>
+<!-- Inferno Staff [Magic Silence] -->
+<merchant product="7717-1" ingredient=""/>
+<!-- Inferno Staff [Magic Paralyze] -->
+<merchant product="7718-1" ingredient=""/>
+<!-- Katana*Katana -->
+<merchant product="2582-1" ingredient=""/>
+<!-- Stormbringer*Stormbringer -->
+<merchant product="2561-1" ingredient=""/>
+<!-- Elven Long Sword*Elven Long Sword -->
+<merchant product="2560-1" ingredient=""/>
+</merchantList>

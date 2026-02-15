@@ -9161,19 +9161,19 @@
 	<icon itemId="9159" iconName="icon.Accessary_gold_circlet_i01" />
 	<icon itemId="9160" iconName="icon.Accessary_middle_ages_i00" />
 	<icon itemId="9161" iconName="icon.accessory_santas_antler_i00" />
-	<icon itemId="9450" iconName="IntactIcons.armor_helmet_i00" />
-	<icon itemId="9451" iconName="IntactIcons.armor_t1004_ul_i00" />
-	<icon itemId="9452" iconName="IntactIcons.armor_t1004_g_i00" />
-	<icon itemId="9453" iconName="IntactIcons.armor_t1004_b_i00" />
-	<icon itemId="9454" iconName="IntactIcons.armor_helmet_i00" />
-	<icon itemId="9455" iconName="IntactIcons.armor_t1005_ul_i00" />
-	<icon itemId="9456" iconName="IntactIcons.armor_t1005_g_i00" />
-	<icon itemId="9457" iconName="IntactIcons.armor_t1005_b_i00" />
-	<icon itemId="9458" iconName="IntactIcons.armor_helmet_i00" />
-	<icon itemId="9459" iconName="IntactIcons.armor_t1006_ul_i00" />
-	<icon itemId="9460" iconName="IntactIcons.armor_t1006_g_i00" />
-	<icon itemId="9461" iconName="IntactIcons.armor_t1006_b_i00" />
-	<icon itemId="9613" iconName="IntactIcons.accessory_worldcup_mask_i00" />
-	<icon itemId="55968" iconName="icon.accessory_raid_master_i00" />
-	<icon itemId="96130" iconName="epicicon.epic_mask_i00" />
+	
+	<icon itemId="9540" iconName="icon.etc_str_symbol_i00" />
+	<icon itemId="9541" iconName="icon.etc_str_symbol_i01" />
+	<icon itemId="9542" iconName="icon.etc_dex_symbol_i00" />
+	<icon itemId="9543" iconName="icon.etc_dex_symbol_i01" />
+	<icon itemId="9544" iconName="icon.etc_con_symbol_i00" />
+	<icon itemId="9545" iconName="icon.etc_con_symbol_i01" />
+	<icon itemId="9546" iconName="icon.etc_int_symbol_i00" />
+	<icon itemId="9547" iconName="icon.etc_int_symbol_i01" />
+	<icon itemId="9548" iconName="icon.etc_men_symbol_i00" />
+	<icon itemId="9549" iconName="icon.etc_men_symbol_i01" />
+	<icon itemId="9550" iconName="icon.etc_wit_symbol_i00" />
+	<icon itemId="9551" iconName="icon.etc_wit_symbol_i01" />
+	<icon itemId="9552" iconName="icon.etc_dex_symbol_i00" />
+
 </list>

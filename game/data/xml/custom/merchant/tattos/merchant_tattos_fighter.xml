@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="tattos" grade="FIGHT">
+<!-- Tattoo of Fight Lv.1 -->
+<merchant product="9540-1" ingredient=""/>
+<!-- Tattoo of Fight Lv.2 -->
+<merchant product="9541-1" ingredient="9540-1"/>
+<!-- Tattoo of Fight Lv.3 -->
+<merchant product="9542-1" ingredient="9541-1"/>
+<!-- Tattoo of Fight Lv.4 -->
+<merchant product="9543-1" ingredient="9542-1"/>
+<!-- Tattoo of Fight Lv.5 -->
+<merchant product="9544-1" ingredient="9543-1"/>
+<!-- Tattoo of Fight - Gm Power -->
+<merchant product="9545-1" ingredient="9544-1;9540-1"/>
+</merchantList>

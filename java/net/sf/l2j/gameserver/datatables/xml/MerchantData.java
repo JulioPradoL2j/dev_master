@@ -148,11 +148,15 @@ public class MerchantData implements IXmlReader
 		}
 		
 		final int itemId = p.getProduct().getId();
+		final int amount = p.getProduct().getValue();
+		
+		final String amountsnow = formatAmount(amount);
+		
 		final String icon = IconTable.getIcon(itemId);
 		String itemName = ItemTable.getInstance().getTemplate(itemId).getName();
 		
-		if (itemName.length() > 32)
-			itemName = itemName.substring(0, 32) + "...";
+		if (itemName.length() > 52)
+			itemName = itemName.substring(0, 52) + "...";
 		
 		StringBuilder detail = new StringBuilder(1024);
 		
@@ -165,18 +169,36 @@ public class MerchantData implements IXmlReader
 		detail.append("<table width=294 cellpadding=0 cellspacing=0>");
 		detail.append("<tr>");
 		
+		/* ICON */
 		detail.append("<td width=40 height=40 valign=middle align=center>");
 		detail.append("<img src=\"").append(icon).append("\" width=32 height=32>");
 		detail.append("</td>");
 		
-		detail.append("<td width=254 height=40 valign=middle>");
-		detail.append("  <font color=LEVEL><br>").append(itemName).append("</font>");
+		/* GRADE */
+		detail.append("<td width=22 height=40 valign=middle align=center>");
+		detail.append(p.getProduct().getGradeIcon()); // ex: <img ...> ou texto/icone
+		detail.append("</td>");
+		
+		/* NAME + QTY */
+		detail.append("<td width=232 height=40 valign=middle>");
+		
+		detail.append("<font color=E6EAF2>").append(itemName).append("</font>");
+		
+		detail.append("<br1>");
+		detail.append("<font color=A8B0C0>QTD:</font> ");
+		detail.append("<font color=FFD36B>x").append(amountsnow).append("</font>");
+		
 		if (p.getEnchantLevel() > 0)
-			detail.append(" <font color=LEVEL>(+").append(p.getEnchantLevel()).append(")</font>");
+		{
+			detail.append(" <font color=A8B0C0>| Enchant:</font> ");
+			detail.append("<font color=LEVEL>+").append(p.getEnchantLevel()).append("</font>");
+		}
+		
 		detail.append("</td>");
 		
 		detail.append("</tr>");
 		detail.append("</table>");
+		
 		detail.append("</td></tr>");
 		
 		// Separador
@@ -185,11 +207,12 @@ public class MerchantData implements IXmlReader
 		// ===== CUSTO =====
 		detail.append("<tr>");
 		detail.append("<td colspan=2>");
-		detail.append("<font color=A8B0C0>Custo:</font><br1>");
+		detail.append("<font color=A8B0C0>Custo:</font> ");
 		
 		if (p.getIngredients().isEmpty())
 		{
 			detail.append("<font color=99FF66>Gratis</font>");
+
 		}
 		else
 		{
@@ -207,8 +230,8 @@ public class MerchantData implements IXmlReader
 				final String ingIcon = IconTable.getIcon(ingId);
 				String ingName = ItemTable.getInstance().getTemplate(ingId).getName();
 				
-				if (ingName.length() > 19)
-					ingName = ingName.substring(0, 16) + "...";
+				if (itemName.length() > 52)
+					itemName = itemName.substring(0, 52);
 				
 				final String color = (have >= need) ? "99FF66" : "FF5555";
 				
@@ -274,16 +297,36 @@ public class MerchantData implements IXmlReader
 		final int from = page * pageSize;
 		
 		StringBuilder items = new StringBuilder();
+		StringBuilder filter = new StringBuilder();
 		for (int i = 0; i < pageList.size(); i++)
 		{
 			int globalIndex = from + i;
 			items.append(buildRow(category, grade, page, globalIndex, pageList.get(i)));
 		}
 		
+		// ===== Search Bar =====
+		filter.append("<table width=270 cellpadding=4 cellspacing=0 bgcolor=000000>");
+		filter.append("<tr>");
+		filter.append("<td width=55><font color=b0b0b0>Search:</font></td>");
+		
+		// buscar
+		filter.append("<td width=150 align=left>");
+		filter.append("<edit var=\"search\" width=150 height=15 length=24>");
+		filter.append("</td>");
+		
+		// button
+		filter.append("<td width=70 align=right>");
+		filter.append("<button value=\"Find\" action=\"bypass merchant search ").append(category).append(" ").append(grade).append(" $search 0\" ").append("width=60 height=18 back=\"L2UI_CH3.smallbutton2\" fore=\"L2UI_CH3.smallbutton2\">");
+		filter.append("</td>");
+		filter.append("</tr>");
+		filter.append("</table>");
+		filter.append("<img src=\"L2UI.SquareGray\" width=300 height=1>");
+		
 		String navi = buildNavi(category, grade, page, maxPage);
 		
 		NpcHtmlMessage html = new NpcHtmlMessage(0);
 		html.setFile("data/html/merchant/list.htm");
+		html.replace("%SEARCH%", filter.toString());
 		html.replace("%ITEMS%", items.toString());
 		html.replace("%NAVI%", navi);
 		html.replace("%BACK%", "bypass merchant chat 55500");
@@ -293,20 +336,37 @@ public class MerchantData implements IXmlReader
 	private static String buildRow(String category, String grade, int page, int globalIndex, MerchantProductionHolder p)
 	{
 		int itemId = p.getProduct().getId();
-		String icon = IconTable.getIcon(itemId); // IconTable.getIcon(id)
+		String icon = IconTable.getIcon(itemId);
 		
-		// Nome do item (ajuste conforme seu projeto: ItemTable / ItemData etc.)
+ 
 		String itemName = ItemTable.getInstance().getTemplate(itemId).getName();
+		itemName = beautifySymbolName(itemName);
+		if (itemName.length() > 25)
+			itemName = itemName.substring(0, 25);
 		
-		if (itemName.length() > 19)
-			itemName = itemName.substring(0, 19);
+		
 		
 		// Enchant opcional
-		String ench = p.getEnchantLevel() > 0 ? (" <font color=LEVEL>(+" + p.getEnchantLevel() + ")</font>") : "";
+		String ench = p.getEnchantLevel() > 0 ? (" <br1><font color=LEVEL>(+" + p.getEnchantLevel() + ")</font>") : "";
 		
 		String showBypass = "bypass merchant show " + category + " " + grade + " " + page + " " + globalIndex;
 		
-		return "" + "<table width=300 bgcolor=000000 cellpadding=0 cellspacing=0>" + "<tr>" + "<td width=40 height=40><img src=\"" + icon + "\" width=30 height=30></td>" + "<td width=2 height=2><img src=\"L2UI.SquareBlank\" width=2 height=2></td>" + " " + "<td width=180 height=15>" + itemName + ench + "<br1><font color=A8B0C0>" + "" + "</font></td>" + "<td width=125 height=40><button value=\"VER\" action=\"" + showBypass + "\" width=90 height=25 back=\"anim90.Anim\" fore=\"anim90.Anim\"></td>" + "</tr>" + "</table>";
+		return "" + "<table width=300 bgcolor=000000 cellpadding=0 cellspacing=0>" + "<tr>" + "<td width=40 height=40><img src=\"" + icon + "\" width=30 height=30></td>" + "<td width=20 align=center valign=top>" + p.getProduct().getGradeIcon() + "</td>" + "<td width=2 height=2><img src=\"L2UI.SquareBlank\" width=2 height=2></td>" + " " + "<td width=180 height=15>" + itemName + ench + "<br1><font color=A8B0C0>" + "" + "</font></td>" + "<td width=125 height=40><button value=\"VER\" action=\"" + showBypass + "\" width=90 height=25 back=\"anim90.Anim\" fore=\"anim90.Anim\"></td>" + "</tr>" + "</table>";
+	}
+	
+	private static String beautifySymbolName(String name)
+	{
+		if (name == null || name.isEmpty())
+			return "";
+		
+		// Remove prefixos de dye/symbol
+		if (name.startsWith("Greater Dye of "))
+			return name.substring("Greater Dye of ".length()).trim();
+		
+		if (name.startsWith("Dye of "))
+			return name.substring("Dye of ".length()).trim();
+		
+		return name;
 	}
 	
 	private static String buildNavi(String category, String grade, int page, int maxPage)
@@ -330,6 +390,125 @@ public class MerchantData implements IXmlReader
 		if (value >= 1_000L)
 			return new DecimalFormat("###.#").format(value / 1_000.0) + "K";
 		return Long.toString(value);
+	}
+	
+	public void showListSearch(Player activeChar, String category, String grade, int page, String search)
+	{
+		final int pageSize = 7;
+		
+		final List<MerchantProductionHolder> original = getProductions(category, grade);
+		if (original.isEmpty())
+		{
+			showList(activeChar, category, grade, 0);
+			return;
+		}
+		
+		final String q = (search == null) ? "" : search.trim();
+		
+		// ===== FILTRAR =====
+		final String qLower = q.toLowerCase();
+		
+		List<MerchantProductionHolder> filtered = new ArrayList<>();
+		for (MerchantProductionHolder p : original)
+		{
+			int itemId = p.getProduct().getId();
+			
+			var tpl = ItemTable.getInstance().getTemplate(itemId);
+			if (tpl == null)
+				continue;
+			
+			String name = tpl.getName();
+			if (name != null && name.toLowerCase().contains(qLower))
+				filtered.add(p);
+		}
+		
+		if (filtered.isEmpty())
+		{
+			showList(activeChar, category, grade, 0);
+			return;
+		}
+		
+		int maxPage = (filtered.size() - 1) / pageSize;
+		
+		if (page < 0)
+			page = 0;
+		if (page > maxPage)
+			page = maxPage;
+		
+		int from = page * pageSize;
+		int to = Math.min(from + pageSize, filtered.size());
+		
+		List<MerchantProductionHolder> pageList = filtered.subList(from, to);
+		
+		StringBuilder items = new StringBuilder();
+		for (int i = 0; i < pageList.size(); i++)
+		{
+			int globalIndex = original.indexOf(pageList.get(i));
+			items.append(buildRow(category, grade, page, globalIndex, pageList.get(i)));
+		}
+		
+		String searchBar = buildSearchBar(category, grade, q, true);
+		String navi = buildNaviSearch(category, grade, page, maxPage, q);
+		
+		NpcHtmlMessage html = new NpcHtmlMessage(0);
+		html.setFile("data/html/merchant/list.htm");
+		html.replace("%SEARCH%", searchBar);
+		html.replace("%ITEMS%", items.toString());
+		html.replace("%NAVI%", navi);
+		html.replace("%BACK%", "bypass merchant action " + category + " " + grade + " 0");
+		activeChar.sendPacket(html);
+	}
+	
+	private static String buildNaviSearch(String category, String grade, int page, int maxPage, String search)
+	{
+		int pageHuman = page + 1;
+		int maxHuman = maxPage + 1;
+		
+		String prev = page > 0 ? "<button value=\"<<\" action=\"bypass merchant search " + category + " " + grade + " " + search + " " + (page - 1) + "\" width=40 height=20 back=\"sek.cbui94\" fore=\"sek.cbui92\">" : "<button value=\"<<\" action=\"\" width=40 height=20 back=\"sek.cbui94\" fore=\"sek.cbui92\">";
+		
+		String next = page < maxPage ? "<button value=\">>\" action=\"bypass merchant search " + category + " " + grade + " " + search + " " + (page + 1) + "\" width=40 height=20 back=\"sek.cbui94\" fore=\"sek.cbui92\">" : "<button value=\">>\" action=\"\" width=40 height=20 back=\"sek.cbui94\" fore=\"sek.cbui92\">";
+		
+		return "<center><table width=300 cellpadding=0 cellspacing=0>" + "<tr>" + "<td align=left>" + prev + "</td>" + "<td align=center><font color=LEVEL>Search Page [" + pageHuman + "] / [" + maxHuman + "]</font></td>" + "<td align=right>" + next + "</td>" + "</tr>" + "</table></center>";
+	}
+	
+	private static String buildSearchBar(String category, String grade, String currentSearch, boolean showClear)
+	{
+		final String safe = escapeHtml(currentSearch == null ? "" : currentSearch.trim());
+		
+		StringBuilder sb = new StringBuilder();
+		
+		// Linha 2: estado do filtro + Clear
+		sb.append("<table width=300 cellpadding=4 cellspacing=0 bgcolor=000000>");
+		sb.append("<tr>");
+		sb.append("<td width=220 align=left>");
+		sb.append("<font color=b0b0b0>Filter:</font> ");
+		
+		if (safe.isEmpty())
+			sb.append("<font color=404040>none</font>");
+		else
+			sb.append("<font color=FFD36B><b>").append(safe).append("</b></font>");
+		
+		sb.append("</td>");
+		sb.append("<td width=80 align=right>");
+		
+		if (showClear && !safe.isEmpty())
+		{
+			sb.append("<button value=\"Clear\" action=\"bypass merchant action ").append(category).append(" ").append(grade).append(" 0\" ").append("width=60 height=18 back=\"L2UI_CH3.smallbutton2\" fore=\"L2UI_CH3.smallbutton2\">");
+		}
+		
+		sb.append("</td>");
+		sb.append("</tr>");
+		sb.append("</table>");
+		sb.append("<img src=\"L2UI.SquareGray\" width=300 height=1>");
+		
+		return sb.toString();
+	}
+	
+	private static String escapeHtml(String s)
+	{
+		if (s == null)
+			return "";
+		return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
 	}
 	
 	public static MerchantData getInstance()

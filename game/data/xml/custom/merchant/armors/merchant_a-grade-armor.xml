@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="armors" grade="A">
+<!-- Majestic Plate Armor -->
+<merchant product="2383-1" ingredient=""/>
+<merchant product="5774-1" ingredient=""/>
+<merchant product="5786-1" ingredient=""/>
+<merchant product="2419-1" ingredient=""/>
+<!-- Majestic Leather Armor -->
+<merchant product="2395-1" ingredient=""/>
+<merchant product="5775-1" ingredient=""/>
+<merchant product="5787-1" ingredient=""/>
+<merchant product="2419-1" ingredient=""/>
+<!-- Majestic Robe -->
+<merchant product="2409-1" ingredient=""/>
+<merchant product="5776-1" ingredient=""/>
+<merchant product="5788-1" ingredient=""/>
+<merchant product="2419-1" ingredient=""/>
+<!-- Armor of Nightmare -->
+<merchant product="374-1" ingredient=""/>
+<merchant product="5771-1" ingredient=""/>
+<merchant product="5783-1" ingredient=""/>
+<merchant product="2418-1" ingredient=""/>
+<!-- Nightmarish Leather Armor -->
+<merchant product="2394-1" ingredient=""/>
+<merchant product="5772-1" ingredient=""/>
+<merchant product="5784-1" ingredient=""/>
+<merchant product="2418-1" ingredient=""/>
+<!-- Nightmare Robe -->
+<merchant product="2408-1" ingredient=""/>
+<merchant product="5773-1" ingredient=""/>
+<merchant product="5785-1" ingredient=""/>
+<merchant product="2418-1" ingredient=""/>
+<!-- Tallum Plate Armor -->
+<merchant product="2382-1" ingredient=""/>
+<merchant product="5768-1" ingredient=""/>
+<merchant product="5780-1" ingredient=""/>
+<merchant product="547-1" ingredient=""/>
+<!-- Tallum Leather Armor -->
+<merchant product="2393-1" ingredient=""/>
+<merchant product="5769-1" ingredient=""/>
+<merchant product="5781-1" ingredient=""/>
+<merchant product="547-1" ingredient=""/>
+<!-- Tallum Tunic -->
+<merchant product="2400-1" ingredient=""/>
+<merchant product="2405-1" ingredient=""/>
+<merchant product="5770-1" ingredient=""/>
+<merchant product="5782-1" ingredient=""/>
+<merchant product="547-1" ingredient=""/>
+<!-- Dark Crystal Breastplate -->
+<merchant product="365-1" ingredient=""/>
+<merchant product="388-1" ingredient=""/>
+<merchant product="5765-1" ingredient=""/>
+<merchant product="5777-1" ingredient=""/>
+<merchant product="512-1" ingredient=""/>
+<!-- Dark Crystal Leather Armor -->
+<merchant product="2385-1" ingredient=""/>
+<merchant product="2389-1" ingredient=""/>
+<merchant product="5766-1" ingredient=""/>
+<merchant product="5778-1" ingredient=""/>
+<merchant product="512-1" ingredient=""/>
+<!-- Dark Crystal Robe -->
+<merchant product="2407-1" ingredient=""/>
+<merchant product="5767-1" ingredient=""/>
+<merchant product="5779-1" ingredient=""/>
+<merchant product="512-1" ingredient=""/>
+<!-- Dark Crystal Shield -->
+<merchant product="641-1" ingredient=""/>
+<!-- Shield of Nightmare -->
+<merchant product="2498-1" ingredient=""/>
+</merchantList>

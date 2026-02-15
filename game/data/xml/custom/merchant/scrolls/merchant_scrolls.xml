@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="scrolls" grade="ALL">
+<!-- Blessed Weapon S 80% -->
+<merchant product="6577-1" ingredient="5556-700" />
+<!-- Blessed Armor S 80% -->             
+<merchant product="6578-1" ingredient="5556-500" />
+<!-- Blessed Weapon A 80% -->
+<merchant product="6569-1" ingredient="5556-700" />
+<!-- Blessed Armor A  80% -->
+<merchant product="6570-1" ingredient="5556-500" />
+<!-- Blessed Weapon B  80% -->
+<merchant product="6571-1" ingredient="5556-600" />
+<!-- Blessed Armor B  80% -->
+<merchant product="6572-1" ingredient="5556-400" />
+<merchant product="3936-10" ingredient="57-10000" />
+<merchant product="1538-10" ingredient="57-11000" />
+<merchant product="5858-10" ingredient="57-12000" />
+<!-- Scroll Escape Giran -->
+<merchant product="7126-10" ingredient="57-10000" />
+<!-- Scroll of Escape -->
+<merchant product="736-10" ingredient="57-11000" />
+<!-- Scroll of Resurrection -->
+<merchant product="737-10" ingredient="57-12000" />
+</merchantList>

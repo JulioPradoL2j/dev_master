@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="armors" grade="C">
+<!-- Chain Mail Shirt -->
+<merchant product="354-1" ingredient=""/>
+<merchant product="381-1" ingredient=""/>
+<merchant product="2413-1" ingredient=""/>
+<merchant product="2495-1" ingredient=""/>
+<merchant product="2429-1" ingredient=""/>
+<merchant product="2453-1" ingredient=""/>
+<!-- Composite Armor -->
+<merchant product="60-1" ingredient=""/>
+<merchant product="517-1" ingredient=""/>
+<merchant product="107-1" ingredient=""/>
+<merchant product="64-1" ingredient=""/>
+<!-- Full Plate Armor -->
+<merchant product="356-1" ingredient=""/>
+<merchant product="2414-1" ingredient=""/>
+<merchant product="2497-1" ingredient=""/>
+<merchant product="2438-1" ingredient=""/>
+<merchant product="2462-1" ingredient=""/>
+<!-- Mithril Shirt -->
+<merchant product="397-1" ingredient=""/>
+<merchant product="2387-1" ingredient=""/>
+<merchant product="62-1" ingredient=""/>
+<!-- Plated Leather -->
+<merchant product="398-1" ingredient=""/>
+<merchant product="418-1" ingredient=""/>
+<merchant product="2431-1" ingredient=""/>
+<merchant product="2455-1" ingredient=""/>
+<!-- Theca Leather Armor -->
+<merchant product="400-1" ingredient=""/>
+<merchant product="420-1" ingredient=""/>
+<merchant product="2436-1" ingredient=""/>
+<merchant product="2460-1" ingredient=""/>
+<!-- Drake Leather Armor -->
+<merchant product="401-1" ingredient=""/>
+<merchant product="2437-1" ingredient=""/>
+<merchant product="2461-1" ingredient=""/>
+<!-- Karmian Tunic -->
+<merchant product="439-1" ingredient=""/>
+<merchant product="471-1" ingredient=""/>
+<merchant product="2454-1" ingredient=""/>
+<merchant product="2430-1" ingredient=""/>
+<!-- Demon's Tunic -->
+<merchant product="441-1" ingredient=""/>
+<merchant product="472-1" ingredient=""/>
+<merchant product="2459-1" ingredient=""/>
+<merchant product="2435-1" ingredient=""/>
+<!-- Divine Tunic -->
+<merchant product="442-1" ingredient=""/>
+<merchant product="473-1" ingredient=""/>
+<merchant product="2463-1" ingredient=""/>
+</merchantList>

@@ -444,9 +444,14 @@ public class StatsSet extends HashMap<String, Object>
 			// Feed the List.
 			for (String entry : entries)
 			{
-				final String[] toSplit = entry.split("-");
-				list.add(new MerchantIntHolder(Integer.parseInt(toSplit[0]), Integer.parseInt(toSplit[1])));
+			    entry = entry.trim();
+			    if (entry.isEmpty())
+			        continue;
+
+			    final String[] toSplit = entry.split("-");
+			    list.add(new MerchantIntHolder(Integer.parseInt(toSplit[0]), Integer.parseInt(toSplit[1])));
 			}
+
 			
 			return list;
 		}

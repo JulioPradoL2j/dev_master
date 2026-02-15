@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="jewels" grade="B">
+<!-- Ring of Black Ore -->
+<merchant product="895-1" ingredient="" enchantLevel="0"/>
+<!-- Earring of Black Ore -->
+<merchant product="864-1" ingredient="" enchantLevel="0"/>
+<!-- Necklace of Black Ore -->
+<merchant product="926-1" ingredient="" enchantLevel="0"/>
+<!-- Ring of Aid -->
+<merchant product="904-1" ingredient="" enchantLevel="0"/>
+<!-- Earring of Aid -->
+<merchant product="873-1" ingredient="" enchantLevel="0"/>
+<!-- Necklace of Aid -->
+<merchant product="935-1" ingredient="" enchantLevel="0"/>
+</merchantList>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="weapons" grade="S">
+<!-- Forgotten Blade - Focus -->
+<merchant product="6583-1" ingredient="57-25000000"/>
+<!-- Saint Spear - Haste -->
+<merchant product="6601-1" ingredient="57-25000000"/>
+<!-- Demon Splinter - Focus -->
+<merchant product="6602-1" ingredient="57-25000000"/>
+<!-- Tallum Blade*Dark Legion's Edge -->
+<merchant product="6580-1" ingredient="57-25000000"/>
+<!-- Angel Slayer - Crt. Damage -->
+<merchant product="6590-1" ingredient="57-25000000"/>
+<!-- Draconic Bow - Focus -->
+<merchant product="7577-1" ingredient="57-25000000"/>
+<!-- Shining Bow - Focus -->
+<merchant product="6594-1" ingredient="57-25000000"/>
+<!-- Arcana Mace - Acumen -->
+<merchant product="6608-1" ingredient="57-25000000"/>
+<!-- Basalt Battlehammer - Health -->
+<merchant product="6585-1" ingredient="57-25000000"/>
+<!-- Heavens Divider - Focus -->
+<merchant product="6607-1" ingredient="57-25000000"/>
+</merchantList>

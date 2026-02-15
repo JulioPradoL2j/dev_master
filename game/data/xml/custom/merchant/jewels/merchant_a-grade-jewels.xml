@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="jewels" grade="A">
+<!-- Majestic Necklace -->
+<merchant product="924-1" ingredient="57-100000" enchantLevel="0"/>
+<merchant product="862-1" ingredient="57-10000" enchantLevel="0"/>
+<merchant product="893-1" ingredient="57-110000" enchantLevel="0"/>
+</merchantList>

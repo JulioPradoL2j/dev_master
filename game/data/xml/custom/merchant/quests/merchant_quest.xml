@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="quests" grade="PORTAL">
+<!-- Blooded Fabric -->
+<merchant product="4295-1" ingredient="" enchantLevel="0"/>
+<!-- Portal Stone -->
+<merchant product="3865-1" ingredient="" enchantLevel="0"/>
+<!-- Floating Stone -->
+<merchant product="7267-1" ingredient="" enchantLevel="0"/>
+<!-- Mistery Potion -->
+<merchant product="5234-1" ingredient="" enchantLevel="0"/>
+<!-- Quest Frintezaz -->
+<merchant product="8073-1" ingredient="" enchantLevel="0"/>
+</merchantList>

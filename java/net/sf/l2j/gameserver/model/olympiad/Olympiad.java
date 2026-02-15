@@ -621,7 +621,7 @@ public class Olympiad
 		int numHours = (int) Math.floor(countDown % 24);
 		int numDays = (int) Math.floor((countDown - numHours) / 24);
 		
-		CreatureSay cs = new CreatureSay(0, Say2.PARTYROOM_ALL, "", "Olympiad period ends in " + numDays + " days, " + numHours + " hours and " + numMins + " mins.");
+		 CreatureSay cs = new CreatureSay(0, Say2.HERO_VOICE, "Olympiad", "period ends in " + numDays + " days, " + numHours + " hours and " + numMins + " mins.");
 		player.sendPacket(cs);
 	}
 	public boolean isOlympiadEnd()

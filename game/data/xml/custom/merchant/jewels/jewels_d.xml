@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<merchantList category="jewels" grade="D">
-    <!-- Draconic Bow (Focus) -->
-    <merchant product="7577-1" ingredient="3470-5;6392-5" enchantLevel="0"/>
-
-     <!-- Draconic Bow NO/SA -->
-    <merchant product="7575-1" ingredient="6392-5" />
-</merchantList>

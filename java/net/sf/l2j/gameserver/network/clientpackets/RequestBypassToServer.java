@@ -198,7 +198,7 @@ public final class RequestBypassToServer extends L2GameClientPacket
 						String htmlnavi = tokenizer.getToken(2);
 						NpcHtmlMessage html = new NpcHtmlMessage(0);
 						html.setFile("data/html/merchant/" + htmlnavi + ".htm");
-						html.replace("%BACK%", "bypass -h merchant chat 55500");
+						html.replace("%BACK%", "bypass merchant chat 55500");
 						activeChar.sendPacket(html);
 						break;
 					}
@@ -231,6 +231,18 @@ public final class RequestBypassToServer extends L2GameClientPacket
 						MerchantData.getInstance().buy(activeChar, category, grade, page, index);
 						break;
 					}
+					case "search":
+					{
+					    String category = tokenizer.getToken(2);
+					    String grade = tokenizer.getToken(3);
+					    String search = tokenizer.getToken(4);
+					    int page = tokenizer.getAsInteger(5, 0);
+
+					    MerchantData.getInstance().showListSearch(activeChar, category, grade, page, search);
+					    break;
+					}
+
+
 				}
 			}
 			

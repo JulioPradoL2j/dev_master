@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="armors" grade="B">
+<!-- Zubei's Breastplate -->
+<merchant product="357-1" ingredient=""/>
+<merchant product="383-1" ingredient=""/>
+<merchant product="5710-1" ingredient=""/>
+<merchant product="5726-1" ingredient=""/>
+<merchant product="503-1" ingredient=""/>
+<merchant product="633-1" ingredient=""/>
+<!-- Zubei's Leather Shirt -->
+<merchant product="2384-1" ingredient=""/>
+<merchant product="2388-1" ingredient=""/>
+<merchant product="5711-1" ingredient=""/>
+<merchant product="5727-1" ingredient=""/>
+<!-- Tunic of Zubei -->
+<merchant product="2397-1" ingredient=""/>
+<merchant product="2402-1" ingredient=""/>
+<merchant product="5712-1" ingredient=""/>
+<merchant product="5728-1" ingredient=""/>
+<!-- Avadon Breastplate -->
+<merchant product="2376-1" ingredient=""/>
+<merchant product="2379-1" ingredient=""/>
+<merchant product="5714-1" ingredient=""/>
+<merchant product="5730-1" ingredient=""/>
+<merchant product="2415-1" ingredient=""/>
+<merchant product="673-1" ingredient=""/>
+<!-- Avadon Leather Armor -->
+<merchant product="2390-1" ingredient=""/>
+<merchant product="5715-1" ingredient=""/>
+<merchant product="5731-1" ingredient=""/>
+<!-- Avadon Robe -->
+<merchant product="2406-1" ingredient=""/>
+<merchant product="5716-1" ingredient=""/>
+<merchant product="5732-1" ingredient=""/>
+<!-- Blue Wolf Breastplate -->
+<merchant product="358-1" ingredient=""/>
+<merchant product="2380-1" ingredient=""/>
+<merchant product="5718-1" ingredient=""/>
+<merchant product="5734-1" ingredient=""/>
+<merchant product="2416-1" ingredient=""/>
+<!-- Blue Wolf Leather Armor -->
+<merchant product="2391-1" ingredient=""/>
+<merchant product="5719-1" ingredient=""/>
+<merchant product="5735-1" ingredient=""/>
+<!-- Blue Wolf Tunic -->
+<merchant product="2398-1" ingredient=""/>
+<merchant product="2403-1" ingredient=""/>
+<merchant product="5720-1" ingredient=""/>
+<merchant product="5736-1" ingredient=""/>
+<!-- Doom Plate Armor -->
+<merchant product="2381-1" ingredient=""/>
+<merchant product="5722-1" ingredient=""/>
+<merchant product="5738-1" ingredient=""/>
+<merchant product="2417-1" ingredient=""/>
+<merchant product="110-1" ingredient=""/>
+<!-- Leather Armor of Doom -->
+<merchant product="2392-1" ingredient=""/>
+<merchant product="5723-1" ingredient=""/>
+<merchant product="5739-1" ingredient=""/>
+<!-- Tunic of Doom -->
+<merchant product="2399-1" ingredient=""/>
+<merchant product="2404-1" ingredient=""/>
+<merchant product="5724-1" ingredient=""/>
+<merchant product="5740-1" ingredient=""/>
+</merchantList>

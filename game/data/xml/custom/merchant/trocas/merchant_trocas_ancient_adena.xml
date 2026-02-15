@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="trocas" grade="NG">
+<!-- Green Seal Stones -->
+<merchant product="5575-50000" ingredient="6361-10000" enchantLevel="0"/>
+<!-- blue Seal Stones -->
+<merchant product="5575-30000" ingredient="6360-10000" enchantLevel="0"/>
+<!-- red Seal Stones -->
+<merchant product="5575-100000" ingredient="6362-10000" enchantLevel="0"/>
+<!-- Green Seal Stones -->
+<merchant product="5575-500000" ingredient="6361-100000" enchantLevel="0"/>
+<!-- blue Seal Stones -->
+<merchant product="5575-300000" ingredient="6360-100000" enchantLevel="0"/>
+<!-- red Seal Stones -->
+<merchant product="5575-1000000" ingredient="6362-100000" enchantLevel="0"/>
+<!-- Green Seal Stones -->
+<merchant product="5575-5000000" ingredient="6361-1000000" enchantLevel="0"/>
+<!-- blue Seal Stones -->
+<merchant product="5575-3000000" ingredient="6360-1000000" enchantLevel="0"/>
+<!-- red Seal Stones -->
+<merchant product="5575-10000000" ingredient="6362-1000000" enchantLevel="0"/>
+</merchantList>

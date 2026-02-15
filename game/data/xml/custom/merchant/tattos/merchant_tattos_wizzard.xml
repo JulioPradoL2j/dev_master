@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<merchantList category="tattos" grade="MAGE">
+<!-- Tattoo of Mage Lv.1 -->
+<merchant product="9546-1" ingredient=""/>
+<!-- Tattoo of Mage Lv.2 -->
+<merchant product="9547-1" ingredient="9546-1"/>
+<!-- Tattoo of Mage Lv.3 -->
+<merchant product="9548-1" ingredient="9547-1"/>
+<!-- Tattoo of Mage Lv.4 -->
+<merchant product="9549-1" ingredient="9548-1"/>
+<!-- Tattoo of Mage Lv.5 -->
+<merchant product="9550-1" ingredient="9549-1"/>
+<!-- Tattoo of Mage - Gm Power -->
+<merchant product="9551-1" ingredient="9550-1;9546-1"/>
+</merchantList>
