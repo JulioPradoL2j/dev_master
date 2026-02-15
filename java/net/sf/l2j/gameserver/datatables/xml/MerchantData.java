@@ -2,6 +2,7 @@ package net.sf.l2j.gameserver.datatables.xml;
 
 import java.nio.file.Path;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,6 +14,8 @@ import net.sf.l2j.gameserver.model.actor.Player;
 import net.sf.l2j.gameserver.model.holder.MerchantGroupKey;
 import net.sf.l2j.gameserver.model.holder.MerchantIntHolder;
 import net.sf.l2j.gameserver.model.holder.MerchantProductionHolder;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
@@ -21,6 +24,21 @@ import org.w3c.dom.Document;
 public class MerchantData implements IXmlReader
 {
 	private final HashMap<MerchantGroupKey, List<MerchantProductionHolder>> _groups = new HashMap<>();
+	private static final DecimalFormatSymbols DFS;
+	private static final DecimalFormat DF;
+	
+	static
+	{
+		DFS = new DecimalFormatSymbols();
+		DFS.setGroupingSeparator(','); // 25,000,000
+		DF = new DecimalFormat("#,###", DFS);
+		DF.setGroupingUsed(true);
+	}
+	
+	private static String fmt(long v)
+	{
+		return DF.format(v);
+	}
 	
 	public MerchantData()
 	{
@@ -100,6 +118,120 @@ public class MerchantData implements IXmlReader
 			return 0;
 		final int safeSize = Math.max(1, pageSize);
 		return (list.size() - 1) / safeSize;
+	}
+	
+	private static final int REQ_MERCHANT_BUY = 777777;
+	
+	public void buyRequest(Player activeChar, String category, String grade, int page, int index)
+	{
+		if (activeChar.getActiveTradeList() != null)
+			activeChar.cancelActiveTrade();
+		
+		MerchantProductionHolder p = getProduction(category, grade, index);
+		if (p == null)
+		{
+			showList(activeChar, category, grade, page);
+			return;
+		}
+		
+		for (MerchantIntHolder ing : p.getIngredients())
+		{
+			if (activeChar.getInventory().getInventoryItemCount(ing.getId(), -1) < ing.getValue())
+			{
+				activeChar.sendMessage("Voce nao tem os ingredientes necessarios.");
+				showDetail(activeChar, category, grade, page, index);
+				return;
+			}
+		}
+		
+		if (activeChar.isDead() || activeChar.isAlikeDead() || activeChar.isInCombat() || activeChar.isCastingNow())
+		{
+			activeChar.sendMessage("Voce nao pode comprar agora.");
+			showDetail(activeChar, category, grade, page, index);
+			return;
+		}
+		
+		activeChar.setPendingMerchantBuy(category, grade, page, index, 0);
+		
+		String productName = ItemTable.getInstance().getTemplate(p.getProduct().getId()).getName();
+		
+		if (productName.length() > 22)
+			productName = productName.substring(0, 22) + "...";
+		
+		
+		
+		final long productCount = p.getProduct().getValue();
+		
+		final StringBuilder sb = new StringBuilder(256);
+		
+		sb.append("Item: ").append(productName).append(" / QTD: (").append(fmt(productCount)).append(")");
+		
+		final List<MerchantIntHolder> ingredients = p.getIngredients();
+		if (ingredients != null && !ingredients.isEmpty())
+		{
+			int shown = 0;
+			final int MAX_COSTS = 6; // 4º + mais 2 abaixo = 6 no total
+			
+			for (MerchantIntHolder ing : ingredients)
+			{
+				if (shown >= MAX_COSTS)
+					break;
+				
+				// linha extra ANTES do 4º custo (index 3)
+				if (shown == 3)
+					sb.append("\n");
+				
+				String ingName = ItemTable.getInstance().getTemplate(ing.getId()).getName();
+				
+				if (ingName.length() > 22)
+					ingName = ingName.substring(0, 22) + "...";
+				
+				final long ingValue = ing.getValue();
+				
+				sb.append("\nCusto: ").append(ingName).append(" / QTD: ").append(fmt(ingValue));
+				
+				shown++;
+			}
+		}
+		
+		// =============================
+		// ConfirmDlg: use S1 (1 parâmetro) e mande o bloco inteiro
+		// =============================
+		final ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_S2);
+		confirm.addString(sb.toString());
+		confirm.addTime(5000);
+		confirm.addRequesterId(REQ_MERCHANT_BUY);
+		
+		activeChar.sendPacket(confirm);
+	}
+	
+	public void buyConfirm(Player activeChar, String category, String grade, int page, int index)
+	{
+		
+		if (!activeChar.consumePendingMerchantBuy())
+		{
+			activeChar.sendMessage("Confirmacao expirada ou invalida.");
+			showDetail(activeChar, category, grade, page, index);
+			return;
+		}
+		
+		// revalida estado (se correu, morreu, combate, etc)
+		if (activeChar.isDead() || activeChar.isInCombat())
+		{
+			activeChar.sendMessage("Compra cancelada.");
+			showDetail(activeChar, category, grade, page, index);
+			return;
+		}
+		
+		// chama o buy “real”
+		buy(activeChar, category, grade, page, index);
+	}
+	
+	public void buyCancel(Player activeChar, String category, String grade, int page, int index)
+	{
+		activeChar.clearPendingMerchantBuy();
+		activeChar.sendMessage("Compra cancelada.");
+		showDetail(activeChar, category, grade, page, index);
 	}
 	
 	public void buy(Player activeChar, String category, String grade, int page, int index)
@@ -212,7 +344,7 @@ public class MerchantData implements IXmlReader
 		if (p.getIngredients().isEmpty())
 		{
 			detail.append("<font color=99FF66>Gratis</font>");
-
+			
 		}
 		else
 		{
@@ -269,7 +401,7 @@ public class MerchantData implements IXmlReader
 		
 		detail.append("</table>");
 		
-		String buyBypass = "bypass merchant buy " + category + " " + grade + " " + page + " " + index;
+		String buyBypass = "bypass merchant buyreq " + category + " " + grade + " " + page + " " + index;
 		String backBypass = "bypass merchant action " + category + " " + grade + " " + page;
 		
 		NpcHtmlMessage html = new NpcHtmlMessage(0);
@@ -304,24 +436,26 @@ public class MerchantData implements IXmlReader
 			items.append(buildRow(category, grade, page, globalIndex, pageList.get(i)));
 		}
 		
-		// ===== Search Bar =====
-		filter.append("<table width=270 cellpadding=4 cellspacing=0 bgcolor=000000>");
-		filter.append("<tr>");
-		filter.append("<td width=55><font color=b0b0b0>Search:</font></td>");
-		
-		// buscar
-		filter.append("<td width=150 align=left>");
-		filter.append("<edit var=\"search\" width=150 height=15 length=24>");
-		filter.append("</td>");
-		
-		// button
-		filter.append("<td width=70 align=right>");
-		filter.append("<button value=\"Find\" action=\"bypass merchant search ").append(category).append(" ").append(grade).append(" $search 0\" ").append("width=60 height=18 back=\"L2UI_CH3.smallbutton2\" fore=\"L2UI_CH3.smallbutton2\">");
-		filter.append("</td>");
-		filter.append("</tr>");
-		filter.append("</table>");
-		filter.append("<img src=\"L2UI.SquareGray\" width=300 height=1>");
-		
+		if (pageSize >= 7)
+		{
+			// ===== Search Bar =====
+			filter.append("<table width=270 cellpadding=4 cellspacing=0 bgcolor=000000>");
+			filter.append("<tr>");
+			filter.append("<td width=55><font color=b0b0b0>Search:</font></td>");
+			
+			// buscar
+			filter.append("<td width=150 align=left>");
+			filter.append("<edit var=\"search\" width=150 height=15 length=24>");
+			filter.append("</td>");
+			
+			// button
+			filter.append("<td width=70 align=right>");
+			filter.append("<button value=\"Find\" action=\"bypass merchant search ").append(category).append(" ").append(grade).append(" $search 0\" ").append("width=60 height=18 back=\"L2UI_CH3.smallbutton2\" fore=\"L2UI_CH3.smallbutton2\">");
+			filter.append("</td>");
+			filter.append("</tr>");
+			filter.append("</table>");
+			filter.append("<img src=\"L2UI.SquareGray\" width=300 height=1>");
+		}
 		String navi = buildNavi(category, grade, page, maxPage);
 		
 		NpcHtmlMessage html = new NpcHtmlMessage(0);
@@ -338,13 +472,10 @@ public class MerchantData implements IXmlReader
 		int itemId = p.getProduct().getId();
 		String icon = IconTable.getIcon(itemId);
 		
- 
 		String itemName = ItemTable.getInstance().getTemplate(itemId).getName();
 		itemName = beautifySymbolName(itemName);
 		if (itemName.length() > 25)
 			itemName = itemName.substring(0, 25);
-		
-		
 		
 		// Enchant opcional
 		String ench = p.getEnchantLevel() > 0 ? (" <br1><font color=LEVEL>(+" + p.getEnchantLevel() + ")</font>") : "";

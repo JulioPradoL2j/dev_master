@@ -110,6 +110,8 @@ import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 import net.sf.l2j.gameserver.taskmanager.PvPZoneTimeTask.PvPZoneBypass;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.ChangeAllyNameLog;
+import net.sf.l2j.gameserver.util.FloodProtectors;
+import net.sf.l2j.gameserver.util.FloodProtectors.Action;
 import net.sf.l2j.gameserver.util.GMAudit;
 import net.sf.l2j.log.CheatLog;
 import net.sf.l2j.mission.MissionReset;
@@ -132,6 +134,8 @@ public final class RequestBypassToServer extends L2GameClientPacket
 		
 		final Player activeChar = getClient().getActiveChar();
 		if (activeChar == null)
+			return;
+		if (!FloodProtectors.performAction(activeChar.getClient(), Action.SERVER_BYPASS))
 			return;
 		
 		if (_command.startsWith("custom_"))
@@ -231,6 +235,37 @@ public final class RequestBypassToServer extends L2GameClientPacket
 						MerchantData.getInstance().buy(activeChar, category, grade, page, index);
 						break;
 					}
+					case "buyreq":
+					{
+					    String category = tokenizer.getToken(2);
+					    String grade = tokenizer.getToken(3);
+					    int page = tokenizer.getAsInteger(4, 0);
+					    int index = tokenizer.getAsInteger(5, 0);
+
+					    MerchantData.getInstance().buyRequest(activeChar, category, grade, page, index);
+					    break;
+					}
+
+					case "buyconfirm":
+					{
+					    String category = tokenizer.getToken(2);
+					    String grade = tokenizer.getToken(3);
+					    int page = tokenizer.getAsInteger(4, 0);
+					    int index = tokenizer.getAsInteger(5, 0);
+
+					    MerchantData.getInstance().buyConfirm(activeChar, category, grade, page, index);
+					    break;
+					}
+					case "buycancel":
+					{
+					    String category = tokenizer.getToken(2);
+					    String grade = tokenizer.getToken(3);
+					    int page = tokenizer.getAsInteger(4, 0);
+					    int index = tokenizer.getAsInteger(5, 0);
+					    MerchantData.getInstance().buyCancel(activeChar, category, grade, page, index);
+					    break;
+					}
+
 					case "search":
 					{
 					    String category = tokenizer.getToken(2);

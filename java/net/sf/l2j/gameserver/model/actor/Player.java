@@ -14279,4 +14279,75 @@ public class Player extends Playable
 		setDressMe(_armorSkin != null || _weaponSkin != null);
 	}
 	
+	// anti-spam de compra (ms)
+	private long _nextMerchantBuyMs = 0;
+
+	public boolean canMerchantBuyNow()
+	{
+	    return System.currentTimeMillis() >= _nextMerchantBuyMs;
+	}
+
+	public void setNextMerchantBuyDelay(long delayMs)
+	{
+	    _nextMerchantBuyMs = System.currentTimeMillis() + Math.max(0, delayMs);
+	}
+
+	
+
+	// pendência de confirmação
+	private long _merchantBuyExpireMs;
+	private String _merchantBuyCategory;
+	private String _merchantBuyGrade;
+	private int _merchantBuyPage;
+	private int _merchantBuyIndex;
+
+	public boolean merchantBuyRateLimit(long delayMs)
+	{
+	    final long now = System.currentTimeMillis();
+	    if (now < _nextMerchantBuyMs)
+	        return false;
+
+	    _nextMerchantBuyMs = now + delayMs;
+	    return true;
+	}
+
+	public void setPendingMerchantBuy(String category, String grade, int page, int index, long ttlMs)
+	{
+	    _merchantBuyCategory = category;
+	    _merchantBuyGrade = grade;
+	    _merchantBuyPage = page;
+	    _merchantBuyIndex = index;
+	    _merchantBuyExpireMs = System.currentTimeMillis() + ttlMs;
+	}
+
+	public boolean hasPendingMerchantBuy()
+	{
+	    return _merchantBuyCategory != null && System.currentTimeMillis() <= _merchantBuyExpireMs;
+	}
+
+	public void clearPendingMerchantBuy()
+	{
+	    _merchantBuyCategory = null;
+	    _merchantBuyGrade = null;
+	    _merchantBuyPage = 0;
+	    _merchantBuyIndex = 0;
+	    _merchantBuyExpireMs = 0;
+	}
+
+	public boolean consumePendingMerchantBuy()
+	{
+	    if (!hasPendingMerchantBuy())
+	    {
+	        clearPendingMerchantBuy();
+	        return false;
+	    }
+	    return true;
+	}
+
+	public String getPendingMerchantCategory() { return _merchantBuyCategory; }
+	public String getPendingMerchantGrade() { return _merchantBuyGrade; }
+	public int getPendingMerchantPage() { return _merchantBuyPage; }
+	public int getPendingMerchantIndex() { return _merchantBuyIndex; }
+
+
 }
